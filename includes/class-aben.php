@@ -27,7 +27,8 @@
  * @subpackage Aben/includes
  * @author     Rehan Khan <hello@rehan.work>
  */
-class Aben {
+class Aben
+{
 
 	/**
 	 * The loader that's responsible for maintaining and registering all hooks that power
@@ -66,8 +67,9 @@ class Aben {
 	 *
 	 * @since    1.0.0
 	 */
-	public function __construct() {
-		if ( defined( 'ABEN_VERSION' ) ) {
+	public function __construct()
+	{
+		if (defined('ABEN_VERSION')) {
 			$this->version = ABEN_VERSION;
 		} else {
 			$this->version = '1.0.0';
@@ -78,6 +80,9 @@ class Aben {
 		$this->set_locale();
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
+
+
+
 
 	}
 
@@ -97,30 +102,31 @@ class Aben {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function load_dependencies() {
+	private function load_dependencies()
+	{
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
 		 * core plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-aben-loader.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-aben-loader.php';
 
 		/**
 		 * The class responsible for defining internationalization functionality
 		 * of the plugin.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-aben-i18n.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'includes/class-aben-i18n.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the admin area.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'admin/class-aben-admin.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'admin/class-aben-admin.php';
 
 		/**
 		 * The class responsible for defining all actions that occur in the public-facing
 		 * side of the site.
 		 */
-		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'public/class-aben-public.php';
+		require_once plugin_dir_path(dirname(__FILE__)) . 'public/class-aben-public.php';
 
 		$this->loader = new Aben_Loader();
 
@@ -135,11 +141,12 @@ class Aben {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function set_locale() {
+	private function set_locale()
+	{
 
 		$plugin_i18n = new Aben_i18n();
 
-		$this->loader->add_action( 'plugins_loaded', $plugin_i18n, 'load_plugin_textdomain' );
+		$this->loader->add_action('plugins_loaded', $plugin_i18n, 'load_plugin_textdomain');
 
 	}
 
@@ -150,12 +157,22 @@ class Aben {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_admin_hooks() {
+	private function define_admin_hooks()
+	{
 
-		$plugin_admin = new Aben_Admin( $this->get_plugin_name(), $this->get_version() );
+		$plugin_admin = new Aben_Admin($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_styles' );
-		$this->loader->add_action( 'admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts' );
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_styles');
+		$this->loader->add_action('admin_enqueue_scripts', $plugin_admin, 'enqueue_scripts');
+
+		// Add Meta Box to User
+		register_activation_hook(__FILE__, array($this, 'aben_add_meta_to_existing_subscribers'));
+		add_action('user_register', array($this, 'aben_add_meta_to_new_subscribers'));
+		add_action('show_user_profile', array($this, 'aben_show_user_profile'));
+		add_action('edit_user_profile', array($this, 'aben_show_user_profile'));
+		add_action('personal_options_update', array($this, 'aben_save_user_profile'));
+		add_action('edit_user_profile_update', array($this, 'aben_save_user_profile'));
+
 
 	}
 
@@ -166,12 +183,13 @@ class Aben {
 	 * @since    1.0.0
 	 * @access   private
 	 */
-	private function define_public_hooks() {
+	private function define_public_hooks()
+	{
 
-		$plugin_public = new Aben_Public( $this->get_plugin_name(), $this->get_version() );
+		$plugin_public = new Aben_Public($this->get_plugin_name(), $this->get_version());
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_styles');
+		$this->loader->add_action('wp_enqueue_scripts', $plugin_public, 'enqueue_scripts');
 
 	}
 
@@ -180,7 +198,8 @@ class Aben {
 	 *
 	 * @since    1.0.0
 	 */
-	public function run() {
+	public function run()
+	{
 		$this->loader->run();
 	}
 
@@ -191,7 +210,8 @@ class Aben {
 	 * @since     1.0.0
 	 * @return    string    The name of the plugin.
 	 */
-	public function get_plugin_name() {
+	public function get_plugin_name()
+	{
 		return $this->plugin_name;
 	}
 
@@ -201,7 +221,8 @@ class Aben {
 	 * @since     1.0.0
 	 * @return    Aben_Loader    Orchestrates the hooks of the plugin.
 	 */
-	public function get_loader() {
+	public function get_loader()
+	{
 		return $this->loader;
 	}
 
@@ -211,8 +232,62 @@ class Aben {
 	 * @since     1.0.0
 	 * @return    string    The version number of the plugin.
 	 */
-	public function get_version() {
+	public function get_version()
+	{
 		return $this->version;
+	}
+
+	public function aben_add_meta_to_existing_subscribers()
+	{
+
+		$args = array(
+			'role' => 'subscriber',
+			'fields' => 'ID'
+		);
+		$subscribers = get_users($args);
+
+		foreach ($subscribers as $subscriber_id) {
+			update_user_meta($subscriber_id, 'aben-notification', 'true');
+		}
+	}
+
+	public function aben_add_meta_to_new_subscribers($user_id)
+	{
+		$user = get_userdata($user_id);
+
+		if (in_array('subscriber', $user->roles)) {
+			update_user_meta($user_id, 'aben-notification', 'true');
+		}
+	}
+
+	public function aben_show_user_profile($user)
+	{
+		if (!in_array('subscriber', $user->roles)) {
+			return;
+		}
+		?>
+		<h3><?php esc_html_e('Email Notifications', 'auto-bulk-email-notification'); ?></h3>
+		<table class="form-table">
+			<tr>
+				<th><label
+						for="aben-notification"><?php esc_html_e('Email Notifications', 'auto-bulk-email-notification'); ?></label>
+				</th>
+				<td>
+					<input type="checkbox" name="aben-notification" id="aben-notification" value="true" <?php checked(get_user_meta($user->ID, 'aben-notification', true), 'true'); ?> />
+					<span class="description"><?php esc_html_e('Enable', 'auto-bulk-email-notification'); ?></span>
+				</td>
+			</tr>
+		</table>
+		<?php
+	}
+
+	public function aben_save_user_profile($user_id)
+	{
+		if (!current_user_can('edit_user', $user_id)) {
+			return false;
+		}
+
+		update_user_meta($user_id, 'aben-notification', isset($_POST['aben-notification']) ? 'true' : 'false');
 	}
 
 }
