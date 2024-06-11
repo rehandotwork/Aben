@@ -112,21 +112,21 @@ class Aben_Admin
 	public function add_admin_menus()
 	{
 		add_menu_page(
-			__('Aben', 'auto-bulk-email-notification'),
-			__('Aben', 'auto-bulk-email-notification'),
+			__('Aben', 'auto-bulk-email-notifications'),
+			__('Aben', 'auto-bulk-email-notifications'),
 			'manage_options',
-			'auto-bulk-email-notification',
+			'auto-bulk-email-notifications',
 			array($this, 'settings_page'),
 			'dashicons-email-alt',
 			6
 		);
 
 		add_submenu_page(
-			'auto-bulk-email-notification',
-			__('Settings', 'auto-bulk-email-notification'),
-			__('Settings', 'auto-bulk-email-notification'),
+			'auto-bulk-email-notifications',
+			__('Settings', 'auto-bulk-email-notifications'),
+			__('Settings', 'auto-bulk-email-notifications'),
 			'manage_options',
-			'auto-bulk-email-notification-settings',
+			'auto-bulk-email-notifications-settings',
 			array($this, 'settings_page')
 		);
 
