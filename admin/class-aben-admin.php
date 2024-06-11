@@ -101,3 +101,26 @@ class Aben_Admin {
 	}
 
 }
+function add_admin_menus()
+	{
+		add_menu_page(
+			__('Aben', 'auto-bulk-email-notification'),
+			__('Aben', 'auto-bulk-email-notification'),
+			'manage_options',
+			'auto-bulk-email-notification',
+			array($this, 'settings_page'),
+			'dashicons-email-alt',
+			6
+		);
+
+		add_submenu_page(
+			'auto-bulk-email-notification',
+			__('Settings', 'auto-bulk-email-notification'),
+			__('Settings', 'auto-bulk-email-notification'),
+			'manage_options',
+			'auto-bulk-email-notification-settings',
+			array($this, 'settings_page')
+		);
+
+
+	}
