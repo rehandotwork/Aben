@@ -1,0 +1,5 @@
+---
+deployment:
+  tasks:
+    - export DEPLOYPATH=/home1/inaqakax/public_html/clients/stg.gulfworking.com/wp-content/plugins
+    - /bin/cp -R aben $DEPLOYPATH
