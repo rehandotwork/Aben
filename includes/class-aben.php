@@ -81,6 +81,8 @@ class Aben
 		$this->define_admin_hooks();
 		$this->define_public_hooks();
 
+	
+
 
 
 
@@ -237,6 +239,7 @@ class Aben
 		return $this->version;
 	}
 
+/** 
 	public function aben_add_meta_to_existing_subscribers()
 	{
 
@@ -278,7 +281,9 @@ class Aben
 				</td>
 			</tr>
 		</table>
-		<?php
+
+
+		<?php 
 	}
 
 	public function aben_save_user_profile($user_id)
@@ -289,5 +294,32 @@ class Aben
 
 		update_user_meta($user_id, 'aben-notification', isset($_POST['aben-notification']) ? 'true' : 'false');
 	}
+	
+	public function fetchPosts() 
+{
+    // echo "Posts";
+
+    $args = array(
+        'post_type' => 'post',
+        'posts_per_page' => 10,
+        
+
+    );
+
+    $posts_query = new WP_Query($args);
+
+    if ( $posts_query->have_posts(  ) ) {
+        
+        while( $posts_query->have_posts(  ) ) {
+            $posts_query->the_post();
+             the_title();
+        } 
+        wp_reset_postdata(  );
+    }else 
+    echo esc_html__( 'No posts found.');
 
 }
+*/
+}
+
+
