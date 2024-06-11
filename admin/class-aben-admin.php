@@ -112,8 +112,8 @@ class Aben_Admin
 	public function add_admin_menus()
 	{
 		add_menu_page(
-			__('ABEN', 'auto-bulk-email-notification'),
-			__('ABEN', 'auto-bulk-email-notification'),
+			__('Aben', 'auto-bulk-email-notification'),
+			__('Aben', 'auto-bulk-email-notification'),
 			'manage_options',
 			'auto-bulk-email-notification',
 			array($this, 'settings_page'),
