@@ -14,7 +14,6 @@ jobs:
     - name: Sync files
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
-        server: ftp.inaqani.com
-        username: deploy@inaqani.com
+        server: md-in-65.webhostbox.net
+        username: deploy@gulfworking.com
         password: ${{ secrets.FTP_PASSWORD }}
-        port: 21
