@@ -16,4 +16,4 @@ jobs:
       with:
         server: ftp.inaqani.com
         username: deploy@inaqani.com
-        password: ~e!}M)44q]A#
+        password: ${{ secrets.FTP_PASSWORD }}
