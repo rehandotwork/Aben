@@ -15,5 +15,5 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: ftp.inaqani.com
-        username: gitdeployaction@stg.gulfworking.com
-        password: [jg@z2{hqOUA
+        username: deploy@inaqani.com
+        password: ~e!}M)44q]A#
