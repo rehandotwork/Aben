@@ -1,18 +1,18 @@
-name: Deploy Staging to Cpanel Action
+name: Deploy staging on push
 on:
   push:
     branches:
-    - staging
+      - staging
 jobs:
-  Staging-Deploy-Action:
-    name: Staging-Deploy-Action
+  web-deploy:
+    name: Deploy
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v1.0.0
-      with:
-        fetch-depth: 2
-    - name: Staging-Deploy-Action
-      uses: rehandotwork/Staging-Deploy-Action@v1.1.0
+    - name: Get latest code
+      uses: actions/checkout@v4
+    
+    - name: Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         ftp-server: ${{ secrets.FTP_SERVER }}
         ftp-username: ${{ secrets.FTP_USERNAME }}
