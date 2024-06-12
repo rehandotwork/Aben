@@ -8,11 +8,11 @@ jobs:
     name: Staging-Deploy-Action
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v4
+    - uses: actions/checkout@v1.0.0
       with:
         fetch-depth: 2
     - name: Staging-Deploy-Action
-      uses: actions/Staging-Deploy-Action@v4
+      uses: rehandotwork/aben@v1.1.0
       with:
         ftp-server: ${{ secrets.FTP_SERVER }}
         ftp-username: ${{ secrets.FTP_USERNAME }}
