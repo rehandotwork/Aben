@@ -1,11 +1,11 @@
-name: Deploy staging on push
+name: Deploy staging
 on:
   push:
     branches:
       - staging
 jobs:
   web-deploy:
-    name: Deploy
+    name: Deploy staging
     runs-on: ubuntu-latest
     steps:
     - name: Get latest code
