@@ -12,7 +12,7 @@ jobs:
       with:
         fetch-depth: 2
     - name: Staging-Deploy-Action
-      uses: rehandotwork/aben@v1.1.0
+      uses: rehandotwork/aben@v1.0.0
       with:
         ftp-server: ${{ secrets.FTP_SERVER }}
         ftp-username: ${{ secrets.FTP_USERNAME }}
