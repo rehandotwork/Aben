@@ -115,7 +115,12 @@ class Aben_Admin
 
 // Plugin Modules 
 
+if( is_admin() ) {
+
 	require_once dirname( __FILE__ ) . '/partials/admin-menu.php';
 	require_once dirname( __FILE__ ) . '/partials/settings-register.php';
+	require_once dirname( __FILE__ ) . '/partials/settings-default.php';
 	require_once dirname( __FILE__ ) . '/partials/settings-callbacks.php';
 	require_once dirname( __FILE__ ) . '/partials/settings-validate.php';
+
+}

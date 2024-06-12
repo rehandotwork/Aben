@@ -104,7 +104,7 @@ function aben_register_settings() {
 		'aben_callback_field_textarea', 
 		'aben', 
 		'aben_section_email_template', 
-		[ 'id' => 'email_body', 'label' => 'Email body' ]
+		[ 'id' => 'email_body', 'label' => 'Email body (Text/Markup)' ]
 	);
 
 	/* Setting Fields End */

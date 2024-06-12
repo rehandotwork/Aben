@@ -1,86 +1,80 @@
 <?php //Setting Callbacks
 
-if( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 
     exit;
 
 }
 
-// Section Callbacks
-
-function aben_callback_section_email_notification() {
-}
-
-function aben_callback_section_email_template() {
-}
-
 //Fields Callbacks
 
-function aben_callback_field_text( $args ) {
+function aben_callback_field_text($args)
+{
 
-    $options = get_option( 'aben_options', aben_options_default() );
+    $options = get_option('aben_options', aben_options_default());
 
-    $id = isset( $args['id'] ) ? $args['id'] : '';
-    $label = isset( $args['label'] ) ? $args['label'] : '';
+    $id = isset($args['id']) ? $args['id'] : '';
+    $label = isset($args['label']) ? $args['label'] : '';
 
-    $value = isset( $options[$id] ) ? sanitize_text_field( $options[$id] ) : '';
+    $value = isset($options[$id]) ? sanitize_text_field($options[$id]) : '';
 
-    echo '<input id="aben_options_' . $id . '" 
-                name="aben_options['. $id .']" 
-                type="text" 
-                size="40" 
-                value=" '. $value  .'"><br />';
-                
-    echo '<label for="aben_options_' . $id .'">'. $label .'</label>';
+    echo '<input id="aben_options_' . $id . '"
+                name="aben_options[' . $id . ']"
+                type="text"
+                size="40"
+                value="' . $value . '"><br />';
+
+    echo '<label for="aben_options_' . $id . '">' . $label . '</label>';
 }
 
-function aben_callback_field_textarea( $args ) {
+function aben_callback_field_textarea($args)
+{
 
-    $options = get_option( 'aben_options', aben_options_default() );
+    $options = get_option('aben_options', aben_options_default());
 
-    $id = isset( $args['id'] ) ? $args['id'] : '';
-    $label = isset( $args['label'] ) ? $args['label'] : '';
+    $id = isset($args['id']) ? $args['id'] : '';
+    $label = isset($args['label']) ? $args['label'] : '';
 
-    $allowed_tags = wp_kses_allowed_html( 'post' );
+    // Get the allowed tags for this textarea
+    $allowed_tags = wp_kses_allowed_html('post');
 
-    $value = isset( $options[$id] ) ? wp_kses( stripslashes_deep( $options[$id] ),
-    $allowed_tags ) : '';
+    // Get the value for this textarea
+    $value = isset($options[$id]) ? wp_kses(stripslashes_deep($options[$id]), $allowed_tags) : '';
 
-    echo '<textarea id="aben_options_'. $id .'"
-                    name="aben_options['. $id .']"
+    echo '<textarea id="aben_options_' . $id . '"
+                    name="aben_options[' . $id . ']"
                     rows="10"
-                    cols="100"
-                    '. $value .'>
-        </textarea><br />';
+                    cols="100">' . $value . '</textarea><br />';
+    echo '<label for="aben_options_' . $id . '">' . $label . '</label>';
 
+    // echo $value;
 }
 
-function aben_callback_field_select( $args ) {
+function aben_callback_field_select($args)
+{
 
-    $options = get_option( 'aben_options', aben_options_default() );
+    $options = get_option('aben_options', aben_options_default());
 
-    $id = isset( $args['id'] ) ? $args['id'] : '';
-    $label = isset( $args['label'] ) ? $args['label'] : '';
+    $id = isset($args['id']) ? $args['id'] : '';
+    $label = isset($args['label']) ? $args['label'] : '';
 
-    $selected_option = isset( $options[$id] ) ? sanitize_text_field( $options[$id] ) : '';
+    $selected_option = isset($options[$id]) ? sanitize_text_field($options[$id]) : '';
 
-    if( $id === 'post_type' ) {
+    $select_options = [];
 
-        $post_type =  get_post_types( array('public' => true), 'names' );
+    if ($id === 'post_type') {
 
-        $select_options = $post_type;
-        
-    //     $select_options = array(
+        $post_types = get_post_types(array('public' => true), 'names');
 
-    //     'default' =>  'Posts',
-    //     'jobs' =>  'Jobs',
-    // );
+        $select_options = $post_types;
 
-    }else if( $id === 'user_roles' ) {
+        // var_dump($select_options);
+
+    } else if ($id === 'user_roles') {
 
         global $wp_roles;
 
-        if( !isset( $wp_roles ) ) {
+        if (!isset($wp_roles)) {
             $wp_roles = new WP_Roles();
         }
 
@@ -92,31 +86,37 @@ function aben_callback_field_select( $args ) {
 
         // print_r($role_names);
 
-        $select_options = $role_names;
-     }else if( $id === 'email_frequency' ) {
+        foreach ($role_names as $role_name) {
+
+            $select_options[$role_name] = ucwords($role_name);
+
+        }
+
+    } else if ($id === 'email_frequency') {
 
         $select_options = array(
             'once_in_a_day' => 'Once in a Day',
             'twice_in_a_day' => 'Twice in a Day',
             'after_2_hours' => 'After 2 Hours',
             'after_1_hour' => 'After 1 Hour',
-            'on_post_publish' => 'On Post Publish'
+            'on_post_publish' => 'On Post Publish',
 
         );
 
-     }
-
-    echo '<select id="aben_options_'. $id .'"
-                  name="aben_options['. $id .']">';
-
-    foreach ($select_options as $value => $option) {
-        
-        $selected = selected( $select_option === $value, $value, true, false );
-
-        echo '<option value = "'. $value .'" '. $selected .'>'. $option .'</option>';
+        // var_dump($select_options);
 
     }
 
-    echo '</select> <br /><label for="aben_options_'. $id .'">'. $label .'</label>';
+    echo '<select id="aben_options_' . $id . '"
+                  name="aben_options[' . $id . ']">';
+
+    foreach ($select_options as $value => $option) {
+
+        $selected = selected($selected_option, $value, false);
+
+        echo '<option value="' . $value . '" ' . $selected . '>' . ucwords($option) . '</option>';
+    }
+
+    echo '</select> <br /><label for="aben_options_' . $id . '">' . $label . '</label>';
 
 }
