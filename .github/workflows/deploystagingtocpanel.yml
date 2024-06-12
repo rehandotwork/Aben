@@ -17,3 +17,4 @@ jobs:
         server: ftp.inaqani.com
         username: deploy@inaqani.com
         password: ${{ secrets.FTP_PASSWORD }}
+        port: 21
