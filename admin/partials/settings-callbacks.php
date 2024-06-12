@@ -6,6 +6,16 @@ if (!defined('ABSPATH')) {
 
 }
 
+// Section Callbacks
+
+function aben_callback_section_email_notification()
+{
+}
+
+function aben_callback_section_email_template()
+{
+}
+
 //Fields Callbacks
 
 function aben_callback_field_text($args)
