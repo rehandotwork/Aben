@@ -14,6 +14,6 @@ jobs:
     - name: Staging-Deploy-Action
       uses: rehandotwork/Staging-Deploy-Action@v1.1.0
       with:
-        ftp-server: ${{ secret.FTP_SERVER }}
-        ftp-username: ${{ secret.FTP_USERNAME }}
-        fpt-password: ${{ secret.FTP_PASSWORD }}
+        ftp-server: ${{ secrets.FTP_SERVER }}
+        ftp-username: ${{ secrets.FTP_USERNAME }}
+        fpt-password: ${{ secrets.FTP_PASSWORD }}
