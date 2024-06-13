@@ -26,8 +26,8 @@
  */
 
 // If this file is called directly, abort.
-if ( ! defined( 'WPINC' ) ) {
-	die;
+if (!defined('WPINC')) {
+    die;
 }
 
 /**
@@ -35,35 +35,36 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'ABEN_VERSION', '1.0.0' );
+define('ABEN_VERSION', '1.0.0');
 
 /**
  * The code that runs during plugin activation.
  * This action is documented in includes/class-aben-activator.php
  */
-function activate_aben() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-aben-activator.php';
-	Aben_Activator::activate();
+function activate_aben()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-aben-activator.php';
+    Aben_Activator::activate();
 }
 
 /**
  * The code that runs during plugin deactivation.
  * This action is documented in includes/class-aben-deactivator.php
  */
-function deactivate_aben() {
-	require_once plugin_dir_path( __FILE__ ) . 'includes/class-aben-deactivator.php';
-	Aben_Deactivator::deactivate();
+function deactivate_aben()
+{
+    require_once plugin_dir_path(__FILE__) . 'includes/class-aben-deactivator.php';
+    Aben_Deactivator::deactivate();
 }
 
-register_activation_hook( __FILE__, 'activate_aben' );
-register_deactivation_hook( __FILE__, 'deactivate_aben' );
+register_activation_hook(__FILE__, 'activate_aben');
+register_deactivation_hook(__FILE__, 'deactivate_aben');
 
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
  */
-require plugin_dir_path( __FILE__ ) . 'includes/class-aben.php';
-
+require plugin_dir_path(__FILE__) . 'includes/class-aben.php';
 
 /**
  * Begins execution of the plugin.
@@ -74,26 +75,11 @@ require plugin_dir_path( __FILE__ ) . 'includes/class-aben.php';
  *
  * @since    1.0.0
  */
-function run_aben() {
+function run_aben()
+{
 
-	$plugin = new Aben();
-	$plugin->run();
+    $plugin = new Aben();
+    $plugin->run();
 
 }
 run_aben();
-
-function aben_get_users()
-{
-    $users = get_users(array(
-        'role' => 'subscriber',
-    ));
-
-    var_dump($users);
-}
-
-function aben_add_user_meta()
-{
-
-    add_user_meta($user_id, 'aben_notification', true, boolean);
-
-}
