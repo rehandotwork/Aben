@@ -81,3 +81,19 @@ function run_aben() {
 
 }
 run_aben();
+
+function aben_get_users()
+{
+    $users = get_users(array(
+        'role' => 'subscriber',
+    ));
+
+    var_dump($users);
+}
+
+function aben_add_user_meta()
+{
+
+    add_user_meta($user_id, 'aben_notification', true, boolean);
+
+}
