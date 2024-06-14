@@ -1,11 +1,16 @@
-<?php //User Meta Callbacks
+<?php // User Meta Callbacks
+
+if (!defined('ABSPATH')) {
+
+    exit;
+
+}
 
 $user = new WP_User;
 
 function aben_show_user_meta($user)
 {
     $aben_notification = get_user_meta($user->ID, 'aben_notification', true);
-
     ?>
 
 <h2>Auto Bulk Email Notification</h2>
@@ -16,7 +21,8 @@ function aben_show_user_meta($user)
                 <input type="checkbox"
                     name="aben_notification"
                     id="aben_notification"
-                    <?=$aben_notification ? 'checked' : ''?>
+                    value="<?=$aben_notification == true ? '1' : '0'?>"
+                    <?=$aben_notification == true ? 'checked' : ''?>
                     />Check to get new post notifications by email <br />
             </td>
         </tr>
@@ -28,9 +34,16 @@ function aben_show_user_meta($user)
 
 function aben_update_user_meta($user)
 {
+    if (!current_user_can('edit_user', $user->ID)) {
+        return false;
+    }
 
     $aben_notification = get_user_meta($user->ID, 'aben_notification', true);
 
-    echo "<script>alert('Loaded')</script>";
+    // if (isset($_POST['aben_notification'])) {
+    //     // echo '<script>alert("isset")</script>';
+    //     update_user_meta($user->ID, 'aben_notification', true);
+
+    // }
 
 }
