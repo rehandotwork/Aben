@@ -121,5 +121,6 @@ if (is_admin()) {
     require_once dirname(__FILE__) . '/partials/user-meta.php';
     require_once dirname(__FILE__) . '/partials/user-settings.php';
     require_once dirname(__FILE__) . '/partials/user-callbacks.php';
+    require_once dirname(__FILE__) . '/partials/email-settings.php';
 
 }
