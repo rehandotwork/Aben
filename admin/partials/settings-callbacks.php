@@ -106,11 +106,7 @@ function aben_callback_field_select($args)
 
         $select_options = array(
             'once_in_a_day' => 'Once in a Day',
-            'twice_in_a_day' => 'Twice in a Day',
-            'after_2_hours' => 'After 2 Hours',
-            'after_1_hour' => 'After 1 Hour',
-            'on_post_publish' => 'On Post Publish',
-
+            'once_in_a_week' => 'Once in a Week',
         );
 
         // var_dump($select_options);
