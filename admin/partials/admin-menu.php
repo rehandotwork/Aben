@@ -10,7 +10,7 @@ function aben_add_top_level_menu()
 {
     add_menu_page(
         'Auto Bulk Email Notification Setting',
-        'ABEN',
+        'Aben',
         'manage_options',
         'aben',
         'aben_display_settings_page',
