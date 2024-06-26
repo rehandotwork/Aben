@@ -73,7 +73,7 @@ function aben_get_today_posts()
     // echo $day;
 
     $args = array(
-        // 'fields' => 'ids',
+        'numberposts' => -1,
         'date_query' => array(
             array(
                 'year' => $year,
@@ -90,24 +90,53 @@ function aben_get_today_posts()
     $posts_published_today = count($posts);
     // echo $posts_published_today;
 
-    foreach ($posts as $post) {
+    $count = 0; // To control posts loop iteration
 
-        $id = $post->ID;
+    $posts_to_email = array();
 
-        $title = $post->post_title;
+    if (!empty($posts_published_today)) {
 
-        $link = get_permalink($id);
+        foreach ($posts as $post) {
 
-        $author_id = $post->post_author;
+            if ($count >= 10) {
+                break; // Loop breaks after 10 posts
+            }
 
-        // $author_id = get_the_author_meta('ID', $author_id);
+            $id = $post->ID;
 
-        // $p = get_the_author_meta('nicename', $author_id);
+            $title = $post->post_title;
+            // echo $title;
 
-        // echo $p;
+            $link = get_permalink($id);
+
+            $posts_to_email[$count] = array(
+                'title' => $title,
+                'link' => $link,
+            );
+
+            // $author_id = intval($post->post_author);
+
+            // $author_id = $post->post_author;
+
+            // var_dump($author_id);
+
+            // $author_id = get_the_author_meta('ID', $author_id);
+
+            // $author = get_the_author_meta('email', $author_id);
+
+            // var_dump($author);
+
+            $count++;
+
+        }
+        return array(
+
+            'posts_to_email' => $posts_to_email,
+            'posts_published_today' => $posts_published_today,
+        );
 
     }
 
-}
+    // var_dump($posts_to_email);
 
-aben_get_today_posts();
+}
