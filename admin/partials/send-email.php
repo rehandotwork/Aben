@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 
 }
 
-// add_action('save_post', 'aben_send_email', 10);
+add_action('save_post', 'aben_send_email', 10);
 
 function aben_send_email()
 {
@@ -20,9 +20,12 @@ function aben_send_email()
 
     $get_settings = aben_get_options();
 
+    $post_archive_slug = $get_settings['archive_page_slug'];
+    // echo $post_archive_slug;
+
     $email_subject = $get_settings['email_subject'];
 
-    $email_body = $get_settings['email_body'];
+    $email_body .= $get_settings['email_body'];
 
     foreach ($posts_to_send as $post) { // Appending Fetched Posts to Email Body
 
@@ -30,13 +33,14 @@ function aben_send_email()
         $link = $post['link'];
         // echo $title;
 
-        $email_body .= '<h3>' . $title . '</h3><a href = ' . $link . '>Apply Now</a>';
+        $email_body .= '<h4>' . $title . ' <a href = ' . $link . '>Apply Here</a></h4>';
 
     }
 
     $email_body .= $posts_published_today > 10 ?
-    '<p>Check ' . $posts_published_today - 10 . ' more posts <a href = "' . home_url('/browse-jobs') . '">here</a></p>.' :
-    '<p>Check more posts <a href = "' . home_url('/browse-jobs') . '">here</a></p>';
+    '<p>Check ' . $posts_published_today - 10 . ' more posts <a href = "' . home_url('/' . $post_archive_slug) . '">here.</a></p>' :
+    '<section><p>Check more posts <a href = "' . home_url('/' . $post_archive_slug) . '">here</a></p>';
+
     // echo $email_body;
 
     $headers = ['Content-Type:text/html'];

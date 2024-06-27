@@ -1,44 +1,49 @@
-<?php //Validation Callbacks 
+<?php //Validation Callbacks
 
-if( ! defined( 'ABSPATH' ) ) {
+if (!defined('ABSPATH')) {
 
     exit;
 
 }
 
+function aben_callback_validate_options($input)
+{
 
-function aben_callback_validate_options( $input ) {
+    if (isset($input['post_type'])) {
 
-    if( isset($input['post_type']) ) {
-
-        $input['post_type'] = sanitize_text_field( $input['post_type'] );
-
-    }
-    
-    if( isset($input['user_roles']) ) {
-
-        $input['user_roles'] = sanitize_text_field( $input['user_roles'] );
+        $input['post_type'] = sanitize_text_field($input['post_type']);
 
     }
-    
-    if( isset($input['email_frequency']) ) {
+    if (isset($input['archive_page_slug'])) {
 
-        $input['email_frequency'] = sanitize_text_field( $input['email_frequency'] );
-
-    }
-    
-    if( isset($input['email_subject']) ) {
-
-        $input['email_subject'] = sanitize_text_field( $input['email_subject'] );
+        $input['archive_page_slug'] = sanitize_text_field($input['archive_page_slug']);
 
     }
 
-    if( isset($input['email_body']) ) {
+    if (isset($input['user_roles'])) {
 
-        $input['email_body'] = wp_kses_post( $input['email_body'] );
+        $input['user_roles'] = sanitize_text_field($input['user_roles']);
 
     }
-    
+
+    if (isset($input['email_frequency'])) {
+
+        $input['email_frequency'] = sanitize_text_field($input['email_frequency']);
+
+    }
+
+    if (isset($input['email_subject'])) {
+
+        $input['email_subject'] = sanitize_text_field($input['email_subject']);
+
+    }
+
+    if (isset($input['email_body'])) {
+
+        $input['email_body'] = wp_kses_post($input['email_body']);
+
+    }
+
     return $input;
 
 }

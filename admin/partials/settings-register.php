@@ -75,6 +75,15 @@ function aben_register_settings()
     );
 
     add_settings_field(
+        'archive_page_slug',
+        'Archive Page Slug',
+        'aben_callback_field_text',
+        'aben',
+        'aben_section_email_notification',
+        ['id' => 'archive_page_slug', 'label' => 'Slug of selected post type archive page']
+    );
+
+    add_settings_field(
         'user_roles',
         'Users',
         'aben_callback_field_select',

@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 
 }
 
-function aben_get_options()
+function aben_get_options() //Fetching Plugin Settings and Returning in Array
 {
 
     $options = get_option('aben_options', 'aben_options_default');
@@ -43,6 +43,7 @@ function aben_get_users_email()
     // var_dump($users);
 
     $email_addresses = array();
+
     if (!in_array($user->user_email, $email_addresses)) {
         foreach ($users as $user) {
 
