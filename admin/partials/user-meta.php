@@ -28,7 +28,7 @@ add_action('user_register', 'aben_add_user_meta', 10, 1);
 
 function aben_add_user_meta($user_id)
 {
-    add_user_meta($user_id, 'aben_notification', true);
+    add_user_meta($user_id, 'aben_notification', '1');
 }
 
 // Add User Meta to Existing Users on Activation
@@ -47,7 +47,7 @@ function aben_add_user_meta_to_existing_users()
 
         // echo $user_id;
 
-        add_user_meta($user_id, 'aben_notification', true);
+        add_user_meta($user_id, 'aben_notification', '1');
 
     }
 

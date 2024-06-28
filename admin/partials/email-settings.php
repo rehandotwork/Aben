@@ -44,12 +44,13 @@ function aben_get_users_email()
 
     $email_addresses = array();
 
-    if (!in_array($user->user_email, $email_addresses)) {
-        foreach ($users as $user) {
+    foreach ($users as $user) {
+
+        if (!in_array($user->user_email, $email_addresses)) {
 
             $email_addresses[] = $user->user_email;
-
         }
+
     }
 
     $email_addresses = array_unique($email_addresses); // Filtering out duplicates

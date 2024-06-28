@@ -20,17 +20,19 @@
  * @subpackage Aben/includes
  * @author     Rehan Khan <hello@rehan.work>
  */
-class Aben_Activator {
+class Aben_Activator
+{
 
-	/**
-	 * Short Description. (use period)
-	 *
-	 * Long Description.
-	 *
-	 * @since    1.0.0
-	 */
-	public static function activate() {
+    /**
+     * Short Description. (use period)
+     *
+     * Long Description.
+     *
+     * @since    1.0.0
+     */
+    public static function activate()
+    {
 
-	}
+    }
 
 }

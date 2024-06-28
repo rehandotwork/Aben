@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 
 }
 
-add_action('save_post', 'aben_send_email', 10);
+// add_action('save_post', 'aben_send_email', 10);
 
 function aben_send_email()
 {
@@ -25,7 +25,7 @@ function aben_send_email()
 
     $email_subject = $get_settings['email_subject'];
 
-    $email_body .= $get_settings['email_body'];
+    $email_body = $get_settings['email_body'];
 
     foreach ($posts_to_send as $post) { // Appending Fetched Posts to Email Body
 
