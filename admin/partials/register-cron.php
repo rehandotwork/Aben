@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
 
 }
 
-register_activation_hook(__FILE__, 'aben_register_cron');
+// register_activation_hook(__FILE__, 'aben_register_cron');
 add_action('aben_send_email_event', 'aben_send_email');
 
 function aben_register_cron()
@@ -20,7 +20,7 @@ function aben_register_cron()
 
 }
 
-register_deactivation_hook(__FILE__, 'aben_deregister_cron');
+// register_deactivation_hook(__FILE__, 'aben_deregister_cron');
 
 function aben_deregister_cron()
 {

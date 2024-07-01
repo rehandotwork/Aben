@@ -60,6 +60,9 @@ function deactivate_aben()
 register_activation_hook(__FILE__, 'activate_aben');
 register_deactivation_hook(__FILE__, 'deactivate_aben');
 
+// Adds User Meta to Existing Users on Activation
+register_activation_hook(__FILE__, 'aben_add_user_meta_to_existing_users'); //Refer user-meta.php
+
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.

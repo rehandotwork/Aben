@@ -54,8 +54,6 @@ class Aben_Admin
 
         $this->plugin_name = $plugin_name;
         $this->version = $version;
-        // add_action('admin_menu', array($this, 'add_admin_menus'));
-        // add_action('admin_init', array($this, 'register_settings'));
 
     }
 

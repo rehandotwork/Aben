@@ -31,10 +31,7 @@ function aben_add_user_meta($user_id)
     add_user_meta($user_id, 'aben_notification', '1');
 }
 
-// Add User Meta to Existing Users on Activation
-
-register_activation_hook(__FILE__, 'aben_add_user_meta_to_existing_users');
-
+// Adds User Meta to Existing Users
 function aben_add_user_meta_to_existing_users()
 {
     $users = aben_get_users();

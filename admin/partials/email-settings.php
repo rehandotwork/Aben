@@ -6,6 +6,8 @@ if (!defined('ABSPATH')) {
 
 }
 
+// add_action('after_setup_theme', 'aben_get_today_posts');
+
 function aben_get_options() //Fetching Plugin Settings and Returning in Array
 {
 
@@ -92,6 +94,8 @@ function aben_get_today_posts()
     $posts_published_today = count($posts);
     // echo $posts_published_today;
 
+    // count($posts) < 0 ? $posts_published_today = '' : $posts_published_today = count($posts);
+
     $count = 0; // To control posts loop iteration
 
     $posts_to_email = array();
@@ -111,22 +115,23 @@ function aben_get_today_posts()
 
             $link = get_permalink($id);
 
-            $posts_to_email[$count] = array(
-                'title' => $title,
-                'link' => $link,
-            );
-
-            $author_id = intval($post->post_author);
+            // $author_id = intval($post->post_author);
 
             $author_id = $post->post_author;
 
-            var_dump($author_id);
+            $author = get_the_author_meta('display_name', $author_id);
+
+            // echo $author;
+
+            $posts_to_email[$count] = array(
+                'title' => $title,
+                'link' => $link,
+                'author' => $author,
+            );
+
+            // var_dump($author_id);
 
             // $author_id = get_the_author_meta('ID', $author_id);
-
-            $author = get_the_author_meta('email', $author_id);
-
-            var_dump($author);
 
             $count++;
 
