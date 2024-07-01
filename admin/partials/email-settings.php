@@ -116,17 +116,17 @@ function aben_get_today_posts()
                 'link' => $link,
             );
 
-            // $author_id = intval($post->post_author);
+            $author_id = intval($post->post_author);
 
-            // $author_id = $post->post_author;
+            $author_id = $post->post_author;
 
-            // var_dump($author_id);
+            var_dump($author_id);
 
             // $author_id = get_the_author_meta('ID', $author_id);
 
-            // $author = get_the_author_meta('email', $author_id);
+            $author = get_the_author_meta('email', $author_id);
 
-            // var_dump($author);
+            var_dump($author);
 
             $count++;
 
@@ -142,3 +142,5 @@ function aben_get_today_posts()
     // var_dump($posts_to_email);
 
 }
+
+// aben_get_today_posts();
