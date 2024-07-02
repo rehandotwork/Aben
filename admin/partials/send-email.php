@@ -7,7 +7,6 @@ if (!defined('ABSPATH')) {
 }
 
 add_action('save_post', 'aben_send_email');
-
 function aben_send_email()
 {
     $aben_get_posts_result = aben_get_today_posts(); // Refer to email-settings.php
