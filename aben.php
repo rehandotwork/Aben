@@ -45,6 +45,8 @@ function activate_aben()
 {
     require_once plugin_dir_path(__FILE__) . 'includes/class-aben-activator.php';
     Aben_Activator::activate();
+    // aben_register_cron();
+
 }
 
 /**
@@ -55,13 +57,16 @@ function deactivate_aben()
 {
     require_once plugin_dir_path(__FILE__) . 'includes/class-aben-deactivator.php';
     Aben_Deactivator::deactivate();
+    // aben_deregister_cron();
 }
 
 register_activation_hook(__FILE__, 'activate_aben');
-register_deactivation_hook(__FILE__, 'deactivate_aben');
-
 // Adds User Meta to Existing Users on Activation
 register_activation_hook(__FILE__, 'aben_add_user_meta_to_existing_users'); //Refer user-meta.php
+// register_activation_hook(__FILE__, 'aben_register_cron');
+
+register_deactivation_hook(__FILE__, 'deactivate_aben');
+// register_deactivation_hook(__FILE__, 'aben_deregister_cron');
 
 /**
  * The core plugin class that is used to define internationalization,

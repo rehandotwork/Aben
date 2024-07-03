@@ -7,6 +7,7 @@ if (!defined('ABSPATH')) {
 }
 
 add_action('save_post', 'aben_send_email');
+
 function aben_send_email()
 {
     $aben_get_posts_result = aben_get_today_posts(); // Refer to email-settings.php
@@ -58,10 +59,18 @@ function aben_send_email()
 
         foreach ($email_addresses as $email_address) {
 
-            wp_mail($email_address, $email_subject, $email_body, $headers);
-            // echo "Mail Sent";
+            if (wp_mail($email_address, $email_subject, $email_body, $headers)) {
+
+                unset($email_address);
+
+            }
+            // error_log('Mail Sent');
+
+            // echo count($email_addresses);
 
         }
+
+        error_log('aben_send_email function was called at ' . current_time('mysql'));
 
     } else {
         echo '<script> console.log("No Posts Found for Today")</script>';

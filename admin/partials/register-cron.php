@@ -5,24 +5,31 @@ if (!defined('ABSPATH')) {
 
 }
 
-// register_activation_hook(__FILE__, 'aben_register_cron');
-add_action('aben_send_email_event', 'aben_send_email');
+require_once dirname(__FILE__ . '/send-email.php');
+
+add_action('aben_cron_event', 'aben_send_email');
 
 function aben_register_cron()
 {
-    $cron_settings = aben_get_cron_settings();
-    // echo $cron_settings;
+    error_log('aben_register_cron called');
 
-    if (!wp_next_scheduled('aben_send_email_event')) {
-        // Schedule daily at 11 PM (23:00)
-        wp_schedule_event(strtotime('23:00:00'), $cron_settings, 'aben_send_email_event');
+    if (!wp_next_scheduled('aben_cron_event')) {
+
+        $cron_settings = aben_get_cron_settings();
+
+        $timestamp = strtotime('today 23:00:00 +0530'); // at 11PM India Standar Time
+
+        wp_schedule_event(time(), 'daily', 'aben_cron_event');
+
+        error_log('aben_cron_event scheduled at ' . date('Y-m-d H:i:s', time()));
+
     }
-
 }
-
-// register_deactivation_hook(__FILE__, 'aben_deregister_cron');
 
 function aben_deregister_cron()
 {
-    wp_clear_scheduled_hook('aben_send_email_event');
+    // wp_unschedule_event( $timestamp:integer, $hook:string, $args:array, $wp_error:boolean )
+    error_log('aben_deregister_cron called');
+
+    wp_clear_scheduled_hook('aben_cron_event');
 }

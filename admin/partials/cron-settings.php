@@ -30,3 +30,15 @@ function aben_get_cron_settings()
     return $sending_frequency;
 
 }
+
+add_filter('cron_schedules', 'aben_cron_interval');
+
+function aben_cron_interval($schedules)
+{
+    $schedules['one_minute'] = array(
+        'interval' => 61,
+        'display' => esc_html__('Every Minute'));
+
+    error_log('Aben cron interval added');
+    return $schedules;
+}
