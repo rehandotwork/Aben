@@ -123,5 +123,6 @@ if (is_admin()) {
     require_once dirname(__FILE__) . '/partials/cron-settings.php';
     require_once dirname(__FILE__) . '/partials/register-cron.php';
     require_once dirname(__FILE__) . '/partials/send-email.php';
+    require_once dirname(__FILE__) . '/partials/update-cron.php';
 
 }
