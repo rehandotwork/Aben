@@ -120,8 +120,8 @@ if (is_admin()) {
     require_once dirname(__FILE__) . '/partials/user-settings.php';
     require_once dirname(__FILE__) . '/partials/user-callbacks.php';
     require_once dirname(__FILE__) . '/partials/email-settings.php';
-    require_once dirname(__FILE__) . '/partials/send-email.php';
     require_once dirname(__FILE__) . '/partials/cron-settings.php';
     require_once dirname(__FILE__) . '/partials/register-cron.php';
+    require_once dirname(__FILE__) . '/partials/send-email.php';
 
 }

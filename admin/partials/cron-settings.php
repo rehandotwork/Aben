@@ -31,13 +31,11 @@ function aben_get_cron_settings()
 
 }
 
-add_filter('cron_schedules', 'aben_cron_interval');
-
 function aben_cron_interval($schedules)
 {
-    $schedules['one_minute'] = array(
-        'interval' => 61,
-        'display' => esc_html__('Every Minute'));
+    $schedules['five_seconds'] = array(
+        'interval' => 5,
+        'display' => esc_html__('Five Seconds'));
 
     error_log('Aben cron interval added');
     return $schedules;

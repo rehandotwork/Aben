@@ -38,13 +38,19 @@ function aben_add_user_meta_to_existing_users()
 
     foreach ($users as $user) {
 
-        // echo $user->ID . '-';
-
         $user_id = $user->ID;
-
         // echo $user_id;
 
-        add_user_meta($user_id, 'aben_notification', '1');
+        if (!metadata_exists('user', $user_id, 'aben_notification')) {
+
+            add_user_meta($user_id, 'aben_notification', '1');
+
+            // error_log('User Meta Added');
+
+        }
+        // else {
+        //     error_log('User meta already present');
+        // }
 
     }
 

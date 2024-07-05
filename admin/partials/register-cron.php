@@ -5,8 +5,6 @@ if (!defined('ABSPATH')) {
 
 }
 
-require_once dirname(__FILE__ . '/send-email.php');
-
 add_action('aben_cron_event', 'aben_send_email');
 
 function aben_register_cron()
@@ -17,9 +15,15 @@ function aben_register_cron()
 
         $cron_settings = aben_get_cron_settings();
 
-        $timestamp = strtotime('today 23:00:00 +0530'); // at 11PM India Standar Time
+        $timestamp = strtotime('today 23:00:00 +0530'); // at 11PM India Standard Time
 
-        wp_schedule_event(time(), 'daily', 'aben_cron_event');
+        if (time() >= $timestamp) {
+
+            $timestamp = strtotime('tomorrow 23:00:00 +0530'); // at 11PM India Standard Time
+
+        }
+
+        wp_schedule_event($timestamp, $cron_settings, 'aben_cron_event');
 
         error_log('aben_cron_event scheduled at ' . date('Y-m-d H:i:s', time()));
 

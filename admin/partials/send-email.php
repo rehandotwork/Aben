@@ -6,10 +6,27 @@ if (!defined('ABSPATH')) {
 
 }
 
-add_action('save_post', 'aben_send_email');
+// add_action('save_post', 'aben_send_email');
 
 function aben_send_email()
 {
+
+    error_log('aben_send_email function was called at ' . current_time('mysql'));
+
+    // if (wp_is_post_autosave($post_id)) {
+    //     return;
+    // }
+
+    // // Check if this is a revision
+    // if (wp_is_post_revision($post_id)) {
+    //     return;
+    // }
+
+    // // Check if the post is published
+    // $post_status = get_post_status($post_id);
+    // if ($post_status !== 'publish') {
+    //     return;
+    // }
     $aben_get_posts_result = aben_get_today_posts(); // Refer to email-settings.php
 
     if (!empty($aben_get_posts_result)) {
@@ -56,21 +73,28 @@ function aben_send_email()
         $email_addresses = aben_get_users_email();
 
         // print_r($email_addresses);
+        // error_log(var_export($email_addresses, true));
 
-        foreach ($email_addresses as $email_address) {
+        if (!empty($email_addresses)) {
 
-            if (wp_mail($email_address, $email_subject, $email_body, $headers)) {
+            foreach ($email_addresses as $index => $email_address) {
 
-                unset($email_address);
+                // echo $email_address;
+                if (wp_mail($email_address, $email_subject, $email_body, $headers)) {
+                    error_log('Email sent to' . $email_address);
+                    // unset($email_addresses[$index]);
+
+                    // print_r($email_addresses);
+
+                }
+                // echo ('Mail Sent');
+
+                // echo count($email_addresses);
 
             }
-            // error_log('Mail Sent');
-
-            // echo count($email_addresses);
-
+        } else {
+            error_log('No user has opted for notification');
         }
-
-        error_log('aben_send_email function was called at ' . current_time('mysql'));
 
     } else {
         echo '<script> console.log("No Posts Found for Today")</script>';
