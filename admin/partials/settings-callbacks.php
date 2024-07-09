@@ -111,6 +111,8 @@ function aben_callback_field_select($args)
 
         // var_dump($select_options);
 
+        aben_update_cron(); // Refer to update-cron.php
+
     }
 
     echo '<select id="aben_options_' . $id . '"

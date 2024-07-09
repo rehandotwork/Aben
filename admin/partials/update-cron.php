@@ -6,11 +6,19 @@ if (!defined('ABSPATH')) {
 
 }
 
-// add_action('updated_options', 'aben_update_cron');
+function aben_update_cron()
+{
+    $cron_settings = aben_get_cron_settings();
 
-// function aben_update_cron()
-// {
+    if (wp_next_scheduled('aben_cron_event')) {
 
-//     error_log('Aben cron updated');
+        // $timestamp = wp_next_scheduled('aben_cron_event');
+        // echo $timestamp;
 
-// }
+        wp_clear_scheduled_hook('aben_cron_event');
+
+        wp_schedule_event(time(), $cron_settings, 'aben_cron_event');
+
+    }
+
+}
