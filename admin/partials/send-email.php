@@ -160,7 +160,7 @@ function aben_send_email()
             <h1>Daily Gulf Jobs</h1>
             <p>Get latest gulf jobs by authorized human resource consultancies</p>
         </div>
-        <div class="content">
+        <div class="content">';
 
         foreach ($posts_to_send as $post) { // Appending Fetched Posts to Email Body
 
