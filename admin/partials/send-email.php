@@ -34,6 +34,7 @@ function aben_send_email()
         $posts_published_today = $aben_get_posts_result['posts_published_today']; //Refer to email-settings.php
 
         $posts_to_send = $aben_get_posts_result['posts_to_email'];
+        $post_count = count($posts_to_send);
         // var_dump($posts_to_send);
 
     }
@@ -123,7 +124,7 @@ function aben_send_email()
             margin: 0;
         }
         .blog-post-summary {
-            font-size: 16px;
+            font-size: 14px;
             color: #333333;
             margin: 5px 0 0;
         }
@@ -158,7 +159,7 @@ function aben_send_email()
     <div class="container">
         <div class="header">
             <h1>Daily Gulf Jobs</h1>
-            <p>Get latest gulf jobs by authorized human resource consultancies</p>
+            <p>Get latest gulf jobs for India by authorized HR consultancies</p>
         </div>
         <div class="content">';
 
@@ -183,12 +184,12 @@ function aben_send_email()
 
         $email_body .= '</div>
         <div class="view-all-blogs-container">
-            <a href="http://yourwebsite.com/blog" class="view-all-blogs">View All (35) Jobs</a>
+            <a href="https://gulfworking.com/blog" class="view-all-blogs">View All ('.$post_count.') Jobs</a>
         </div>
         <div class="footer">
             <p>Gulfworking.com &copy; 2024 All rights reserved.</p>
             <p>
-                <a href="http://yourwebsite.com/unsubscribe" style="color: #808080; text-decoration: none;">Unsubscribe</a>
+                <a href="https://gulfworking.com/notifications" style="color: #808080; text-decoration: none;">Unsubscribe</a>
             </p>
         </div>
     </div>
