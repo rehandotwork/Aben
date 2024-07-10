@@ -4,6 +4,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+// add_action('admin_notices', 'aben_send_email');
 
 function aben_send_email()
 {
@@ -12,26 +13,49 @@ function aben_send_email()
     $aben_get_posts_result = aben_get_today_posts();
 
     if (!empty($aben_get_posts_result)) {
+
         $posts_published_today = $aben_get_posts_result['posts_published_today'];
+
         $posts_to_send = $aben_get_posts_result['posts_to_email'];
+
         $post_count = count($posts_to_send);
     }
 
     if (!empty($posts_published_today)) {
-        $get_settings = aben_get_options();
-        $post_archive_slug = $get_settings['archive_page_slug'];
-        $email_subject = $get_settings['email_subject'];
-        $email_body = get_email_body($posts_to_send, $post_count);
 
-        $headers = ['Content-Type:text/html'];
+        $get_settings = aben_get_options();
+
+        $post_archive_slug = $get_settings['archive_page_slug'];
+
+        $email_subject = $get_settings['email_subject'];
+
+        $email_body = get_email_body($posts_to_send, $post_count, $posts_published_today);
+
+        $headers[] = 'Content-Type:text/html';
+
+        $headers[] = 'From: Gulfworking.com | Daily Gulf Jobs <admin@gulfworking.com>';
+
         $email_addresses = aben_get_users_email();
 
         if (!empty($email_addresses)) {
+
             foreach ($email_addresses as $email_address) {
+
+                $user = get_user_by('email', $email_address);
+
+                $user_display_name = ucwords($user->display_name);
+
+                // print_r($user_display_name);
+
+                $email_body = str_replace('{{USERNAME}}', $user_display_name, $email_body); // Changing placeholders in email body
+
                 if (wp_mail($email_address, $email_subject, $email_body, $headers)) {
+
                     error_log('Email sent to ' . $email_address);
+
                 }
             }
+
         } else {
             error_log('No user has opted for notification');
         }
@@ -40,7 +64,7 @@ function aben_send_email()
     }
 }
 
-function get_email_body($posts_to_send, $post_count)
+function get_email_body($posts_to_send, $post_count, $posts_published_today)
 {
     $email_body = '<!DOCTYPE html>
 <html>
@@ -60,7 +84,7 @@ function get_email_body($posts_to_send, $post_count)
                 <p style="margin-top: -15px;">Get latest gulf jobs for India by authorized HR consultancies</p>
             </div>
             <div style="width:20%;align-content: center;text-align: right;border-left: 1px solid #fff; margin: 10px 0;">
-                <p>MY Profile</p>
+                <p>Hi, {{USERNAME}}</p>
             </div>
         </div>
         <div style="padding: 20px;">';
@@ -69,25 +93,26 @@ function get_email_body($posts_to_send, $post_count)
         $title = $post['title'];
         $link = $post['link'];
         $author = $post['author'];
+        $country = $post['country'];
 
         $email_body .= '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px; border-bottom: 1px solid #f1f1f1; padding-bottom: 10px;">
                 <div style="width: 70%;">
-                    <h2 style="font-size: 20px; color: #008dcd; margin: 0;">'.$title.'/h2>
-                    <p style="font-size: 14px; color: #333333; margin: 5px 0 0;">Country</p>
+                    <h2 style="font-size: 20px; color: #008dcd; margin: 0;">' . $title . '</h2>
+                    <p style="font-size: 14px; color: #333333; margin: 5px 0 0;">Location - ' . $country . '</p>
                 </div>
-                <a href="'.$link.'" style="display: inline-block; padding: 10px 20px; color: #fff; text-decoration: none; background-color: #0EAD5D; border-radius: 25px;">Apply</a>
+                <a href="' . $link . '" style="display: inline-block; padding: 10px 20px; color: #fff; text-decoration: none; background-color: #0EAD5D; border-radius: 25px;">Apply</a>
             </div>';
     }
 
     $email_body .= '        </div>
         <div style="background-color: #ffffff; text-align: center; padding-bottom: 20px;">
-            <a href="https://gulfworking.com/browse-jobs/" style="display: inline-block; padding: 10px 20px; background-color: #DE4D4C; color: #ffffff; text-decoration: none; border-radius: 25px;">View All (35) Jobs</a>
+            <a href="' . home_url($post_archive_slug) . '" style="display: inline-block; padding: 10px 20px; background-color: #DE4D4C; color: #ffffff; text-decoration: none; border-radius: 25px;">View All (' . $posts_published_today . ')</a>
         </div>
         <div style="background-color: #f1f1f1; color: #808080; text-align: center; padding: 10px;">
-            <a href="https://gulfworking.com"><img src="https://gulfworking.com/wp-content/uploads/2023/01/finalLogo-cropped-1.svg" alt="Site Logo" style="max-width: 180px; margin: 20px 0 10px 0;"></a>
+            <a href="' . home_url() . '"><img src="https://gulfworking.com/wp-content/uploads/2023/01/finalLogo-cropped-1.svg" alt="Site Logo" style="max-width: 180px; margin: 20px 0 10px 0;"></a>
             <p>Gulfworking.com &copy; 2024 All rights reserved.</p>
             <p>
-                <a href="https://gulfworking.com/notifications" style="color: #808080; text-decoration: none;">Unsubscribe</a>
+                <a href="' . home_url('account/notification') . '" style="color: #808080; text-decoration: none;">Unsubscribe</a>
             </p>
         </div>
     </div>
@@ -96,4 +121,3 @@ function get_email_body($posts_to_send, $post_count)
 
     return $email_body;
 }
-?>

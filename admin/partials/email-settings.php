@@ -6,7 +6,7 @@ if (!defined('ABSPATH')) {
 
 }
 
-// add_action('after_setup_theme', 'aben_get_today_posts');
+// add_action('admin_notices', 'aben_get_today_posts');
 
 function aben_get_options() //Fetching Plugin Settings and Returning in Array
 {
@@ -104,8 +104,8 @@ function aben_get_today_posts()
 
         foreach ($posts as $post) {
 
-            if ($count >= 10) {
-                break; // Loop breaks after 10 posts
+            if ($count >= 5) {
+                break; // Loop breaks after 5 posts
             }
 
             $id = $post->ID;
@@ -121,17 +121,21 @@ function aben_get_today_posts()
 
             $author = get_the_author_meta('display_name', $author_id);
 
-            // echo $author;
+            $location = get_the_terms($id, 'country'); // This data and dependant data is only for Gulfworking, Not for general purpose. Hard coded term fetching for 'country'
+            // print_r($location);
+
+            if (!empty($location)) {
+                $country = $location[0]->name;
+            } else {
+                $country = '';
+            }
 
             $posts_to_email[$count] = array(
                 'title' => $title,
                 'link' => $link,
                 'author' => $author,
+                'country' => $country,
             );
-
-            // var_dump($author_id);
-
-            // $author_id = get_the_author_meta('ID', $author_id);
 
             $count++;
 
