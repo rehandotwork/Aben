@@ -79,18 +79,16 @@ function get_email_body($posts_to_send, $post_count, $posts_published_today, $po
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Gulfworking.com | Daily Gulf Jobs</title>
 </head>
-<body style="font-family: Open Sans, sans-serif; margin: 0; padding: 0; background-color: #f4f4f4;">
-    <div style="width: 100%; max-width: 646px; margin: 0 auto;">
-        <div style="background-image: url(https://stg.gulfworking.com/wp-content/uploads/2024/07/246-2462187_dubai-jobs-banner-hd-png-download-removebg-preview.png); background-position:bottom; background-size: cover; height: 180px; text-align: center;"></div>
-    </div>
-    <div style="width: 100%; max-width: 600px; margin: 0 auto; background-color: #ffffff; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: -14px;">
-        <div style="background-color: #008dcd; color: #fff; padding: 1px 20px; display: flex;">
+<body style="font-family: Open Sans, sans-serif; margin: 0; padding: 0; background-color: #F4F4F4;">
+    <div style="width: 100%; max-width: 600px; margin: 0 auto; background-color: #FFFFFF; box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); margin-top: 10px;">
+        <div style="background-color: #008DCD; color: #fff; padding: 1px 20px;">
             <div style="width:80%">
                 <h1>Daily Gulf Jobs</h1>
                 <p style="margin-top: -15px;">Get latest gulf jobs for India by authorized HR consultancies</p>
             </div>
-            <div style="width:20%;align-content: center;text-align: right;border-left: 1px solid #fff; margin: 10px 0;">
-                <p>Hi, {{USERNAME}}</p>
+        </div><div style="background-color: #fff; color: #333; padding: 1px 20px; border-bottom: 1px solid #ddd;">
+            <div style="width:80%">
+                <p><strong>Hi {{USERNAME}}, </strong>apply to the latest Gulf jobs below</p>
             </div>
         </div>
         <div style="padding: 20px;">';
@@ -112,7 +110,7 @@ function get_email_body($posts_to_send, $post_count, $posts_published_today, $po
 
     $email_body .= '        </div>
         <div style="background-color: #ffffff; text-align: center; padding-bottom: 20px;">
-            <a href="' . home_url($post_archive_slug) . '" style="display: inline-block; padding: 10px 20px; background-color: #DE4D4C; color: #ffffff; text-decoration: none; border-radius: 25px;">View All (' . $posts_published_today . ')</a>
+            <a href="' . home_url($post_archive_slug) . '" style="display: inline-block; padding: 10px 20px; background-color: #DE4D4C; color: #ffffff; text-decoration: none; border-radius: 25px;">View All (' . $posts_published_today . ') Jobs</a>
         </div>
         <div style="background-color: #f1f1f1; color: #808080; text-align: center; padding: 10px;">
             <a href="' . home_url() . '"><img src="https://gulfworking.com/wp-content/uploads/2023/01/finalLogo-cropped-1.svg" alt="Site Logo" style="max-width: 180px; margin: 20px 0 10px 0;"></a>
