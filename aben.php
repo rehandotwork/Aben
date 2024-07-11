@@ -13,9 +13,9 @@
  * @package           Aben
  *
  * @wordpress-plugin
- * Plugin Name:       Auto Bulk Email Notifications
+ * Plugin Name:       Auto Bulk Email Notifications (Aben)
  * Plugin URI:        https://rehan.work/aben
- * Description:       This plugin allows WordPress admins to automate bulk email notifications to their users directly form the website. It can be set for any type of post created on the website like blogs, products, News, Jobs etc. Use it to love it.
+ * Description:       This plugin allows WordPress Admin to auto-send bulk email notifications to their users through the website directly. Use it for any post type like blogs, products, News, Jobs etc. No third party mailing service required.
  * Version:           1.0.0
  * Author:            Rehan Khan
  * Author URI:        https://rehan.work/
@@ -68,6 +68,17 @@ function deactivate_aben()
 register_activation_hook(__FILE__, 'activate_aben');
 
 register_deactivation_hook(__FILE__, 'deactivate_aben');
+
+
+function aben_show_plugin_settings_link($links, $file) {
+	if (plugin_basename(__FILE__) == $file) {
+		$settings_link = '<a href="admin.php?page=aben">' . __('Settings') . '</a>';
+		array_unshift($links, $settings_link);
+	}
+	return $links;
+}
+add_filter('plugin_action_links', 'aben_show_plugin_settings_link', 10, 2);
+
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.
