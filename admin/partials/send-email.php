@@ -29,11 +29,13 @@ function aben_send_email()
 
         $email_subject = $get_settings['email_subject'];
 
-        $email_body = get_email_body($posts_to_send, $post_count, $posts_published_today);
+        $email_body = get_email_body($posts_to_send, $post_count, $posts_published_today, $post_archive_slug);
+
+        $admin_email = get_bloginfo('admin_email');
 
         $headers[] = 'Content-Type:text/html';
 
-        $headers[] = 'From: Gulfworking.com | Daily Gulf Jobs <admin@gulfworking.com>';
+        $headers[] = 'From: Gulfworking.com | Daily Gulf Jobs <' . $admin_email . '>';
 
         $email_addresses = aben_get_users_email();
 
@@ -45,11 +47,15 @@ function aben_send_email()
 
                 $user_display_name = ucwords($user->display_name);
 
-                // print_r($user_display_name);
+                $user_display_name = explode(' ', $user_display_name);
 
-                $email_body = str_replace('{{USERNAME}}', $user_display_name, $email_body); // Changing placeholders in email body
+                $user_firstname = $user_display_name[0];
 
-                if (wp_mail($email_address, $email_subject, $email_body, $headers)) {
+                // echo $user_firstname;
+
+                $personalized_email_body = str_replace('{{USERNAME}}', $user_firstname, $email_body); // Changing placeholders in email body
+
+                if (wp_mail($email_address, $email_subject, $personalized_email_body, $headers)) {
 
                     error_log('Email sent to ' . $email_address);
 
@@ -64,7 +70,7 @@ function aben_send_email()
     }
 }
 
-function get_email_body($posts_to_send, $post_count, $posts_published_today)
+function get_email_body($posts_to_send, $post_count, $posts_published_today, $post_archive_slug)
 {
     $email_body = '<!DOCTYPE html>
 <html>

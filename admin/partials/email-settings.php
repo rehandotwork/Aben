@@ -121,7 +121,7 @@ function aben_get_today_posts()
 
             $author = get_the_author_meta('display_name', $author_id);
 
-            $location = get_the_terms($id, 'country'); // This data and dependant data is only for Gulfworking, Not for general purpose. Hard coded term fetching for 'country'
+            $location = get_the_terms($id, 'country'); // This data and dependant data is only for Gulfworking, Not for general purpose. Hard coded term fetching 'country'
             // print_r($location);
 
             if (!empty($location)) {
