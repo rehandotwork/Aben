@@ -10,9 +10,9 @@ if (!defined('ABSPATH')) {
 
 function aben_get_users()
 {
-    $options = get_option('aben_options', 'aben_options_default');
+    // $options = get_option('aben_options', 'aben_options_default');
 
-    $selected_role = $options['user_roles'];
+    // $selected_role = $options['user_roles'];
 
     // echo $selected_role;
 

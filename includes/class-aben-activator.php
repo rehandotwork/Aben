@@ -33,6 +33,9 @@ class Aben_Activator
     public static function activate()
     {
 
+        $default_settings = aben_options_default();
+
+        add_option('aben_options', $default_settings);
     }
 
 }

@@ -111,19 +111,19 @@ class Aben_Admin
 
 if (is_admin()) {
 
-    require_once dirname(__FILE__) . '/partials/admin-menu.php';
-    require_once dirname(__FILE__) . '/partials/settings-default.php';
-    require_once dirname(__FILE__) . '/partials/settings-register.php';
-    require_once dirname(__FILE__) . '/partials/settings-callbacks.php';
-    require_once dirname(__FILE__) . '/partials/settings-validate.php';
-    require_once dirname(__FILE__) . '/partials/user-meta.php';
-    require_once dirname(__FILE__) . '/partials/user-settings.php';
-    require_once dirname(__FILE__) . '/partials/user-callbacks.php';
-    require_once dirname(__FILE__) . '/partials/email-settings.php';
-    require_once dirname(__FILE__) . '/partials/cron-settings.php';
-    require_once dirname(__FILE__) . '/partials/register-cron.php';
-    require_once dirname(__FILE__) . '/partials/send-email.php';
-    require_once dirname(__FILE__) . '/partials/update-cron.php';
+    include_once dirname(__FILE__) . '/partials/admin-menu.php';
+    include_once dirname(__FILE__) . '/partials/settings-register.php';
+    include_once dirname(__FILE__) . '/partials/settings-default.php';
+    include_once dirname(__FILE__) . '/partials/settings-callbacks.php';
+    include_once dirname(__FILE__) . '/partials/settings-validate.php';
+    include_once dirname(__FILE__) . '/partials/user-meta.php';
+    include_once dirname(__FILE__) . '/partials/user-settings.php';
+    include_once dirname(__FILE__) . '/partials/user-callbacks.php';
+    include_once dirname(__FILE__) . '/partials/email-settings.php';
+    include_once dirname(__FILE__) . '/partials/cron-settings.php';
+    include_once dirname(__FILE__) . '/partials/register-cron.php';
+    include_once dirname(__FILE__) . '/partials/send-email.php';
+    include_once dirname(__FILE__) . '/partials/update-cron.php';
     // require_once dirname(__FILE__) . '/partials/build-email.php';
 
 }
