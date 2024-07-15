@@ -23,7 +23,7 @@ function aben_register_cron()
 
         }
 
-        wp_schedule_event(time(), $cron_settings, 'aben_cron_event');
+        wp_schedule_event($timestamp, $cron_settings, 'aben_cron_event');
 
         error_log('aben_cron_event scheduled at ' . date('Y-m-d H:i:s', time()));
 

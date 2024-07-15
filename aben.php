@@ -69,13 +69,13 @@ register_activation_hook(__FILE__, 'activate_aben');
 
 register_deactivation_hook(__FILE__, 'deactivate_aben');
 
-
-function aben_show_plugin_settings_link($links, $file) {
-	if (plugin_basename(__FILE__) == $file) {
-		$settings_link = '<a href="admin.php?page=aben">' . __('Settings') . '</a>';
-		array_unshift($links, $settings_link);
-	}
-	return $links;
+function aben_show_plugin_settings_link($links, $file)
+{
+    if (plugin_basename(__FILE__) == $file) {
+        $settings_link = '<a href="admin.php?page=aben">' . __('Settings') . '</a>';
+        array_unshift($links, $settings_link);
+    }
+    return $links;
 }
 add_filter('plugin_action_links', 'aben_show_plugin_settings_link', 10, 2);
 
