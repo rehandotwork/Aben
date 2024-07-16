@@ -33,10 +33,12 @@ function aben_get_cron_settings()
 
 function aben_cron_interval($schedules)
 {
-    $schedules['five_seconds'] = array(
-        'interval' => 5,
-        'display' => esc_html__('Five Seconds'));
+    $schedules['aben_five_seconds'] = array(
+        'interval' => 65,
+        'display' => esc_html__('Aben Five Seconds'));
 
     error_log('Aben cron interval added');
     return $schedules;
 }
+
+add_filter('cron_schedules', 'aben_cron_interval'); // Refer cron-settings.php

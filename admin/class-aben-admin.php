@@ -109,21 +109,21 @@ class Aben_Admin
 
 // Partials
 
-if (is_admin()) {
+// if (is_admin()) {
 
-    include_once dirname(__FILE__) . '/partials/admin-menu.php';
-    include_once dirname(__FILE__) . '/partials/settings-register.php';
-    include_once dirname(__FILE__) . '/partials/settings-default.php';
-    include_once dirname(__FILE__) . '/partials/settings-callbacks.php';
-    include_once dirname(__FILE__) . '/partials/settings-validate.php';
-    include_once dirname(__FILE__) . '/partials/user-meta.php';
-    include_once dirname(__FILE__) . '/partials/user-settings.php';
-    include_once dirname(__FILE__) . '/partials/user-callbacks.php';
-    include_once dirname(__FILE__) . '/partials/email-settings.php';
-    include_once dirname(__FILE__) . '/partials/cron-settings.php';
-    include_once dirname(__FILE__) . '/partials/register-cron.php';
-    include_once dirname(__FILE__) . '/partials/send-email.php';
-    include_once dirname(__FILE__) . '/partials/update-cron.php';
-    // require_once dirname(__FILE__) . '/partials/build-email.php';
+//     include_once dirname(__FILE__) . '/partials/admin-menu.php';
+//     include_once dirname(__FILE__) . '/partials/settings-register.php';
+//     include_once dirname(__FILE__) . '/partials/settings-default.php';
+//     include_once dirname(__FILE__) . '/partials/settings-callbacks.php';
+//     include_once dirname(__FILE__) . '/partials/settings-validate.php';
+//     include_once dirname(__FILE__) . '/partials/user-meta.php';
+//     include_once dirname(__FILE__) . '/partials/user-settings.php';
+//     include_once dirname(__FILE__) . '/partials/user-callbacks.php';
+//     include_once dirname(__FILE__) . '/partials/email-settings.php';
+//     include_once dirname(__FILE__) . '/partials/cron-settings.php';
+//     include_once dirname(__FILE__) . '/partials/register-cron.php';
+//     include_once dirname(__FILE__) . '/partials/send-email.php';
+//     include_once dirname(__FILE__) . '/partials/update-cron.php';
+//     // require_once dirname(__FILE__) . '/partials/build-email.php';
 
-}
+// }

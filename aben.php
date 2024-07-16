@@ -47,7 +47,6 @@ function activate_aben()
     Aben_Activator::activate();
 
     aben_add_user_meta_to_existing_users(); //Refer user-meta.php
-    add_filter('cron_schedules', 'aben_cron_interval'); // Refer cron-settings.php
     aben_register_cron();
 
 }
@@ -65,6 +64,25 @@ function deactivate_aben()
 
 }
 
+// Always include these files (both frontend and admin)
+include_once dirname(__FILE__) . '/admin/partials/user-meta.php';
+include_once dirname(__FILE__) . '/admin/partials/cron-settings.php';
+include_once dirname(__FILE__) . '/admin/partials/register-cron.php';
+include_once dirname(__FILE__) . '/admin/partials/send-email.php';
+include_once dirname(__FILE__) . '/admin/partials/update-cron.php';
+include_once dirname(__FILE__) . '/admin/partials/email-settings.php';
+
+// Only include these files for admin
+if (is_admin()) {
+    include_once dirname(__FILE__) . '/admin/partials/admin-menu.php';
+    include_once dirname(__FILE__) . '/admin/partials/settings-register.php';
+    include_once dirname(__FILE__) . '/admin/partials/settings-default.php';
+    include_once dirname(__FILE__) . '/admin/partials/settings-callbacks.php';
+    include_once dirname(__FILE__) . '/admin/partials/settings-validate.php';
+    include_once dirname(__FILE__) . '/admin/partials/user-settings.php';
+    include_once dirname(__FILE__) . '/admin/partials/user-callbacks.php';
+}
+
 register_activation_hook(__FILE__, 'activate_aben');
 
 register_deactivation_hook(__FILE__, 'deactivate_aben');
@@ -78,6 +96,7 @@ function aben_show_plugin_settings_link($links, $file)
     return $links;
 }
 add_filter('plugin_action_links', 'aben_show_plugin_settings_link', 10, 2);
+add_filter('cron_schedules', 'aben_cron_interval'); // Refer cron-settings.php
 
 /**
  * The core plugin class that is used to define internationalization,
