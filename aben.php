@@ -96,7 +96,6 @@ function aben_show_plugin_settings_link($links, $file)
     return $links;
 }
 add_filter('plugin_action_links', 'aben_show_plugin_settings_link', 10, 2);
-add_filter('cron_schedules', 'aben_cron_interval'); // Refer cron-settings.php
 
 /**
  * The core plugin class that is used to define internationalization,
