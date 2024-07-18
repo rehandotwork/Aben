@@ -4,7 +4,7 @@
 if (!defined('ABSPATH')) {
     exit;
 }
-// add_action('admin_notices', 'aben_send_email');
+add_action('admin_notices', 'aben_send_email');
 
 function aben_send_email()
 {
@@ -116,7 +116,7 @@ function get_email_body($posts_to_send, $post_count, $posts_published_today, $po
             <a href="' . home_url() . '"><img src="https://gulfworking.com/wp-content/uploads/2023/01/finalLogo-cropped-1.svg" alt="Site Logo" style="max-width: 180px; margin: 20px 0 10px 0;"></a>
             <p>Gulfworking.com &copy; 2024 All rights reserved.</p>
             <p>
-                <a href="' . home_url('account/notification') . '" style="color: #808080; text-decoration: none;">Unsubscribe</a>
+                <a href="' . home_url('notification') . '" style="color: #808080; text-decoration: none;">Unsubscribe</a>
             </p>
         </div>
     </div>

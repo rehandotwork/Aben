@@ -14,16 +14,15 @@ function aben_update_cron()
 
         wp_clear_scheduled_hook('aben_cron_event');
 
-        $timestamp = strtotime('today 19:15:00 +0530'); // at 11PM India Standard Time
+        $timestamp = strtotime('today 23:00:00 +0530'); // at 11PM India Standard Time
 
         if (time() >= $timestamp) {
 
-            $timestamp = strtotime('tomorrow 19:15:00 +0530'); // at 11PM India Standard Time
+            $timestamp = strtotime('tomorrow 23:00:00 +0530'); // at 11PM India Standard Time
 
         }
 
-        wp_schedule_event($timestamp, 'aben_65_seconds', 'aben_cron_event');
-        error_log('aben_cron_event updated at ' . date('Y-m-d H:i:s', time()));
+        wp_schedule_event($timestamp, $cron_settings, 'aben_cron_event');
 
     }
 
