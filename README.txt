@@ -1,4 +1,4 @@
-=== Plugin Name ===
+=== Auto Bulk Email Notifications (Aben) ===
 Contributors: @rehanwork
 Donate link: https://rehan.work/
 Tags: Email, Notification
@@ -10,20 +10,15 @@ License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
 == Description ==
 
-his plugin allows WordPress admins to automate bulk email notifications to their users directly form the website. It can be set for any type of post created on the website like blogs, products, News, Jobs etc.
-
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+This plugin allows WordPress admins to send automated bulk email notifications to their users directly form the website. It can be set for any type of post created on the website like blogs, products, News, Jobs etc.
 
 A few notes about the sections above:
 
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
+*   Cron based bulk email sending service.
+*   Website SMTP is used to send emails.
+*   Send emails to any registered users like Subscribers, Customers etc.
+*   Send emails to any type of posts like blog post, news post, job post etc.
+*   Allow to design email template according the need.
 
     Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
 if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
