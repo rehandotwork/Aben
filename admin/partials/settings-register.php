@@ -17,17 +17,33 @@ function aben_display_settings_page()
 
 <div class="wrap">
     <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+	<?php
+		$tabs = array(
+			'tab1' => 'Tab 1',
+			'tab2' => 'Tab 2',
+		); 
+		$current_tab = isset( $_GET[ 'tab' ] ) && isset( $tabs[ $_GET[ 'tab' ] ] ) ? $_GET[ 'tab' ] : array_key_first( $tabs );
+		?>
         <form action="options.php" method="post">
+			<nav class="nav-tab-wrapper">
+				<?php
+				foreach( $tabs as $tab => $name ){
+					// CSS class for a current tab
+					$current = $tab === $current_tab ? ' nav-tab-active' : '';
+					// URL
+					$url = add_query_arg( array( 'page' => 'misha_test_page', 'tab' => $tab ), '' );
+					// printing the tab link
+					echo "<a class=\"nav-tab{$current}\" href=\"{$url}\">{$name}</a>";
+				}
+				?>
+			</nav>
 
             <?php
-
-    settings_fields('aben_options');
-
-    do_settings_sections('aben');
-
-    submit_button();
-
-    ?>
+			settings_fields('aben_options');
+			do_settings_sections('aben');
+			submit_button();
+			?>
+			
         </form>
 </div>
 
@@ -112,7 +128,7 @@ function aben_register_settings()
 
     add_settings_field(
         'email_body',
-        'Email Body',
+        'Email Template',
         'aben_callback_field_textarea',
         'aben',
         'aben_section_email_template',

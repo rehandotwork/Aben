@@ -51,13 +51,75 @@ function aben_callback_field_textarea($args)
     // Get the value for this textarea
     $value = isset($options[$id]) ? wp_kses(stripslashes_deep($options[$id]), $allowed_tags) : '';
 
-    echo '<textarea id="aben_options_' . $id . '"
+    /* echo '<textarea id="aben_options_' . $id . '"
                     name="aben_options[' . $id . ']"
                     rows="10"
                     cols="100">' . $value . '</textarea><br />';
-    echo '<label for="aben_options_' . $id . '">' . $label . '</label>';
-
-    // echo $value;
+    echo '<label for="aben_options_' . $id . '">' . $label . '</label>'; */
+	echo '<div style="font-family:Open Sans,sans-serif;margin:0;padding:0;background-color: #f5f7fa;color: #1f2430;">
+	<div style="width:100%;max-width:500px;margin: auto;">
+        <div style="padding:20px;">
+           <p style="font-size:16px"><strong>Hello Rehan</strong> <img width="16px" data-emoji="👋" class="an1" alt="👋" aria-label="👋" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/15.1/1f44b/72.png" loading="lazy">&nbsp;</p>
+			<p style="font-size:16px;">We bring you the newest Gulf jobs matching your profile: <span>Construction Manager jobs in Dubai - <a href="#" style="text-decoration: none;">edit preference</a></span></p>
+        </div>
+		 <div style="padding:10px">
+		 <div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+          <div style="width:80%">
+            <p style="font-size:16px;margin:0;color: #008dcd;">First Post Title</p>
+            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
+          </div>
+		  <div style="width:20%;align-content: center;text-align: center;">
+			<a href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
+		</div>
+		</div>
+		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+          <div style="width:80%">
+            <p style="font-size:16px;margin:0;color: #008dcd;">Second Post Title</p>
+            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
+          </div>
+		  <div style="width:20%;align-content: center;text-align: center;">
+			<a href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
+		</div>
+		</div>
+		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+          <div style="width:80%">
+            <p style="font-size:16px;margin:0;color: #008dcd;">Third Post Title</p>
+            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
+          </div>
+		  <div style="width:20%;align-content: center;text-align: center;">
+			<a href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
+		</div>
+		</div>
+		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+          <div style="width:80%">
+            <p style="font-size:16px;margin:0;color: #008dcd;">Fourth Post Title</p>
+            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
+          </div>
+		  <div style="width:20%;align-content: center;text-align: center;">
+			<a href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
+		</div>
+		</div>
+		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+          <div style="width:80%">
+            <p style="font-size:16px;margin:0;color: #008dcd;">Fifth Post Title</p>
+            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
+          </div>
+		  <div style="width:20%;align-content: center;text-align: center;">
+			<a href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
+		</div>
+		</div>
+		<div style="display:flex;padding-bottom:10px;">
+			<div style="width:100%;text-align:center;">
+            	<a href="#" style="display:inline-block;padding:10px 20px;background-color:#165d31;color:#ffffff;text-decoration:none;border-radius:25px">View All (30) Jobs</a>
+			</div>
+        </div>
+		</div>
+        <div style="color:#808080;text-align:center;padding:20px;">
+            <a href="#"><img src="https://gulfworking.com/wp-content/uploads/2024/08/gw-logo.png" alt="Site Logo" style="max-width:180px;margin-top: 10px;"></a>
+            <p>Gulfworking.com © 2024 All rights reserved.</p>
+            <p><a href="#" style="color:#808080;text-decoration:none">Unsubscribe</a></p>
+		</div>
+		</div>';
 }
 
 function aben_callback_field_select($args)

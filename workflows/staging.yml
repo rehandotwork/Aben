@@ -1,0 +1,19 @@
+name: Deploy staging on push
+on:
+  push:
+    branches:
+      - staging
+jobs:
+  web-deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    steps:
+    - name: Get latest code
+      uses: actions/checkout@v4
+    
+    - name: Sync files
+      uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+      with:
+        ftp-server: ${{ secrets.FTP_SERVER }}
+        ftp-username: ${{ secrets.FTP_USERNAME }}
+        fpt-password: ${{ secrets.FTP_PASSWORD }}

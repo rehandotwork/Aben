@@ -124,6 +124,6 @@ class Aben_Admin
 //     include_once dirname(__FILE__) . '/partials/register-cron.php';
 //     include_once dirname(__FILE__) . '/partials/send-email.php';
 //     include_once dirname(__FILE__) . '/partials/update-cron.php';
-//     // require_once dirname(__FILE__) . '/partials/build-email.php';
+//     require_once dirname(__FILE__) . '/partials/build-email.php';
 
 // }
