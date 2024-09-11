@@ -195,3 +195,26 @@ function aben_callback_field_select($args)
     echo '</select> <br /><label for="aben_options_' . $id . '">' . $label . '</label>';
 
 }
+
+function aben_callback_field_checkbox($args)
+{
+    // Retrieve the current options from the database, or use default values
+    $options = get_option('aben_options', array());
+
+    // Get the ID and label for the field from the arguments
+    $id = isset($args['id']) ? $args['id'] : '';
+    $label = isset($args['label']) ? $args['label'] : '';
+
+    // Check if the checkbox should be checked
+    $checked = isset($options[$id]) && $options[$id] == 1 ? 'checked' : '';
+
+    // Render the checkbox input field
+    echo '<input id="aben_options_' . esc_attr($id) . '"
+                name="aben_options[' . esc_attr($id) . ']"
+                type="checkbox"
+                value="1"
+                ' . $checked . '><br />';
+
+    // Render the label for the checkbox
+    echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
+}

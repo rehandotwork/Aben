@@ -39,8 +39,20 @@ function aben_callback_validate_options($input)
     }
 
     if (isset($input['smtp_port'])) {
-        $options['smtp_port'] = sanitize_text_field($input['smtp_port']);
+        $options['smtp_port'] = intval($input['smtp_port']);
     }
+
+    if (isset($input['number_of_posts'])) {
+        $options['number_of_posts'] = intval($input['number_of_posts']);
+    }
+
+    if (isset($input['unsubscribe_link'])) {
+        $options['unsubscribe_link'] = esc_url_raw($input['unsubscribe_link']);
+    }
+
+    $options['view_all_number'] = isset($input['view_all_number']) ? 1 : 0;
+
+    $options['show_unsubscribe'] = isset($input['show_unsubscribe']) ? 1 : 0;
 
     // Return the updated options array
     return $options;

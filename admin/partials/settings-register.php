@@ -95,11 +95,47 @@ function aben_register_settings()
 
     add_settings_field(
         'archive_page_slug',
-        'Archive Page Slug',
+        'All Posts Page Link',
         'aben_callback_field_text',
         'aben_section_general_setting',
         'aben_section_general_setting',
-        ['id' => 'archive_page_slug', 'label' => 'Slug of selected post type archive page']
+        ['id' => 'archive_page_slug', 'label' => 'Path of all posts page']
+    );
+
+    add_settings_field(
+        'number_of_posts',
+        'Number of Posts',
+        'aben_callback_field_text',
+        'aben_section_general_setting',
+        'aben_section_general_setting',
+        ['id' => 'number_of_posts', 'label' => 'Number of posts to send in email']
+    );
+
+    add_settings_field(
+        'view_all_number',
+        'Show Number on View All Posts Button',
+        'aben_callback_field_checkbox',
+        'aben_section_general_setting',
+        'aben_section_general_setting',
+        ['id' => 'view_all_number', 'label' => 'Display number of posts on View All button in email']
+    );
+
+    add_settings_field(
+        'show_unsubscribe',
+        'Show Unsubscribe',
+        'aben_callback_field_checkbox',
+        'aben_section_general_setting',
+        'aben_section_general_setting',
+        ['id' => 'show_unsubscribe', 'label' => 'Check to show unsubscribe link in email']
+    );
+
+    add_settings_field(
+        'unsubscribe_link',
+        'Unsubscribe Link',
+        'aben_callback_field_text',
+        'aben_section_general_setting',
+        'aben_section_general_setting',
+        ['id' => 'unsubscribe_link', 'label' => 'Link for unsubscribe from email notification']
     );
 
     add_settings_field(
