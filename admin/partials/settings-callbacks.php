@@ -8,12 +8,17 @@ if (!defined('ABSPATH')) {
 
 // Section Callbacks
 
-function aben_callback_section_email_notification()
+function aben_callback_section_receiver_setting()
 {
 }
 
-function aben_callback_section_email_template()
+function aben_callback_section_sender_setting()
 {
+}
+
+function aben_callback_section_email_setting()
+{
+
 }
 
 //Fields Callbacks
@@ -52,11 +57,11 @@ function aben_callback_field_textarea($args)
     $value = isset($options[$id]) ? wp_kses(stripslashes_deep($options[$id]), $allowed_tags) : '';
 
     /* echo '<textarea id="aben_options_' . $id . '"
-                    name="aben_options[' . $id . ']"
-                    rows="10"
-                    cols="100">' . $value . '</textarea><br />';
+    name="aben_options[' . $id . ']"
+    rows="10"
+    cols="100">' . $value . '</textarea><br />';
     echo '<label for="aben_options_' . $id . '">' . $label . '</label>'; */
-	echo '<div style="font-family:Open Sans,sans-serif;margin:0;padding:0;background-color: #f5f7fa;color: #1f2430;">
+    echo '<div style="font-family:Open Sans,sans-serif;margin:0;padding:0;background-color: #f5f7fa;color: #1f2430;">
 	<div style="width:100%;max-width:500px;margin: auto;">
         <div style="padding:20px;">
            <p style="font-size:16px"><strong>Hello Rehan</strong> <img width="16px" data-emoji="👋" class="an1" alt="👋" aria-label="👋" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/15.1/1f44b/72.png" loading="lazy">&nbsp;</p>
