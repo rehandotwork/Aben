@@ -71,7 +71,7 @@ function aben_register_settings()
     add_settings_section(
         'aben_section_general_setting',
         '',
-        'aben_callback_section_receiver_setting',
+        'aben_callback_section_general_setting',
         'aben_section_general_setting'
     );
 
@@ -151,7 +151,7 @@ function aben_register_settings()
     add_settings_section(
         'aben_section_smtp_setting',
         '',
-        'aben_callback_section_sender_setting',
+        'aben_callback_section_smtp_setting',
         'aben_section_smtp_setting'
     );
 
@@ -171,6 +171,51 @@ function aben_register_settings()
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
         ['id' => 'smtp_port', 'label' => 'SMTP port']
+    );
+
+    add_settings_field(
+        'smtp_encryption',
+        'Encryption Type',
+        'aben_callback_field_select',
+        'aben_section_smtp_setting',
+        'aben_section_smtp_setting',
+        ['id' => 'smtp_encryption', 'label' => 'Select encryption type']
+    );
+
+    add_settings_field(
+        'smtp_username',
+        'Username',
+        'aben_callback_field_text',
+        'aben_section_smtp_setting',
+        'aben_section_smtp_setting',
+        ['id' => 'smtp_username', 'label' => 'SMTP username']
+    );
+
+    add_settings_field(
+        'smtp_password',
+        'Password',
+        'aben_callback_field_password',
+        'aben_section_smtp_setting',
+        'aben_section_smtp_setting',
+        ['id' => 'smtp_password', 'label' => 'SMTP password']
+    );
+
+    add_settings_field(
+        'from_name',
+        'From',
+        'aben_callback_field_text',
+        'aben_section_smtp_setting',
+        'aben_section_smtp_setting',
+        ['id' => 'from_name', 'label' => 'From name you want to send in email']
+    );
+
+    add_settings_field(
+        'from_email',
+        'From Email',
+        'aben_callback_field_text',
+        'aben_section_smtp_setting',
+        'aben_section_smtp_setting',
+        ['id' => 'from_email', 'label' => 'From email address in the email']
     );
 
     // Email Template Tab

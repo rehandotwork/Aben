@@ -8,11 +8,11 @@ if (!defined('ABSPATH')) {
 
 // Section Callbacks
 
-function aben_callback_section_receiver_setting()
+function aben_callback_section_general_setting()
 {
 }
 
-function aben_callback_section_sender_setting()
+function aben_callback_section_smtp_setting()
 {
 }
 
@@ -169,6 +169,14 @@ function aben_callback_field_select($args)
 
         }
 
+    } else if ($id === 'smtp_encryption') {
+
+        $select_options = array(
+            'none' => 'None',
+            'tls' => 'TLS',
+            'ssl' => 'SSL',
+        );
+
     } else if ($id === 'email_frequency') {
 
         $select_options = array(
@@ -208,6 +216,8 @@ function aben_callback_field_checkbox($args)
     // Check if the checkbox should be checked
     $checked = isset($options[$id]) && $options[$id] == 1 ? 'checked' : '';
 
+    echo '<input type="hidden" name="aben_options[' . esc_attr($id) . ']" value="0">';
+
     // Render the checkbox input field
     echo '<input id="aben_options_' . esc_attr($id) . '"
                 name="aben_options[' . esc_attr($id) . ']"
@@ -216,5 +226,28 @@ function aben_callback_field_checkbox($args)
                 ' . $checked . '><br />';
 
     // Render the label for the checkbox
+    echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
+}
+
+function aben_callback_field_password($args)
+{
+    // Retrieve the current options from the database, or use default values
+    $options = get_option('aben_options', array());
+
+    // Get the ID and label for the field from the arguments
+    $id = isset($args['id']) ? $args['id'] : '';
+    $label = isset($args['label']) ? $args['label'] : '';
+
+    // Retrieve the current value for the field, if set
+    $value = isset($options[$id]) ? esc_attr($options[$id]) : '';
+
+    // Render the password input field
+    echo '<input id="aben_options_' . esc_attr($id) . '"
+              name="aben_options[' . esc_attr($id) . ']"
+              type="password"
+              size="40"
+              value="' . $value . '"><br />';
+
+    // Render the label for the password field
     echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
 }

@@ -81,6 +81,7 @@ if (is_admin()) {
     include_once dirname(__FILE__) . '/admin/partials/settings-validate.php';
     include_once dirname(__FILE__) . '/admin/partials/user-settings.php';
     include_once dirname(__FILE__) . '/admin/partials/user-callbacks.php';
+    include_once dirname(__FILE__) . '/admin/partials/smtp-settings.php';
 }
 
 register_activation_hook(__FILE__, 'activate_aben');
