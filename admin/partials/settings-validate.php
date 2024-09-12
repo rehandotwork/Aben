@@ -55,7 +55,17 @@ function aben_callback_validate_options($input)
 
     if (isset($input['smtp_password'])) {
         // Use WordPress's hashing function
-        $input['smtp_password'] = wp_hash_password($input['smtp_password']);
+        $input['smtp_password'] = sanitize_text_field($input['smtp_password']);
+    }
+
+    if (isset($input['from_name'])) {
+        // Use WordPress's hashing function
+        $input['from_name'] = sanitize_text_field($input['from_name']);
+    }
+
+    if (isset($input['from_email'])) {
+        // Use WordPress's hashing function
+        $input['from_email'] = sanitize_email($input['from_email']);
     }
 
     if (isset($input['number_of_posts'])) {

@@ -16,8 +16,7 @@ function aben_options_default()
         'email_frequency' => 'once_in_a_day',
         'email_subject' => 'New post published',
         'email_body' => 'Hi, new post has been published. Read now',
-        'smtp_host' => 'mail.inaqani.com',
-        'smtp_port' => '587',
+
     );
 
 }

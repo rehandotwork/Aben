@@ -39,11 +39,17 @@ settings_fields('aben_options');
 
     // Display only the relevant settings based on the active tab
     if ($current_tab === 'general') {
+
         do_settings_sections('aben_section_general_setting');
+
     } elseif ($current_tab === 'smtp') {
+
         do_settings_sections('aben_section_smtp_setting');
+
     } elseif ($current_tab === 'email') {
+
         do_settings_sections('aben_section_email_setting');
+
     }
 
     // Add a hidden field to identify the active tab if needed
