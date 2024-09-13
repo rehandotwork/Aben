@@ -80,5 +80,7 @@ function aben_callback_validate_options($input)
 
     $input['show_unsubscribe'] = !empty($input['show_unsubscribe']) ? 1 : 0;
 
+    $input['use_smtp'] = !empty($input['use_smtp']) ? 1 : 0;
+
     return $input;
 }

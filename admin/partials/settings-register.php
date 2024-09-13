@@ -6,6 +6,8 @@ if (!defined('ABSPATH')) {
 
 }
 
+add_action('admin_init', 'aben_register_settings');
+
 function aben_display_settings_page()
 {
     if (!current_user_can('manage_options')) {
@@ -16,6 +18,7 @@ function aben_display_settings_page()
         'general' => 'General',
         'smtp' => 'SMTP',
         'email' => 'Email Template',
+        'test_email' => 'Test Email',
     );
 
     $current_tab = isset($_GET['tab']) && isset($tabs[$_GET['tab']]) ? $_GET['tab'] : 'general';
@@ -39,25 +42,44 @@ settings_fields('aben_options');
 
     // Display only the relevant settings based on the active tab
     if ($current_tab === 'general') {
-
         do_settings_sections('aben_section_general_setting');
-
     } elseif ($current_tab === 'smtp') {
-
         do_settings_sections('aben_section_smtp_setting');
-
     } elseif ($current_tab === 'email') {
-
         do_settings_sections('aben_section_email_setting');
-
     }
 
     // Add a hidden field to identify the active tab if needed
     echo '<input type="hidden" name="aben_tab" value="' . esc_attr($current_tab) . '" />';
 
-    submit_button();
+    // Add submit button for all tabs except "test_email"
+    if ($current_tab !== 'test_email') {
+        submit_button();
+    }
     ?>
         </form>
+
+        <?php if ($current_tab === 'test_email'): ?>
+            <!-- Display success or error message if available -->
+            <?php if (isset($_GET['test_email_sent'])): ?>
+                <div class="notice notice-<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?> is-dismissible">
+                    <p><?php echo $_GET['test_email_sent'] === 'success' ? 'Email sent successfully.' : 'Check SMTP settings, cannot send test email.'; ?></p>
+                </div>
+            <?php endif;?>
+
+            <!-- Test Email Form -->
+            <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+                <p>
+                    <label for="test_email_address">Send Test Mail To:</label>
+                    <input type="email" id="test_email_address" name="test_email_address" class="regular-text" required />
+                </p>
+                <p>
+                    <input type="hidden" name="action" value="aben_send_test_email" />
+                    <input type="submit" class="button button-primary" value="Send Test Email" />
+                </p>
+                <?php wp_nonce_field('aben_send_test_email', 'aben_test_email_nonce');?>
+            </form>
+        <?php endif;?>
     </div>
     <?php
 }
@@ -162,6 +184,15 @@ function aben_register_settings()
     );
 
     add_settings_field(
+        'use_smtp',
+        'Use SMTP',
+        'aben_callback_field_checkbox',
+        'aben_section_smtp_setting',
+        'aben_section_smtp_setting',
+        ['id' => 'use_smtp', 'label' => 'Check to use SMTP service']
+    );
+
+    add_settings_field(
         'smtp_host',
         'SMTP Host',
         'aben_callback_field_text',
@@ -251,5 +282,3 @@ function aben_register_settings()
     );
 
 }
-
-add_action('admin_init', 'aben_register_settings');
