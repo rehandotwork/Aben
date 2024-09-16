@@ -7,6 +7,17 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
+// add_action('admin_notices', 'aben_get_email_template');
+
+function aben_get_email_template()
+{
+
+    $email_template_path = plugin_dir_path(__FILE__) . 'email-template.html';
+    $email_template = file_get_contents($email_template_path);
+    return $email_template;
+
+}
+
 // Include PHPMailer from the plugin's `includes` directory
 require_once plugin_dir_path(__DIR__) . '../includes/vendor/autoload.php';
 
@@ -29,6 +40,7 @@ function aben_get_smtp_settings()
 function aben_send_smtp_email($to, $subject, $message)
 {
     $aben_smtp = aben_get_smtp_settings();
+    $email_template = aben_get_email_template();
 
     // Create a new PHPMailer instance
     $mail = new PHPMailer(true);
@@ -56,7 +68,7 @@ function aben_send_smtp_email($to, $subject, $message)
         $mail->isHTML(true);
         $mail->addReplyTo($aben_smtp['from_email'], $aben_smtp['from_email']);
         $mail->Subject = $subject;
-        $mail->Body = $message;
+        $mail->Body = $email_template;
 
         // Send the email
         $mail->send();

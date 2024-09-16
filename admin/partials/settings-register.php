@@ -46,7 +46,10 @@ settings_fields('aben_options');
     } elseif ($current_tab === 'smtp') {
         do_settings_sections('aben_section_smtp_setting');
     } elseif ($current_tab === 'email') {
+        echo '<div id = "aben-email-tab-grid" style="display:grid; grid-template-columns:4fr 6fr">';
         do_settings_sections('aben_section_email_setting');
+        do_settings_sections('aben_section_email_template');
+        echo '</div>';
     }
 
     // Add a hidden field to identify the active tab if needed
@@ -120,6 +123,15 @@ function aben_register_settings()
         'aben_section_general_setting',
         'aben_section_general_setting',
         ['id' => 'user_roles', 'label' => 'Enable notification for users']
+    );
+
+    add_settings_field(
+        'email_subject',
+        'Email Subject',
+        'aben_callback_field_text',
+        'aben_section_general_setting',
+        'aben_section_general_setting',
+        ['id' => 'email_subject', 'label' => 'Email Subject']
     );
 
     add_settings_field(
@@ -265,20 +277,108 @@ function aben_register_settings()
     );
 
     add_settings_field(
-        'email_subject',
-        'Email Subject',
+        'body_bg',
+        'Body Background',
+        'aben_callback_field_color',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'body_bg', 'label' => 'Background color of body']
+    );
+
+    add_settings_field(
+        'header_text',
+        'Header Text',
         'aben_callback_field_text',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'email_subject', 'label' => 'Email Subject']
+        ['id' => 'header_text', 'label' => 'Text in the email header']
+    );
+
+    add_settings_field(
+        'header_bg',
+        'Header Background',
+        'aben_callback_field_color',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'header_bg', 'label' => 'Background color of header']
+    );
+
+    add_settings_field(
+        'header_subtext',
+        'Header Subtext',
+        'aben_callback_field_text',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'header_subtext', 'label' => 'Subtext in the email header']
+    );
+
+    add_settings_field(
+        'footer_text',
+        'Footer Text',
+        'aben_callback_field_text',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'footer_text', 'label' => 'Footer text in the email']
+    );
+
+    add_settings_field(
+        'site_logo',
+        'Site Logo',
+        'aben_callback_field_media',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'site_logo', 'label' => 'Site logo in the email']
+    );
+
+    add_settings_field(
+        'show_number_view_all',
+        'Show Posts Number',
+        'aben_callback_field_checkbox',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'show_number_view_all', 'label' => 'Show posts number in "View All" button']
+    );
+
+    add_settings_field(
+        'view_all_posts_text',
+        'Change "View All Posts" text to',
+        'aben_callback_field_text',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'view_all_posts_text', 'label' => '']
+    );
+
+    add_settings_field(
+        'show_view_post',
+        'Show View Post',
+        'aben_callback_field_checkbox',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'show_view_post', 'label' => 'Show "View Post" button in posts list']
+    );
+
+    add_settings_field(
+        'view_post_text',
+        'Change "View Post" text to',
+        'aben_callback_field_text',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'view_post_text', 'label' => '']
+    );
+
+    add_settings_section(
+        'aben_section_email_template',
+        '',
+        'aben_callback_section_email_template',
+        'aben_section_email_template'
     );
 
     add_settings_field(
         'email_body',
-        'Email Template',
+        '',
         'aben_callback_field_textarea',
-        'aben_section_email_setting',
-        'aben_section_email_setting',
+        'aben_section_email_template',
+        'aben_section_email_template',
         ['id' => 'email_body', 'label' => 'Email body (Text/Markup)']
     );
 

@@ -2,3 +2,9 @@
  * All of the CSS for your admin-specific functionality should be
  * included in this file.
  */
+
+ #aben-email-tab-grid {
+    .form-table th {
+        width: unset;
+    }
+ }

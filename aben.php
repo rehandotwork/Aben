@@ -98,6 +98,13 @@ function aben_show_plugin_settings_link($links, $file)
 }
 add_filter('plugin_action_links', 'aben_show_plugin_settings_link', 10, 2);
 
+function aben_enqueue_media_uploader()
+{
+    wp_enqueue_media(); // Enqueues the media uploader script
+    wp_enqueue_script('aben-media-uploader', plugin_dir_url(__FILE__) . 'admin/js/aben-admin.js', array('jquery'), null, true);
+}
+add_action('admin_enqueue_scripts', 'aben_enqueue_media_uploader');
+
 /**
  * The core plugin class that is used to define internationalization,
  * admin-specific hooks, and public-facing site hooks.

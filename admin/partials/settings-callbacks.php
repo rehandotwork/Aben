@@ -21,6 +21,11 @@ function aben_callback_section_email_setting()
 
 }
 
+function aben_callback_section_email_template()
+{
+
+}
+
 //Fields Callbacks
 
 function aben_callback_field_text($args)
@@ -223,7 +228,7 @@ function aben_callback_field_checkbox($args)
                 name="aben_options[' . esc_attr($id) . ']"
                 type="checkbox"
                 value="1"
-                ' . $checked . '><br />';
+                ' . $checked . '>';
 
     // Render the label for the checkbox
     echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
@@ -250,4 +255,44 @@ function aben_callback_field_password($args)
 
     // Render the label for the password field
     echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
+}
+
+function aben_callback_field_color($args)
+{
+    // Retrieve the current options from the database, or use default values
+    $options = get_option('aben_options', array());
+
+    // Get the ID and label for the field from the arguments
+    $id = isset($args['id']) ? $args['id'] : '';
+    $label = isset($args['label']) ? $args['label'] : '';
+
+    // Retrieve the current value for the field, if set
+    $value = isset($options[$id]) ? esc_attr($options[$id]) : '#000000'; // Default to black if no color is set
+
+    // Render the color input field
+    echo '<input id="aben_options_' . esc_attr($id) . '"
+              name="aben_options[' . esc_attr($id) . ']"
+              type="color"
+              value="' . $value . '"><br />';
+
+    // Render the label for the color field
+    echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
+}
+
+function aben_callback_field_media($args)
+{
+    $options = get_option('aben_options', aben_options_default());
+
+    $id = isset($args['id']) ? $args['id'] : '';
+    $label = isset($args['label']) ? $args['label'] : '';
+
+    $value = isset($options[$id]) ? esc_url($options[$id]) : '';
+
+    echo '<input type="hidden" id="aben_options_' . esc_attr($id) . '"
+                name="aben_options[' . esc_attr($id) . ']"
+                value="' . esc_attr($value) . '">';
+    echo '<button type="button" class="button aben-media-upload-button">Upload Image</button>';
+    echo '<img id="aben_' . esc_attr($id) . '_preview" src="' . esc_url($value) . '" style="max-width:100px;margin-top:10px;' . ($value ? 'display:block;' : 'display:none;') . '">';
+    echo '<button type="button" class="button aben-media-remove-button" style="' . ($value ? 'display:block;' : 'display:none;') . '">Remove Image</button>';
+    echo '<br><label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
 }
