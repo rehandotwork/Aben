@@ -63,7 +63,7 @@ settings_fields('aben_options');
             <!-- Display success or error message if available -->
             <?php if (isset($_GET['test_email_sent'])): ?>
                 <div class="notice notice-<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?> is-dismissible">
-                    <p><?php echo $_GET['test_email_sent'] === 'success' ? 'Email sent successfully.' : 'Check SMTP settings, cannot send test email.'; ?></p>
+                    <p><?php echo $_GET['test_email_sent'] === 'success' ? 'Test email sent successfully.' : 'SMTP connection failed. Please check your credentials and try again'; ?></p>
                 </div>
             <?php endif;?>
 
@@ -79,6 +79,7 @@ settings_fields('aben_options');
                 </p>
                 <?php wp_nonce_field('aben_send_test_email', 'aben_test_email_nonce');?>
             </form>
+
         <?php endif;?>
     </div>
     <?php
@@ -248,11 +249,11 @@ function aben_register_settings()
 
     add_settings_field(
         'from_email',
-        'From Email',
+        'Reply to',
         'aben_callback_field_text',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'from_email', 'label' => 'From email address in the email']
+        ['id' => 'from_email', 'label' => 'Reply to email address']
     );
 
     // Email Template Tab

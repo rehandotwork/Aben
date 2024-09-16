@@ -45,7 +45,7 @@ function aben_send_smtp_email($to, $subject, $message)
             $mail->Port = $aben_smtp['smtp_port'];
 
             // Set the sender information
-            $mail->setFrom($aben_smtp['from_email'], $aben_smtp['from_name']);
+            $mail->setFrom($aben_smtp['smtp_username'], $aben_smtp['from_name']);
         } else {
             // SMTP is not enabled; exit function
             return false;
@@ -54,6 +54,7 @@ function aben_send_smtp_email($to, $subject, $message)
         // Add recipient, subject, and body
         $mail->addAddress($to);
         $mail->isHTML(true);
+        $mail->addReplyTo($aben_smtp['from_email'], $aben_smtp['from_email']);
         $mail->Subject = $subject;
         $mail->Body = $message;
 
