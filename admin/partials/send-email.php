@@ -40,7 +40,7 @@ function aben_send_email()
 
         $headers[] = 'Content-Type:text/html';
 
-        $headers[] = 'From: Gulfworking.com | Daily Gulf Jobs <notifications@gulfworking.com>';
+        // $headers[] = 'From: ' . get_bloginfo('name') . ' <' . $admin_email . '>';
 
         $email_addresses = aben_get_users_email();
 
@@ -60,16 +60,15 @@ function aben_send_email()
 
                 $personalized_email_body = str_replace('{{USERNAME}}', $user_firstname, $email_body); // Changing placeholders in email body
 
-                if (aben_send_smtp_email($email_address, $email_subject, $personalized_email_body)) {
+                if (1 === $aben_settings['use_smtp']) {
 
-                    error_log('Email sent to ' . $email_address . ' using SMTP');
+                    aben_send_smtp_email($email_address, $email_subject, $personalized_email_body) ? error_log('Email sent to ' . $email_address . ' using SMTP') : '';
+
+                } else {
+
+                    wp_mail($email_address, $email_subject, $personalized_email_body, $headers) ? error_log('Email sent to ' . $email_address . ' using wp_mail') : '';
 
                 }
-                // else {
-                //     wp_mail($email_address, $email_subject, $personalized_email_body, $headers);
-
-                //     error_log('Email sent to ' . $email_address . ' using wp_mail');
-                // }
             }
 
         } else {
@@ -85,6 +84,7 @@ function get_email_body($posts_to_send, $post_count, $posts_published_today, $po
     global $aben_settings;
 
     //Show Hide
+    $show_view_all = $aben_settings['view_all_posts_text'];
     $show_number_view_all = $aben_settings['view_all_number'] === 1 ? true : false;
     $show_unsubscribe = $aben_settings['show_unsubscribe'] === 1 ? true : false;
     $show_view_post = $aben_settings['show_view_post'] === 1 ? true : false;
@@ -104,6 +104,28 @@ function get_email_body($posts_to_send, $post_count, $posts_published_today, $po
 
     //Media
     $site_logo = $aben_settings['site_logo'];
+
+    $placeholders = array(
+
+        '{{HEADER_TEXT}}' => $header_text,
+        '{{HEADER_SUBTEXT}}' => $header_subtext,
+        '{{VIEW_POST_TEXT}}' => $view_post_text,
+        '{{VIEW_ALL_POSTS_TEXT}}' => $view_all_posts_text,
+        '{{POSTS_NUMBER}}' => $posts_published_today,
+        '{{FOOTER_TEXT}}' => $footer_text,
+        '{{SITE_LOGO}}' => $site_logo,
+        '{{UNSUBSCRIBE_LINK}}' => $unsubscribe_link,
+        '{{ALL_POSTS_PAGE_LINK}}' => $archive_page_slug,
+
+        '{{BODY_BG}}' => $body_bg,
+        '{{HEADER_BG}}' => $header_bg,
+
+    );
+
+    //Email Template
+    $email_template = aben_get_email_template();
+
+    $email_template = str_replace(array_keys($placeholders), array_values($placeholders), $email_template);
 
     $email_body = '<!DOCTYPE html>
 <html>
@@ -154,5 +176,5 @@ function get_email_body($posts_to_send, $post_count, $posts_published_today, $po
 </body>
 </html>';
 
-    return $email_body;
+    return $email_template;
 }

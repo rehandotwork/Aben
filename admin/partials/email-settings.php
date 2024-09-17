@@ -119,6 +119,8 @@ function aben_get_today_posts()
             $title = $post->post_title;
             // echo $title;
 
+            $excerpt = $post->post_excerpt;
+
             $link = get_permalink($id);
 
             // $author_id = intval($post->post_author);
@@ -140,6 +142,7 @@ function aben_get_today_posts()
             $posts_to_email[$count] = array(
                 'title' => $title,
                 'link' => $link,
+                'excerpt' => $excerpt,
                 'author' => $author,
                 'country' => $country,
             );

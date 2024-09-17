@@ -11,11 +11,23 @@ if (!defined('ABSPATH')) {
 
 function aben_get_email_template()
 {
+    // Start output buffering to capture the output
+    ob_start();
 
-    $email_template_path = plugin_dir_path(__FILE__) . 'email-template.html';
-    $email_template = file_get_contents($email_template_path);
+    // Include the email template to process PHP code
+    $email_template_path = plugin_dir_path(__FILE__) . 'email-template.php';
+
+    if (file_exists($email_template_path)) {
+        include $email_template_path; // This will execute PHP code inside the template
+    } else {
+        return ''; // Return an empty string if the file does not exist
+    }
+
+    // Get the output content and stop buffering
+    $email_template = ob_get_clean();
+
+    // Return the processed template content
     return $email_template;
-
 }
 
 // Include PHPMailer from the plugin's `includes` directory

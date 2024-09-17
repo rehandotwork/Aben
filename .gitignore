@@ -1,5 +1,3 @@
-admin/partials/email.html
-admin/partials/email-template.html
 admin/partials/build-email.php
 admin/.DS_Store
 .DS_Store
