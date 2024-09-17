@@ -98,14 +98,20 @@ function aben_get_today_posts()
 
     $count = 0; // To control posts loop iteration
 
+    $get_settings = aben_get_options();
+
+    $no_of_posts_to_send = $get_settings['number_of_posts'];
+
+    $no_of_posts_to_send = $posts_published_today < $no_of_posts_to_send ? $posts_published_today : $no_of_posts_to_send;
+
     $posts_to_email = array();
 
     if (!empty($posts_published_today)) {
 
         foreach ($posts as $post) {
 
-            if ($count >= 5) {
-                break; // Loop breaks after 5 posts
+            if ($count >= $no_of_posts_to_send) {
+                break;
             }
 
             $id = $post->ID;

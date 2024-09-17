@@ -68,7 +68,7 @@ function aben_send_smtp_email($to, $subject, $message)
         $mail->isHTML(true);
         $mail->addReplyTo($aben_smtp['from_email'], $aben_smtp['from_email']);
         $mail->Subject = $subject;
-        $mail->Body = $email_template;
+        $mail->Body = $message;
 
         // Send the email
         $mail->send();
@@ -99,7 +99,7 @@ function aben_handle_test_email()
 
     // Define email subject and body
     $subject = 'Aben SMTP Test Mail';
-    $message = 'This is a test mail from Aben plugin';
+    $message = aben_get_email_template();
 
     // Send the test email
     if (aben_send_smtp_email($to, $subject, $message)) {
