@@ -18,7 +18,7 @@ function aben_callback_validate_options($input)
     }
 
     if (isset($input['archive_page_slug'])) {
-        $input['archive_page_slug'] = sanitize_text_field($input['archive_page_slug']);
+        $input['archive_page_slug'] = esc_url_raw($input['archive_page_slug']);
     }
 
     if (isset($input['user_roles'])) {

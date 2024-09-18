@@ -46,9 +46,73 @@ settings_fields('aben_options');
     } elseif ($current_tab === 'smtp') {
         do_settings_sections('aben_section_smtp_setting');
     } elseif ($current_tab === 'email') {
-        echo '<div id = "aben-email-tab-grid" style="display:grid; grid-template-columns:4fr 6fr">';
+        echo '<div id = "aben-email-tab-grid" style="display:grid; grid-template-columns:4fr 6fr; grid-gap:1rem;">';
         do_settings_sections('aben_section_email_setting');
-        do_settings_sections('aben_section_email_template');
+        // do_settings_sections('aben_section_email_template');
+        echo '<div id="aben-email-template"style="font-family:Open Sans,sans-serif;margin:0;padding:0;background-color: #f5f7fa;color: #1f2430;">
+	<div style="width:100%;max-width:500px;margin: auto;">
+        <div style="padding:20px;">
+           <p id="header-text" style="font-size:16px"><strong>Hello Aben</strong> <img width="16px" data-emoji="👋" class="an1" alt="👋" aria-label="👋" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/15.1/1f44b/72.png" loading="lazy">&nbsp;</p>
+			<p id="header-subtext"style="font-size:16px;">We bring you the newest Gulf jobs matching your profile: <span>Construction Manager jobs in Dubai - <a href="#" style="text-decoration: none;">edit preference</a></span></p>
+        </div>
+		 <div style="padding:10px">
+		 <div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+          <div style="width:70%">
+            <p style="font-size:16px;margin:0;color: #008dcd;">First Post Title</p>
+            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
+          </div>
+		  <div style="width:30%;align-content: center;text-align: center;">
+			<a class="view-post" href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
+		</div>
+		</div>
+		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+          <div style="width:70%">
+            <p style="font-size:16px;margin:0;color: #008dcd;">Second Post Title</p>
+            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
+          </div>
+		  <div style="width:30%;align-content: center;text-align: center;">
+			<a class="view-post" href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
+		</div>
+		</div>
+		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+          <div style="width:70%">
+            <p style="font-size:16px;margin:0;color: #008dcd;">Third Post Title</p>
+            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
+          </div>
+		  <div style="width:30%;align-content: center;text-align: center;">
+			<a class="view-post" href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
+		</div>
+		</div>
+		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+          <div style="width:70%">
+            <p style="font-size:16px;margin:0;color: #008dcd;">Fourth Post Title</p>
+            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
+          </div>
+		  <div style="width:30%;align-content: center;text-align: center;">
+			<a class="view-post" href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
+		</div>
+		</div>
+		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+          <div style="width:70%">
+            <p style="font-size:16px;margin:0;color: #008dcd;">Fifth Post Title</p>
+            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
+          </div>
+		  <div style="width:30%;align-content: center;text-align: center;">
+			<a class="view-post" href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
+		</div>
+		</div>
+		<div style="display:flex;padding-bottom:10px;">
+			<div style="width:100%;text-align:center;">
+            	<a id="view-all-post" href="#" style="display:inline-block;padding:10px 20px;background-color:#165d31;color:#ffffff;text-decoration:none;border-radius:25px">View All Jobs <span id="post-number">(10)</span></a>
+			</div>
+        </div>
+		</div>
+        <div style="color:#808080;text-align:center;padding:20px;">
+            <a href="#"><img src="https://gulfworking.com/wp-content/uploads/2024/08/gw-logo.png" alt="Site Logo" style="max-width:180px;margin-top: 10px;"></a>
+            <p id="footer-text">Auto Bulk Email Notification © 2024 All rights reserved.</p>
+            <p id="unsubscribe"><a href="#" style="color:#808080;text-decoration:none">Unsubscribe</a></p>
+		</div>
+		</div>';
         echo '</div>';
     }
 
@@ -141,33 +205,6 @@ function aben_register_settings()
         'aben_section_general_setting',
         'aben_section_general_setting',
         ['id' => 'archive_page_slug', 'label' => 'Path of all posts page']
-    );
-
-    add_settings_field(
-        'number_of_posts',
-        'Number of Posts',
-        'aben_callback_field_text',
-        'aben_section_general_setting',
-        'aben_section_general_setting',
-        ['id' => 'number_of_posts', 'label' => 'Number of posts to send in email']
-    );
-
-    add_settings_field(
-        'show_view_all',
-        'Show View All Posts Button',
-        'aben_callback_field_checkbox',
-        'aben_section_general_setting',
-        'aben_section_general_setting',
-        ['id' => 'show_view_all', 'label' => 'Display View All button in email']
-    );
-
-    add_settings_field(
-        'show_unsubscribe',
-        'Show Unsubscribe',
-        'aben_callback_field_checkbox',
-        'aben_section_general_setting',
-        'aben_section_general_setting',
-        ['id' => 'show_unsubscribe', 'label' => 'Check to show unsubscribe link in email']
     );
 
     add_settings_field(
@@ -331,12 +368,21 @@ function aben_register_settings()
     );
 
     add_settings_field(
-        'show_number_view_all',
-        'Show Posts Number',
+        'number_of_posts',
+        'Number of Posts',
+        'aben_callback_field_select',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'number_of_posts', 'label' => 'Number of posts to send in email']
+    );
+
+    add_settings_field(
+        'show_view_all',
+        'Show View All Posts Button',
         'aben_callback_field_checkbox',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'show_number_view_all', 'label' => 'Show posts number in "View All" button']
+        ['id' => 'show_view_all', 'label' => 'Display View All button in email']
     );
 
     add_settings_field(
@@ -346,6 +392,15 @@ function aben_register_settings()
         'aben_section_email_setting',
         'aben_section_email_setting',
         ['id' => 'view_all_posts_text', 'label' => '']
+    );
+
+    add_settings_field(
+        'show_number_view_all',
+        'Show Posts Number',
+        'aben_callback_field_checkbox',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'show_number_view_all', 'label' => 'Show posts number in "View All" button']
     );
 
     add_settings_field(
@@ -364,6 +419,15 @@ function aben_register_settings()
         'aben_section_email_setting',
         'aben_section_email_setting',
         ['id' => 'view_post_text', 'label' => '']
+    );
+
+    add_settings_field(
+        'show_unsubscribe',
+        'Show Unsubscribe',
+        'aben_callback_field_checkbox',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'show_unsubscribe', 'label' => 'Check to show unsubscribe link in email']
     );
 
     add_settings_section(

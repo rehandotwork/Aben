@@ -42,14 +42,14 @@ foreach ($posts_to_send as $post) {
     // $country = $post['country'];
 
     echo '<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
-					<div style="width:80%">
+					<div style="width:70%">
 						<p style="font-size:16px;margin:0;color: #008dcd;">' . $title . '</p>';
 
     if (!empty($excerpt)) {
         echo '<p style="font-size:14px;color:#333333;margin:5px 0 0">' . $excerpt . '</p>';
     }
     echo '</div>
-					<div style="width:20%;align-content: center;text-align: center;">';
+					<div style="width:30%;align-content: center;text-align: center;">';
     if ($show_view_post) {
         echo '<a href="' . $link . '"
 							style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">{{VIEW_POST_TEXT}}</a>';
@@ -63,7 +63,7 @@ echo '<div style="display:flex;padding-bottom:10px;">
 					<div style="width:100%;text-align:center;">';
 
 if ($show_view_all) {
-    echo '<a href="' . home_url('{{ALL_POSTS_PAGE_LINK}}') . '"
+    echo '<a href="{{ALL_POSTS_PAGE_LINK}}"
 							style="display:inline-block;padding:10px 20px;background-color:#165d31;color:#ffffff;text-decoration:none;border-radius:25px">{{VIEW_ALL_POSTS_TEXT}}';
 
     if ($show_number_view_all) {

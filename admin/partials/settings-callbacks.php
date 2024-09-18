@@ -182,6 +182,22 @@ function aben_callback_field_select($args)
             'ssl' => 'SSL',
         );
 
+    } else if ($id === 'number_of_posts') {
+
+        $select_options = array(
+            '1' => 1,
+            '2' => 2,
+            '3' => 3,
+            '4' => 4,
+            '5' => 5,
+            '6' => 6,
+            '7' => 7,
+            '8' => 8,
+            '9' => 9,
+            '10' => 10,
+            'All' => 0,
+        );
+
     } else if ($id === 'email_frequency') {
 
         $select_options = array(

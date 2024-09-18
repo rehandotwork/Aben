@@ -58,4 +58,93 @@
       $button.hide(); // Hide the Remove Image button
     });
   });
+
+  // Map input field IDs to corresponding elements and their actions
+  const elementsMap = {
+    aben_options_header_text: {
+      target: "#header-text",
+      action: (el, value) => el.html(`<strong>${value}</strong>`),
+    },
+    aben_options_header_subtext: {
+      target: "#header-subtext",
+      action: (el, value) => el.text(value),
+    },
+    aben_options_footer_text: {
+      target: "#footer-text",
+      action: (el, value) => el.text(value),
+    },
+    aben_options_body_bg: {
+      target: "#aben-email-template",
+      action: (el, value) => el.css("background-color", value),
+    },
+    aben_options_header_bg: {
+      target: "#header-text",
+      action: (el, value) => el.closest("div").css("background-color", value),
+    },
+    aben_options_view_post_text: {
+      target: ".view-post",
+      action: (el, value) => $(".view-post").text(value),
+    },
+    aben_options_view_all_posts_text: {
+      target: "#view-all-post",
+      action: (el, value) => el.text(value),
+    },
+    aben_options_show_view_post: {
+      target: ".view-post",
+      action: (el, value) =>
+        $(".view-post").css("display", value ? "inline-block" : "none"),
+      checkbox: true,
+    },
+    aben_options_show_unsubscribe: {
+      target: "#unsubscribe",
+      action: (el, value) =>
+        $("#unsubscribe").css("display", value ? "inline-block" : "none"),
+      checkbox: true,
+    },
+    aben_options_view_all_posts_text: {
+      target: "#view-all-post",
+      action: (el, value) => {
+        const postNumber = $("#post-number").html(); // Capture the current content inside the span
+        el.html(`${value} <span id="post-number">${postNumber}</span>`); // Update the link text while preserving #post-number
+      },
+    },
+    aben_options_show_view_all: {
+      target: "#view-all-post",
+      action: (el, value) => {
+        el.css("display", value ? "inline-block" : "none"); // Show/hide the view-all-post link
+      },
+      checkbox: true,
+    },
+    aben_options_show_number_view_all: {
+      target: "#post-number",
+      action: (el, value) => {
+        el.css("display", value ? "inline-block" : "none"); // Show/hide the post-number span
+      },
+      checkbox: true,
+    },
+  };
+
+  // General function to handle input changes
+  function handleInputChange(event) {
+    const inputId = $(event.target).attr("id");
+    const map = elementsMap[inputId];
+    if (map) {
+      const targetElement = $(map.target);
+      const value = map.checkbox
+        ? $(event.target).is(":checked")
+        : $(event.target).val();
+      map.action(targetElement, value);
+    }
+  }
+
+  // Attach event listeners to all inputs in the elementsMap
+  $.each(elementsMap, function (inputId, map) {
+    $(`#${inputId}`).on("input change", handleInputChange);
+  });
+
+  // Trigger the update on page load to reflect current values
+  $.each(elementsMap, function (inputId, map) {
+    const inputElement = $(`#${inputId}`);
+    handleInputChange({ target: inputElement });
+  });
 })(jQuery);
