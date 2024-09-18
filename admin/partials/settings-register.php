@@ -153,12 +153,12 @@ function aben_register_settings()
     );
 
     add_settings_field(
-        'view_all_number',
-        'Show Number on View All Posts Button',
+        'show_view_all',
+        'Show View All Posts Button',
         'aben_callback_field_checkbox',
         'aben_section_general_setting',
         'aben_section_general_setting',
-        ['id' => 'view_all_number', 'label' => 'Display number of posts on View All button in email']
+        ['id' => 'show_view_all', 'label' => 'Display View All button in email']
     );
 
     add_settings_field(

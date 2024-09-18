@@ -6,9 +6,10 @@ if (!defined('ABSPATH')) {
 require_once 'email-settings.php';
 
 $aben_settings = aben_get_options();
-$show_view_all = $aben_settings['view_all_posts_text'] === 1 ? true : false;
-$show_number_view_all = $aben_settings['view_all_number'] === 1 ? true : false;
+
+$show_view_all = $aben_settings['show_view_all'] === 1 ? true : false;
 $show_unsubscribe = $aben_settings['show_unsubscribe'] === 1 ? true : false;
+$show_number_view_all = $aben_settings['show_number_view_all'] === 1 ? true : false;
 $show_view_post = $aben_settings['show_view_post'] === 1 ? true : false;
 
 $aben_get_posts_data = aben_get_today_posts();
@@ -38,30 +39,43 @@ foreach ($posts_to_send as $post) {
     $link = $post['link'];
     $excerpt = $post['excerpt'];
     $author = $post['author'];
-    $country = $post['country'];
+    // $country = $post['country'];
 
     echo '<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
 					<div style="width:80%">
-						<p style="font-size:16px;margin:0;color: #008dcd;">' . $title . '</p>
-						<p style="font-size:14px;color:#333333;margin:5px 0 0">' . $excerpt . '</p>
-					</div>
-					<div style="width:20%;align-content: center;text-align: center;">
-						<a href="' . $link . '"
-							style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">{{VIEW_POST_TEXT}}</a>
-					</div>
+						<p style="font-size:16px;margin:0;color: #008dcd;">' . $title . '</p>';
+
+    if (!empty($excerpt)) {
+        echo '<p style="font-size:14px;color:#333333;margin:5px 0 0">' . $excerpt . '</p>';
+    }
+    echo '</div>
+					<div style="width:20%;align-content: center;text-align: center;">';
+    if ($show_view_post) {
+        echo '<a href="' . $link . '"
+							style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">{{VIEW_POST_TEXT}}</a>';
+    }
+    echo '</div>
 				</div>';
 
 }?>
 			<?php
 echo '<div style="display:flex;padding-bottom:10px;">
-					<div style="width:100%;text-align:center;">
-						<a href="' . home_url('{{ALL_POSTS_PAGE_LINK}}') . '"
-							style="display:inline-block;padding:10px 20px;background-color:#165d31;color:#ffffff;text-decoration:none;border-radius:25px">{{VIEW_ALL_POSTS_TEXT}} ({{POSTS_NUMBER}})</a>
-					</div>
+					<div style="width:100%;text-align:center;">';
+
+if ($show_view_all) {
+    echo '<a href="' . home_url('{{ALL_POSTS_PAGE_LINK}}') . '"
+							style="display:inline-block;padding:10px 20px;background-color:#165d31;color:#ffffff;text-decoration:none;border-radius:25px">{{VIEW_ALL_POSTS_TEXT}}';
+
+    if ($show_number_view_all) {
+        echo ' ({{POSTS_NUMBER}})';
+    }
+    echo '</a>';
+}
+echo '</div>
 				</div>
 			</div>
 			<div style="color:#808080;text-align:center;padding:20px;">
-				<a href="#"><img src="{{SITE_LOGO}}" alt="Site Logo" style="max-width:180px;margin-top: 10px;"></a>
+				<a href="' . home_url() . '"><img src="{{SITE_LOGO}}" alt="Site Logo" style="max-width:180px;margin-top: 10px;"></a>
 				<p>{{FOOTER_TEXT}}</p>'; ?>
 
 				<?php

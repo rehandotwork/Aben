@@ -83,12 +83,6 @@ function get_email_body($posts_to_send, $post_count, $posts_published_today, $po
 {
     global $aben_settings;
 
-    //Show Hide
-    $show_view_all = $aben_settings['view_all_posts_text'];
-    $show_number_view_all = $aben_settings['view_all_number'] === 1 ? true : false;
-    $show_unsubscribe = $aben_settings['show_unsubscribe'] === 1 ? true : false;
-    $show_view_post = $aben_settings['show_view_post'] === 1 ? true : false;
-
     //Text
     $header_text = $aben_settings['header_text'];
     $header_subtext = $aben_settings['header_subtext'];

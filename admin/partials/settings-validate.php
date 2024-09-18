@@ -7,7 +7,7 @@ if (!defined('ABSPATH')) {
 function aben_callback_validate_options($input)
 {
     // Retrieve existing options from the database
-    $options = get_option('aben_options', array());
+    $options = aben_get_options();
 
     // Merge the new input with the existing options
     $input = array_merge($options, $input);
@@ -76,11 +76,15 @@ function aben_callback_validate_options($input)
         $input['unsubscribe_link'] = esc_url_raw($input['unsubscribe_link']);
     }
 
-    $input['view_all_number'] = !empty($input['view_all_number']) ? 1 : 0;
+    $input['show_view_all'] = !empty($input['show_view_all']) ? 1 : 0;
 
     $input['show_unsubscribe'] = !empty($input['show_unsubscribe']) ? 1 : 0;
 
     $input['use_smtp'] = !empty($input['use_smtp']) ? 1 : 0;
+
+    $input['show_number_view_all'] = !empty($input['show_number_view_all']) ? 1 : 0;
+
+    $input['show_view_post'] = !empty($input['show_view_post']) ? 1 : 0;
 
     return $input;
 }
