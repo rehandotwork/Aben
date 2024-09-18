@@ -20,7 +20,7 @@
  * @subpackage Aben/includes
  * @author     Rehan Khan <hello@rehan.work>
  */
-class tivator
+class Aben_Activator
 {
 
     /**
