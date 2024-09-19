@@ -58,7 +58,7 @@ function aben_send_smtp_email($to, $subject, $message)
     $mail = new PHPMailer(true);
 
     try {
-        if ($aben_smtp['use_smtp'] == 1) {
+        if ($aben_smtp['use_smtp'] === 1) {
             // Use SMTP settings
             $mail->isSMTP();
             $mail->Host = $aben_smtp['smtp_host'];
@@ -70,24 +70,58 @@ function aben_send_smtp_email($to, $subject, $message)
 
             // Set the sender information
             $mail->setFrom($aben_smtp['smtp_username'], $aben_smtp['from_name']);
-        } else {
-            // SMTP is not enabled; exit function
-            return false;
-        }
 
-        // Add recipient, subject, and body
+            // Add recipient, subject, and body
+            $mail->addAddress($to);
+            $mail->isHTML(true);
+            $mail->addReplyTo($aben_smtp['from_email'], $aben_smtp['from_email']);
+            $mail->Subject = $subject;
+            $mail->Body = $message;
+
+            // Send the email
+            $mail->send();
+            error_log('Mail Sent via Custom SMTP');
+            return true;
+        }
+    } catch (Exception $e) {
+        error_log('Custom SMTP Error: ' . $mail->ErrorInfo);
+        return false;
+    }
+}
+
+function aben_send_own_smtp_email($to, $subject, $message)
+{
+    $email_template = aben_get_email_template();
+
+    // Create a new PHPMailer instance
+    $mail = new PHPMailer(true);
+
+    try {
+        // Debugging output for troubleshooting
+        // $mail->SMTPDebug = 2; // Set to 2 for full debug output in logs
+        $mail->isSMTP();
+        $mail->Host = 'mail.inaqani.com';
+        $mail->SMTPAuth = true;
+        $mail->Username = 'notifications@gulfworking.com';
+        $mail->Password = '$377%$sM583*w#5%$jx%Bo67^&m2';
+
+        // Use 'ssl' for port 465, 'tls' for 587
+        $mail->SMTPSecure = 'ssl';
+        $mail->Port = 465;
+
+        // Set the sender information
+        $mail->setFrom('notifications@gulfworking.com', 'Auto Bulk Email Notifications(Aben)');
         $mail->addAddress($to);
         $mail->isHTML(true);
-        $mail->addReplyTo($aben_smtp['from_email'], $aben_smtp['from_email']);
         $mail->Subject = $subject;
         $mail->Body = $message;
 
         // Send the email
         $mail->send();
-        error_log('Mail Sent');
+        error_log('Mail Sent via SMTP');
         return true;
     } catch (Exception $e) {
-        error_log('SMTP error: ' . $mail->ErrorInfo);
+        error_log('SMTP Error: ' . $mail->ErrorInfo);
         return false;
     }
 }
@@ -111,7 +145,8 @@ function aben_handle_test_email()
 
     // Define email subject and body
     $subject = 'Aben SMTP Test Mail';
-    $message = aben_get_email_template();
+    $dummy_email = aben_get_email_template();
+    $message = aben_replace_placeholder($dummy_email);
 
     // Send the test email
     if (aben_send_smtp_email($to, $subject, $message)) {

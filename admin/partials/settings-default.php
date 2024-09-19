@@ -37,7 +37,6 @@ function aben_options_default()
         'show_view_post' => 1,
         'view_post_text' => 'Read now',
         'show_unsubscribe' => 1,
-        'email_body' => '',
 
     );
 

@@ -92,17 +92,6 @@ function aben_get_today_posts()
     // print_r($posts);
 
     $posts_published_today = count($posts);
-    // echo $posts_published_today;
-
-    // count($posts) < 0 ? $posts_published_today = '' : $posts_published_today = count($posts);
-
-    $count = 0; // To control posts loop iteration
-
-    $get_settings = aben_get_options();
-
-    $no_of_posts_to_send = $get_settings['number_of_posts'];
-
-    $no_of_posts_to_send = $posts_published_today < $no_of_posts_to_send ? $posts_published_today : $no_of_posts_to_send;
 
     $posts_to_email = array();
 
@@ -110,20 +99,13 @@ function aben_get_today_posts()
 
         foreach ($posts as $post) {
 
-            if ($count >= $no_of_posts_to_send) {
-                break;
-            }
-
             $id = $post->ID;
 
             $title = $post->post_title;
-            // echo $title;
 
             $excerpt = $post->post_excerpt;
 
             $link = get_permalink($id);
-
-            // $author_id = intval($post->post_author);
 
             $author_id = $post->post_author;
 
@@ -139,7 +121,7 @@ function aben_get_today_posts()
                 $country = '';
             }
 
-            $posts_to_email[$count] = array(
+            $posts_to_email[] = array(
                 'title' => $title,
                 'link' => $link,
                 'excerpt' => $excerpt,
@@ -147,7 +129,7 @@ function aben_get_today_posts()
                 'country' => $country,
             );
 
-            $count++;
+            // $count++;
 
         }
         return array(
@@ -158,8 +140,4 @@ function aben_get_today_posts()
 
     }
 
-    // var_dump($posts_to_email);
-
 }
-
-// aben_get_today_posts();

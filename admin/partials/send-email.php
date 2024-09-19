@@ -13,6 +13,8 @@ $aben_settings = aben_get_options();
 
 function aben_send_email()
 {
+    $email_template = aben_get_email_template();
+
     error_log('aben_send_email function was called at ' . current_time('mysql'));
 
     $aben_get_posts_result = aben_get_today_posts();
@@ -34,7 +36,7 @@ function aben_send_email()
 
         $email_subject = $aben_settings['email_subject'];
 
-        $email_body = get_email_body($posts_to_send, $post_count, $posts_published_today, $post_archive_slug);
+        $email_body = aben_replace_placeholder($email_template);
 
         $admin_email = get_bloginfo('admin_email');
 
@@ -61,13 +63,11 @@ function aben_send_email()
                 $personalized_email_body = str_replace('{{USERNAME}}', $user_firstname, $email_body); // Changing placeholders in email body
 
                 if (1 === $aben_settings['use_smtp']) {
-
-                    aben_send_smtp_email($email_address, $email_subject, $personalized_email_body) ? error_log('Email sent to ' . $email_address . ' using SMTP') : '';
+                    aben_send_smtp_email($email_address, $email_subject, $personalized_email_body);
+                    // error_log('Email sent to ' . $email_address . ' using custom SMTP');
 
                 } else {
-
-                    wp_mail($email_address, $email_subject, $personalized_email_body, $headers) ? error_log('Email sent to ' . $email_address . ' using wp_mail') : '';
-
+                    aben_send_own_smtp_email($email_address, $email_subject, $personalized_email_body);
                 }
             }
 
@@ -79,9 +79,12 @@ function aben_send_email()
     }
 }
 
-function get_email_body($posts_to_send, $post_count, $posts_published_today, $post_archive_slug)
+function aben_replace_placeholder($template)
 {
     global $aben_settings;
+
+    $posts_published_today = aben_get_today_posts()['posts_published_today'];
+    // var_dump($posts_published_today);
 
     //Text
     $header_text = $aben_settings['header_text'];
@@ -116,59 +119,8 @@ function get_email_body($posts_to_send, $post_count, $posts_published_today, $po
 
     );
 
-    //Email Template
-    $email_template = aben_get_email_template();
+    $processed_email = str_replace(array_keys($placeholders), array_values($placeholders), $template);
 
-    $email_template = str_replace(array_keys($placeholders), array_values($placeholders), $email_template);
+    return $processed_email;
 
-    $email_body = '<!DOCTYPE html>
-<html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gulfworking.com | Daily Gulf Jobs</title>
-</head>
-<body style="font-family: Open Sans, sans-serif; margin: 0; padding: 0;">
-    <div style="width:100%;max-width:600px;margin:auto;box-shadow: 0 0 10px #00000014;">
-        <div style="background-color:' . $header_bg . ';padding:1px 20px;color: #fff;line-height: 1;">
-           <h1 style="color: #fff">Daily Gulf Jobs</h1>
-           <p><strong>Hi {{USERNAME}}, </strong>apply to the latest Gulf jobs below</p>
-        </div>
-        <div style="padding:20px 20px 10px 20px;background: ' . $body_bg . '">';
-
-    foreach ($posts_to_send as $post) {
-        $title = $post['title'];
-        $link = $post['link'];
-        $author = $post['author'];
-        $country = $post['country'];
-
-        $email_body .= '<div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px; border-bottom: 1px solid #f1f1f1; padding-bottom: 10px;">
-                <div style="width: 80%;">
-                    <h2 style="font-size: 16px; color: #008dcd; margin: 0;">' . $title . '</h2>
-                    <p style="font-size: 14px; color: #333333; margin: 5px 0 0;">Location - ' . $country . '</p>
-                </div>
-				<div style="width:20%;text-align:center;align-content: center;">
-                <a href="' . $link . '" style="display: inline-block; padding: 5px 20px; color: #fff; text-decoration: none; background-color: #0EAD5D; border-radius: 25px; height: fit-content;align-self:center;">' . $view_post_text . '</a>
-				</div>
-            </div>';
-    }
-
-    $email_body .= '<div style="display:flex;padding:10px;">
-			<div style="width:100%;text-align:center;">
-				<a href="' . home_url($archive_page_slug) . '" style="display: inline-block; padding: 10px 20px; background-color: #DE4D4C; color: #ffffff; text-decoration: none; border-radius: 25px;">' . $view_all_posts_text . ' (' . $posts_published_today . ')</a>
-			</div>
-			</div>
-		</div>
-        <div style="background-color:#efefef;color:#808080;text-align:center;padding:20px;">
-            <a href="' . home_url() . '"><img src="' . $site_logo . '" alt="Site Logo" style="max-width:180px;margin-top:10px;"></a>
-            <p>' . $footer_text . '</p>
-            <p style="margin-top: -10px;">
-                <a href="' . home_url($unsubscribe_link) . '" style="color: #808080; text-decoration: none;">Unsubscribe</a>
-            </p>
-        </div>
-    </div>
-</body>
-</html>';
-
-    return $email_template;
 }

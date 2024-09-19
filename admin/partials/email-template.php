@@ -5,15 +5,16 @@ if (!defined('ABSPATH')) {
 }
 require_once 'email-settings.php';
 
-$aben_settings = aben_get_options();
+$posts_to_send = aben_get_today_posts()['posts_to_email'];
+// error_log(count($posts_to_send));
 
+$aben_settings = aben_get_options();
+$number_of_posts = $aben_settings['number_of_posts'];
 $show_view_all = $aben_settings['show_view_all'] === 1 ? true : false;
 $show_unsubscribe = $aben_settings['show_unsubscribe'] === 1 ? true : false;
 $show_number_view_all = $aben_settings['show_number_view_all'] === 1 ? true : false;
 $show_view_post = $aben_settings['show_view_post'] === 1 ? true : false;
-
-$aben_get_posts_data = aben_get_today_posts();
-$posts_to_send = $aben_get_posts_data['posts_to_email'];
+$show_view_all_based_on_post = ($number_of_posts < count($posts_to_send)) ? true : false;
 
 echo '<!DOCTYPE html>
 <html>
@@ -33,8 +34,11 @@ echo '<!DOCTYPE html>
 				</p>
 			</div>
 			<div style="padding:10px">';?><?php
-
 foreach ($posts_to_send as $post) {
+
+    if ($number_of_posts <= 0) {
+        break;
+    }
     $title = $post['title'];
     $link = $post['link'];
     $excerpt = $post['excerpt'];
@@ -57,12 +61,15 @@ foreach ($posts_to_send as $post) {
     echo '</div>
 				</div>';
 
-}?>
+    $number_of_posts--;
+}
+
+?>
 			<?php
 echo '<div style="display:flex;padding-bottom:10px;">
 					<div style="width:100%;text-align:center;">';
 
-if ($show_view_all) {
+if ($show_view_all && $show_view_all_based_on_post) {
     echo '<a href="{{ALL_POSTS_PAGE_LINK}}"
 							style="display:inline-block;padding:10px 20px;background-color:#165d31;color:#ffffff;text-decoration:none;border-radius:25px">{{VIEW_ALL_POSTS_TEXT}}';
 
