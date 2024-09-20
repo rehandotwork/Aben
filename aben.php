@@ -71,6 +71,7 @@ include_once dirname(__FILE__) . '/admin/partials/register-cron.php';
 include_once dirname(__FILE__) . '/admin/partials/send-email.php';
 include_once dirname(__FILE__) . '/admin/partials/update-cron.php';
 include_once dirname(__FILE__) . '/admin/partials/email-settings.php';
+include_once dirname(__FILE__) . '/admin/partials/class-aben-email.php';
 
 // Only include these files for admin
 if (is_admin()) {

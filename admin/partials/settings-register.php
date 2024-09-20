@@ -49,70 +49,53 @@ settings_fields('aben_options');
         echo '<div id = "aben-email-tab-grid" style="display:grid; grid-template-columns:4fr 6fr; grid-gap:1rem;">';
         do_settings_sections('aben_section_email_setting');
         // do_settings_sections('aben_section_email_template');
-        echo '<div id="aben-email-template"style="font-family:Open Sans,sans-serif;margin:0;padding:0;background-color: #f5f7fa;color: #1f2430;">
-	<div style="width:100%;max-width:500px;margin: auto;">
-        <div style="padding:20px;">
-           <p id="header-text" style="font-size:16px"><strong>Hello Aben</strong> <img width="16px" data-emoji="👋" class="an1" alt="👋" aria-label="👋" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/15.1/1f44b/72.png" loading="lazy">&nbsp;</p>
-			<p id="header-subtext"style="font-size:16px;">We bring you the newest Gulf jobs matching your profile: <span>Construction Manager jobs in Dubai - <a href="#" style="text-decoration: none;">edit preference</a></span></p>
-        </div>
-		 <div style="padding:10px">
-		 <div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
-          <div style="width:70%">
-            <p style="font-size:16px;margin:0;color: #008dcd;">First Post Title</p>
-            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
-          </div>
-		  <div style="width:30%;align-content: center;text-align: center;">
-			<a class="view-post" href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
-		</div>
-		</div>
-		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
-          <div style="width:70%">
-            <p style="font-size:16px;margin:0;color: #008dcd;">Second Post Title</p>
-            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
-          </div>
-		  <div style="width:30%;align-content: center;text-align: center;">
-			<a class="view-post" href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
-		</div>
-		</div>
-		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
-          <div style="width:70%">
-            <p style="font-size:16px;margin:0;color: #008dcd;">Third Post Title</p>
-            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
-          </div>
-		  <div style="width:30%;align-content: center;text-align: center;">
-			<a class="view-post" href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
-		</div>
-		</div>
-		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
-          <div style="width:70%">
-            <p style="font-size:16px;margin:0;color: #008dcd;">Fourth Post Title</p>
-            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
-          </div>
-		  <div style="width:30%;align-content: center;text-align: center;">
-			<a class="view-post" href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
-		</div>
-		</div>
-		<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
-          <div style="width:70%">
-            <p style="font-size:16px;margin:0;color: #008dcd;">Fifth Post Title</p>
-            <p style="font-size:14px;color:#333333;margin:5px 0 0">Excerpt</p>
-          </div>
-		  <div style="width:30%;align-content: center;text-align: center;">
-			<a class="view-post" href="#" style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">Apply</a>
-		</div>
-		</div>
-		<div style="display:flex;padding-bottom:10px;">
-			<div style="width:100%;text-align:center;">
-            	<a id="view-all-post" href="#" style="display:inline-block;padding:10px 20px;background-color:#165d31;color:#ffffff;text-decoration:none;border-radius:25px">View All Jobs <span id="post-number">(10)</span></a>
-			</div>
-        </div>
-		</div>
-        <div style="color:#808080;text-align:center;padding:20px;">
-            <a href="#"><img src="https://gulfworking.com/wp-content/uploads/2024/08/gw-logo.png" alt="Site Logo" style="max-width:180px;margin-top: 10px;"></a>
-            <p id="footer-text">Auto Bulk Email Notification © 2024 All rights reserved.</p>
-            <p id="unsubscribe"><a href="#" style="color:#808080;text-decoration:none">Unsubscribe</a></p>
-		</div>
-		</div>';
+        
+        $aben_email_dashboard = new Aben_Email(
+            '', //mail_subject
+            'https://aben.com/blogs', //archive_page_slug
+            6, //number_of_posts
+            'https://aben.com/unsubscribe', //unsubscribe_link
+            '#f0eeff', //body_bg
+            'Hi Rehan', //header_text
+            '#f0eeff', //header_bg
+            'Check out our daily posts and send your feedback.', //header_subtext
+            'Copyright 2024 | Aben Inc.', //footer_text
+            'http://gw.local/wp-content/uploads/2023/01/finalLogo-cropped-1.svg', //site_logo
+            true, //show_view_all
+            'View All Posts', //view_all_posts_text
+            true, //show_number_view_all
+            true, //show_view_post
+            'Read', //view_post_text
+            true, //show_unsubscribe
+            [
+                [
+                    'title' => 'Understanding WordPress Plugins',
+                    'link' => 'https://example.com/understanding-wordpress-plugins',
+                    'excerpt' => 'Learn about the basics of WordPress plugins, how they work, and why they are useful.',
+                ],
+                [
+                    'title' => '10 Tips for Optimizing Your Website',
+                    'link' => 'https://example.com/optimizing-your-website',
+                    'excerpt' => 'Follow these essential tips to ensure your website runs smoothly and efficiently.',
+                ],
+                [
+                    'title' => 'The Importance of SEO in 2024',
+                    'link' => 'https://example.com/importance-of-seo',
+                    'excerpt' => 'SEO remains crucial for online success. Discover how to stay ahead in 2024.',
+                ],
+                [
+                    'title' => 'Best Practices for Web Development',
+                    'link' => 'https://example.com/web-development-best-practices',
+                    'excerpt' => 'Adopt these best practices to enhance your web development workflow and deliver top-notch projects.',
+                ],
+                [
+                    'title' => 'How to Boost Website Security',
+                    'link' => 'https://example.com/boost-website-security',
+                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                ],
+            ] //posts_to_send 
+        );
+        $aben_email_dashboard->aben_email_template();
         echo '</div>';
     }
 
