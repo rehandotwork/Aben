@@ -17,11 +17,22 @@ function aben_send_email()
 
     error_log('aben_send_email function was called at ' . current_time('mysql'));
 
-    $aben_get_posts_result = aben_get_today_posts();
+    global $aben_settings;
+
+    $email_frequency = $aben_settings['email_frequency'];
+    $day_of_week = intval($aben_settings['day_of_week']);
+
+    if ($email_frequency === 'once_in_a_week') {
+
+        $aben_get_posts_result = aben_get_weekly_posts($day_of_week);
+
+    } else {
+        $aben_get_posts_result = aben_get_today_posts();
+    }
 
     if (!empty($aben_get_posts_result)) {
 
-        $posts_published_today = $aben_get_posts_result['posts_published_today'];
+        $posts_published_today = $aben_get_posts_result['posts_published'];
 
         $posts_to_send = $aben_get_posts_result['posts_to_email'];
 
@@ -83,7 +94,7 @@ function aben_replace_placeholder($template)
 {
     global $aben_settings;
 
-    $posts_published_today = aben_get_today_posts()['posts_published_today'];
+    $posts_published_today = aben_get_today_posts()['posts_published'];
     // var_dump($posts_published_today);
 
     //Text

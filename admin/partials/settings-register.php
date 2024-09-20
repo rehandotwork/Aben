@@ -42,14 +42,18 @@ settings_fields('aben_options');
 
     // Display only the relevant settings based on the active tab
     if ($current_tab === 'general') {
+        echo '<div id ="aben-general-settings">';
         do_settings_sections('aben_section_general_setting');
+        echo '</div>';
     } elseif ($current_tab === 'smtp') {
+        echo '<div id ="aben-smtp-settings">';
         do_settings_sections('aben_section_smtp_setting');
+        echo '</div>';
     } elseif ($current_tab === 'email') {
         echo '<div id = "aben-email-tab-grid" style="display:grid; grid-template-columns:4fr 6fr; grid-gap:1rem;">';
         do_settings_sections('aben_section_email_setting');
         // do_settings_sections('aben_section_email_template');
-        
+
         $aben_email_dashboard = new Aben_Email(
             '', //mail_subject
             'https://aben.com/blogs', //archive_page_slug
@@ -60,7 +64,7 @@ settings_fields('aben_options');
             '#f0eeff', //header_bg
             'Check out our daily posts and send your feedback.', //header_subtext
             'Copyright 2024 | Aben Inc.', //footer_text
-            'http://gw.local/wp-content/uploads/2023/01/finalLogo-cropped-1.svg', //site_logo
+            plugin_dir_path(__DIR__) . 'includes/logo.png', //site_logo
             true, //show_view_all
             'View All Posts', //view_all_posts_text
             true, //show_number_view_all
@@ -93,7 +97,32 @@ settings_fields('aben_options');
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                 ],
-            ] //posts_to_send 
+                [
+                    'title' => 'How to Boost Website Security',
+                    'link' => 'https://example.com/boost-website-security',
+                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                ],
+                [
+                    'title' => 'How to Boost Website Security',
+                    'link' => 'https://example.com/boost-website-security',
+                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                ],
+                [
+                    'title' => 'How to Boost Website Security',
+                    'link' => 'https://example.com/boost-website-security',
+                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                ],
+                [
+                    'title' => 'How to Boost Website Security',
+                    'link' => 'https://example.com/boost-website-security',
+                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                ],
+                [
+                    'title' => 'How to Boost Website Security',
+                    'link' => 'https://example.com/boost-website-security',
+                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                ],
+            ]//posts_to_send
         );
         $aben_email_dashboard->aben_email_template();
         echo '</div>';
@@ -187,7 +216,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_general_setting',
         'aben_section_general_setting',
-        ['id' => 'archive_page_slug', 'label' => 'Path of all posts page']
+        ['id' => 'archive_page_slug', 'label' => 'Link to All Posts Page']
     );
 
     add_settings_field(
@@ -196,7 +225,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_general_setting',
         'aben_section_general_setting',
-        ['id' => 'unsubscribe_link', 'label' => 'Link for unsubscribe from email notification']
+        ['id' => 'unsubscribe_link', 'label' => 'Email Unsubscribe Link']
     );
 
     add_settings_field(
@@ -206,6 +235,15 @@ function aben_register_settings()
         'aben_section_general_setting',
         'aben_section_general_setting',
         ['id' => 'email_frequency', 'label' => 'When to send Email']
+    );
+
+    add_settings_field(
+        'day_of_week',
+        'Which day',
+        'aben_callback_field_select',
+        'aben_section_general_setting',
+        'aben_section_general_setting',
+        ['id' => 'day_of_week', 'label' => 'Select Day']
     );
 
     // SMTP Tab
@@ -222,7 +260,7 @@ function aben_register_settings()
         'aben_callback_field_checkbox',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'use_smtp', 'label' => 'Check to use SMTP service']
+        ['id' => 'use_smtp', 'label' => 'Yes']
     );
 
     add_settings_field(
@@ -297,30 +335,12 @@ function aben_register_settings()
     );
 
     add_settings_field(
-        'body_bg',
-        'Body Background',
-        'aben_callback_field_color',
-        'aben_section_email_setting',
-        'aben_section_email_setting',
-        ['id' => 'body_bg', 'label' => 'Background color of body']
-    );
-
-    add_settings_field(
         'header_text',
         'Header Text',
         'aben_callback_field_text',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'header_text', 'label' => 'Text in the email header']
-    );
-
-    add_settings_field(
-        'header_bg',
-        'Header Background',
-        'aben_callback_field_color',
-        'aben_section_email_setting',
-        'aben_section_email_setting',
-        ['id' => 'header_bg', 'label' => 'Background color of header']
+        ['id' => 'header_text', 'label' => 'eg. Hi, {{USERNAME}}, Use {{USERNAME}} for receiver name']
     );
 
     add_settings_field(
@@ -333,21 +353,21 @@ function aben_register_settings()
     );
 
     add_settings_field(
-        'footer_text',
-        'Footer Text',
-        'aben_callback_field_text',
+        'body_bg',
+        'Body Background',
+        'aben_callback_field_color',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'footer_text', 'label' => 'Footer text in the email']
+        ['id' => 'body_bg', 'label' => 'Email Body Background Color']
     );
 
     add_settings_field(
-        'site_logo',
-        'Site Logo',
-        'aben_callback_field_media',
+        'header_bg',
+        'Post Tile Background',
+        'aben_callback_field_color',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'site_logo', 'label' => 'Site logo in the email']
+        ['id' => 'header_bg', 'label' => 'Post  Tile Background Color']
     );
 
     add_settings_field(
@@ -356,34 +376,7 @@ function aben_register_settings()
         'aben_callback_field_select',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'number_of_posts', 'label' => 'Number of posts to send in email']
-    );
-
-    add_settings_field(
-        'show_view_all',
-        'Show View All Posts Button',
-        'aben_callback_field_checkbox',
-        'aben_section_email_setting',
-        'aben_section_email_setting',
-        ['id' => 'show_view_all', 'label' => 'Display View All button in email']
-    );
-
-    add_settings_field(
-        'view_all_posts_text',
-        'Change "View All Posts" text to',
-        'aben_callback_field_text',
-        'aben_section_email_setting',
-        'aben_section_email_setting',
-        ['id' => 'view_all_posts_text', 'label' => '']
-    );
-
-    add_settings_field(
-        'show_number_view_all',
-        'Show Posts Number',
-        'aben_callback_field_checkbox',
-        'aben_section_email_setting',
-        'aben_section_email_setting',
-        ['id' => 'show_number_view_all', 'label' => 'Show posts number in "View All" button']
+        ['id' => 'number_of_posts', 'label' => 'Number of Posts to Send']
     );
 
     add_settings_field(
@@ -392,7 +385,7 @@ function aben_register_settings()
         'aben_callback_field_checkbox',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'show_view_post', 'label' => 'Show "View Post" button in posts list']
+        ['id' => 'show_view_post', 'label' => 'Show "View Post" Button']
     );
 
     add_settings_field(
@@ -405,12 +398,56 @@ function aben_register_settings()
     );
 
     add_settings_field(
+        'show_view_all',
+        'Show View All Posts Button',
+        'aben_callback_field_checkbox',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'show_view_all', 'label' => 'Show "View All"']
+    );
+    add_settings_field(
+        'show_number_view_all',
+        'Show Posts Number',
+        'aben_callback_field_checkbox',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'show_number_view_all', 'label' => 'Show Total Posts Number']
+    );
+
+    add_settings_field(
+        'view_all_posts_text',
+        'Change "View All Posts" text to',
+        'aben_callback_field_text',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'view_all_posts_text', 'label' => '']
+    );
+
+    add_settings_field(
+        'site_logo',
+        'Site Logo',
+        'aben_callback_field_media',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'site_logo', 'label' => 'Select Logo']
+    );
+
+    add_settings_field(
+        'footer_text',
+        'Footer Text',
+        'aben_callback_field_text',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'footer_text', 'label' => 'Footer Text']
+    );
+
+    add_settings_field(
         'show_unsubscribe',
         'Show Unsubscribe',
         'aben_callback_field_checkbox',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'show_unsubscribe', 'label' => 'Check to show unsubscribe link in email']
+        ['id' => 'show_unsubscribe', 'label' => 'Show Unsubscribe']
     );
 
     add_settings_section(

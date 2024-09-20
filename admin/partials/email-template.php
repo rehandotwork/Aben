@@ -6,7 +6,9 @@ if (!defined('ABSPATH')) {
 require_once 'email-settings.php';
 
 $posts_to_send = aben_get_today_posts()['posts_to_email'];
-// error_log(count($posts_to_send));
+if (empty($posts_to_send)) {
+    $posts_count = 0;
+}
 
 $aben_settings = aben_get_options();
 $number_of_posts = $aben_settings['number_of_posts'];
@@ -14,7 +16,7 @@ $show_view_all = $aben_settings['show_view_all'] === 1 ? true : false;
 $show_unsubscribe = $aben_settings['show_unsubscribe'] === 1 ? true : false;
 $show_number_view_all = $aben_settings['show_number_view_all'] === 1 ? true : false;
 $show_view_post = $aben_settings['show_view_post'] === 1 ? true : false;
-$show_view_all_based_on_post = ($number_of_posts < count($posts_to_send)) ? true : false;
+$show_view_all_based_on_post = ($number_of_posts < $posts_count) ? true : false;
 
 echo '<!DOCTYPE html>
 <html>
@@ -45,7 +47,7 @@ foreach ($posts_to_send as $post) {
     $author = $post['author'];
     // $country = $post['country'];
 
-    echo '<div style="display:flex;margin-bottom:20px;padding:20px;background: white;">
+    echo '<div style="display:flex;margin-bottom:20px;padding:20px;background:{{HEADER_BG}};">
 					<div style="width:70%">
 						<p style="font-size:16px;margin:0;color: #008dcd;">' . $title . '</p>';
 

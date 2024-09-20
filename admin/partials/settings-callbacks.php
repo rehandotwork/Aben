@@ -194,8 +194,20 @@ function aben_callback_field_select($args)
             7 => '7',
             8 => '8',
             9 => '9',
-            10 => 'All',
+            10 => '10',
 
+        );
+
+    } else if ($id === 'day_of_week') {
+
+        $select_options = array(
+            0 => 'Sunday',
+            1 => 'Monday',
+            2 => 'Tuesday',
+            3 => 'Wednesday',
+            4 => 'Thursday',
+            5 => 'Friday',
+            6 => 'Saturday',
         );
 
     } else if ($id === 'email_frequency') {

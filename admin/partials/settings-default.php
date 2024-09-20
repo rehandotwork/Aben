@@ -16,7 +16,7 @@ function aben_options_default()
         'archive_page_slug' => home_url('blogs'),
         'number_of_posts' => 5,
         'unsubscribe_link' => home_url('unsubscribe'),
-        'email_frequency' => 'once_in_a_day',
+        'email_frequency' => 'once_in_a_week',
         'use_smtp' => 0,
         'smtp_host' => '',
         'smtp_port' => 25,
@@ -37,6 +37,7 @@ function aben_options_default()
         'show_view_post' => 1,
         'view_post_text' => 'Read now',
         'show_unsubscribe' => 1,
+        'day_of_week' => 6,
 
     );
 

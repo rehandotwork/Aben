@@ -57,6 +57,16 @@
       $preview.attr("src", "").hide(); // Hide the image preview
       $button.hide(); // Hide the Remove Image button
     });
+
+    // Initial display setup for post tiles (show/hide based on the initial value)
+    const numberOfPosts = $("#aben_options_number_of_posts").val();
+    $(".post-tile").each(function (index) {
+      if (index < numberOfPosts) {
+        $(this).fadeIn(); // Show the first n posts based on the input value
+      } else {
+        $(this).hide(); // Hide the rest
+      }
+    });
   });
 
   // Map input field IDs to corresponding elements and their actions
@@ -78,17 +88,14 @@
       action: (el, value) => el.css("background-color", value),
     },
     aben_options_header_bg: {
-      target: "#header-text",
+      target: ".post-tile",
       action: (el, value) => el.closest("div").css("background-color", value),
     },
     aben_options_view_post_text: {
       target: ".view-post",
       action: (el, value) => $(".view-post").text(value),
     },
-    aben_options_view_all_posts_text: {
-      target: "#view-all-post",
-      action: (el, value) => el.text(value),
-    },
+
     aben_options_show_view_post: {
       target: ".view-post",
       action: (el, value) =>
@@ -122,6 +129,19 @@
       },
       checkbox: true,
     },
+    aben_options_number_of_posts: {
+      target: ".post-tile",
+      action: (el, value) => {
+        const numberOfPosts = parseInt(value, 10);
+        $(".post-tile").each(function (index) {
+          if (index < numberOfPosts) {
+            $(this).fadeIn(); // Show the desired number of posts
+          } else {
+            $(this).fadeOut(); // Hide excess posts
+          }
+        });
+      },
+    },
   };
 
   // General function to handle input changes
@@ -146,5 +166,32 @@
   $.each(elementsMap, function (inputId, map) {
     const inputElement = $(`#${inputId}`);
     handleInputChange({ target: inputElement });
+  });
+
+  function toggleSMTPFields() {
+    if ($("#aben_options_use_smtp").is(":checked")) {
+      // Show SMTP fields if checked
+      $("#aben_options_smtp_host").closest("tr").show();
+      $("#aben_options_smtp_port").closest("tr").show();
+      $("#aben_options_smtp_encryption").closest("tr").show();
+      $("#aben_options_smtp_username").closest("tr").show();
+      $("#aben_options_smtp_password").closest("tr").show();
+      $("#aben_options_from_name").closest("tr").show();
+      $("#aben_options_from_email").closest("tr").show();
+    } else {
+      // Hide SMTP fields if unchecked
+      $("#aben_options_smtp_host").closest("tr").hide();
+      $("#aben_options_smtp_port").closest("tr").hide();
+      $("#aben_options_smtp_encryption").closest("tr").hide();
+      $("#aben_options_smtp_username").closest("tr").hide();
+      $("#aben_options_smtp_password").closest("tr").hide();
+      $("#aben_options_from_name").closest("tr").hide();
+      $("#aben_options_from_email").closest("tr").hide();
+    }
+  }
+  // Initial call to set visibility on page load
+  toggleSMTPFields();
+  $("#aben_options_use_smtp").on("change", function () {
+    toggleSMTPFields();
   });
 })(jQuery);
