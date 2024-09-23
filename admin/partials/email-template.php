@@ -3,12 +3,11 @@
 if (!defined('ABSPATH')) {
     exit;
 }
+
 require_once 'email-settings.php';
 
-$posts_to_send = aben_get_today_posts()['posts_to_email'];
-if (empty($posts_to_send)) {
-    $posts_count = 0;
-}
+$posts_to_send = aben_get_posts_for_email()['posts_to_email'];
+$posts_count = empty($posts_to_send) ? 0 : count($posts_to_send);
 
 $aben_settings = aben_get_options();
 $number_of_posts = $aben_settings['number_of_posts'];
@@ -44,7 +43,7 @@ foreach ($posts_to_send as $post) {
     $title = $post['title'];
     $link = $post['link'];
     $excerpt = $post['excerpt'];
-    $author = $post['author'];
+    // $author = $post['author'];
     // $country = $post['country'];
 
     echo '<div style="display:flex;margin-bottom:20px;padding:20px;background:{{HEADER_BG}};">

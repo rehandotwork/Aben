@@ -53,6 +53,8 @@ function aben_send_smtp_email($to, $subject, $message)
 {
     $aben_smtp = aben_get_smtp_settings();
     $email_template = aben_get_email_template();
+    // $password = $aben_smtp['smtp_password'];
+    // $smtp_password = aben_decrypt_password($password);
 
     // Create a new PHPMailer instance
     $mail = new PHPMailer(true);

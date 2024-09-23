@@ -36,6 +36,21 @@ class Aben_Activator
         $default_settings = aben_options_default();
 
         add_option('aben_options', $default_settings);
+
+        $encryption_key = aben_generate_encryption_key();
+
+        // Path to wp-config.php
+        $config_file = ABSPATH . 'wp-config.php';
+
+        // Check if the key is already defined
+        if (!defined('ABEN_ENCRYPTION_KEY')) {
+            // Prepare the line to add
+            $key_line = "define('ABEN_ENCRYPTION_KEY', '{$encryption_key}');\n";
+
+            // Use file_put_contents to add the line to wp-config.php
+            file_put_contents($config_file, $key_line, FILE_APPEND | LOCK_EX);
+        }
+
     }
 
 }

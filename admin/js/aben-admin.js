@@ -194,4 +194,22 @@
   $("#aben_options_use_smtp").on("change", function () {
     toggleSMTPFields();
   });
+
+  $("#aben_options_day_of_week").closest("tr").hide();
+
+  // Function to toggle the visibility of the "Which day" field
+  function toggleDayOfWeekField() {
+    const emailFrequency = $("#aben_options_email_frequency").val();
+    if (emailFrequency === "once_in_a_week") {
+      $("#aben_options_day_of_week").closest("tr").show();
+    } else {
+      $("#aben_options_day_of_week").closest("tr").hide();
+    }
+  }
+
+  // Attach change event listener
+  $("#aben_options_email_frequency").change(toggleDayOfWeekField);
+
+  // Trigger on page load to set initial state
+  toggleDayOfWeekField();
 })(jQuery);

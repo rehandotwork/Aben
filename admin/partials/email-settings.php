@@ -192,21 +192,12 @@ function aben_get_weekly_posts($selected_day_num)
             $excerpt = $post->post_excerpt;
             $link = get_permalink($id);
             $author_id = $post->post_author;
-            // $author = get_the_author_meta('display_name', $author_id);
-
-            // if (taxonomy_exists('country')) {
-            //     $location = get_the_terms($id, 'country'); // For 'country' taxonomy (if it exists)
-            //     $country = $location ? $location[0]->name : '';
-            // } else {
-            //     $country = '';
-            // }
 
             $posts_to_email[] = array(
                 'title' => $title,
                 'link' => $link,
                 'excerpt' => $excerpt,
-                // 'author' => $author,
-                // 'country' => $country,
+
             );
         }
 
@@ -218,3 +209,6 @@ function aben_get_weekly_posts($selected_day_num)
 
     return null; // No posts found for the week
 }
+
+// $weekly_posts = aben_get_weekly_posts(5)['posts_published'];
+// var_dump($weekly_posts);
