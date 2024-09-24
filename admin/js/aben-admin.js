@@ -73,7 +73,7 @@
   const elementsMap = {
     aben_options_header_text: {
       target: "#header-text",
-      action: (el, value) => el.html(`<strong>${value}</strong>`),
+      action: (el, value) => el.html(`<strong>${value} {{USERNAME}}</strong>`),
     },
     aben_options_header_subtext: {
       target: "#header-subtext",

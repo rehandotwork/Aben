@@ -147,8 +147,84 @@ function aben_handle_test_email()
 
     // Define email subject and body
     $subject = 'Aben SMTP Test Mail';
-    $dummy_email = aben_get_email_template();
-    $message = aben_replace_placeholder($dummy_email);
+    // $dummy_email = aben_get_email_template();
+    // $message = aben_replace_placeholder($dummy_email);
+
+    $aben_settings = aben_get_options();
+    $email_obj = new Aben_Email(
+        '',
+        $aben_settings['archive_page_slug'],
+        $aben_settings['number_of_posts'],
+        $aben_settings['unsubscribe_link'],
+        $aben_settings['body_bg'],
+        $aben_settings['header_text'],
+        $aben_settings['header_bg'],
+        $aben_settings['header_subtext'],
+        $aben_settings['footer_text'],
+        $aben_settings['site_logo'],
+        $aben_settings['show_view_all'],
+        $aben_settings['view_all_posts_text'],
+        $aben_settings['show_number_view_all'],
+        $aben_settings['show_view_post'],
+        $aben_settings['view_post_text'],
+        $aben_settings['show_unsubscribe'],
+        [
+            [
+                'title' => 'Understanding WordPress Plugins',
+                'link' => 'https://example.com/understanding-wordpress-plugins',
+                'excerpt' => 'Learn about the basics of WordPress plugins, how they work, and why they are useful.',
+            ],
+            [
+                'title' => '10 Tips for Optimizing Your Website',
+                'link' => 'https://example.com/optimizing-your-website',
+                'excerpt' => 'Follow these essential tips to ensure your website runs smoothly and efficiently.',
+            ],
+            [
+                'title' => 'The Importance of SEO in 2024',
+                'link' => 'https://example.com/importance-of-seo',
+                'excerpt' => 'SEO remains crucial for online success. Discover how to stay ahead in 2024.',
+            ],
+            [
+                'title' => 'Best Practices for Web Development',
+                'link' => 'https://example.com/web-development-best-practices',
+                'excerpt' => 'Adopt these best practices to enhance your web development workflow and deliver top-notch projects.',
+            ],
+            [
+                'title' => 'How to Boost Website Security',
+                'link' => 'https://example.com/boost-website-security',
+                'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+            ],
+            [
+                'title' => 'How to Boost Website Security',
+                'link' => 'https://example.com/boost-website-security',
+                'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+            ],
+            [
+                'title' => 'How to Boost Website Security',
+                'link' => 'https://example.com/boost-website-security',
+                'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+            ],
+            [
+                'title' => 'How to Boost Website Security',
+                'link' => 'https://example.com/boost-website-security',
+                'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+            ],
+            [
+                'title' => 'How to Boost Website Security',
+                'link' => 'https://example.com/boost-website-security',
+                'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+            ],
+            [
+                'title' => 'How to Boost Website Security',
+                'link' => 'https://example.com/boost-website-security',
+                'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+            ],
+        ]
+    );
+
+    ob_start();
+    $email_obj->aben_email_template();
+    $message = ob_get_clean();
 
     // Send the test email
     if (aben_send_smtp_email($to, $subject, $message)) {

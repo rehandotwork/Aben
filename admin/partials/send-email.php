@@ -64,6 +64,8 @@ function aben_send_email()
 
                 $personalized_email_body = str_replace('{{USERNAME}}', $user_firstname, $email_body); // Changing placeholders in email body
 
+                $personalized_email_body = str_replace('{{USER_EMAIL}}', $email_address, $email_body);
+
                 if (1 === $aben_settings['use_smtp']) {
                     aben_send_smtp_email($email_address, $email_subject, $personalized_email_body);
                     // error_log('Email sent to ' . $email_address . ' using custom SMTP');

@@ -54,6 +54,8 @@ settings_fields('aben_options');
         do_settings_sections('aben_section_email_setting');
         // do_settings_sections('aben_section_email_template');
 
+        $site_logo = aben_get_options()['site_logo'];
+
         $aben_email_dashboard = new Aben_Email(
             '', //mail_subject
             'https://aben.com/blogs', //archive_page_slug
@@ -64,7 +66,7 @@ settings_fields('aben_options');
             '#f0eeff', //header_bg
             'Check out our daily posts and send your feedback.', //header_subtext
             'Copyright 2024 | Aben Inc.', //footer_text
-            plugin_dir_path(__DIR__) . 'includes/logo.png', //site_logo
+            $site_logo, //site_logo
             true, //show_view_all
             'View All Posts', //view_all_posts_text
             true, //show_number_view_all
@@ -340,7 +342,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'header_text', 'label' => 'eg. Hi, {{USERNAME}}, Use {{USERNAME}} for receiver name']
+        ['id' => 'header_text', 'label' => '{{USERNAME}} will be replaced with user\'s name in the real email']
     );
 
     add_settings_field(
@@ -405,14 +407,14 @@ function aben_register_settings()
         'aben_section_email_setting',
         ['id' => 'show_view_all', 'label' => 'Show "View All"']
     );
-    add_settings_field(
-        'show_number_view_all',
-        'Show Posts Number',
-        'aben_callback_field_checkbox',
-        'aben_section_email_setting',
-        'aben_section_email_setting',
-        ['id' => 'show_number_view_all', 'label' => 'Show Total Posts Number']
-    );
+    // add_settings_field(
+    //     'show_number_view_all',
+    //     'Show Posts Number',
+    //     'aben_callback_field_checkbox',
+    //     'aben_section_email_setting',
+    //     'aben_section_email_setting',
+    //     ['id' => 'show_number_view_all', 'label' => 'Show Total Posts Number']
+    // );
 
     add_settings_field(
         'view_all_posts_text',
