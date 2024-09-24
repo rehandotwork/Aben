@@ -209,7 +209,7 @@ function aben_callback_field_password($args)
     $label = isset($args['label']) ? $args['label'] : '';
 
     // Retrieve the current value for the field, if set
-    $value = isset($options[$id]) ? esc_attr($options[$id]) : '';
+    $value = aben_decrypt_password($options[$id]);
 
     // Render the password input field
     echo '<input id="aben_options_' . esc_attr($id) . '"

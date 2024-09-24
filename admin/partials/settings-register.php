@@ -219,14 +219,14 @@ function aben_register_settings()
         ['id' => 'archive_page_slug', 'label' => 'Link to All Posts Page']
     );
 
-    add_settings_field(
-        'unsubscribe_link',
-        'Unsubscribe Link',
-        'aben_callback_field_text',
-        'aben_section_general_setting',
-        'aben_section_general_setting',
-        ['id' => 'unsubscribe_link', 'label' => 'Email Unsubscribe Link']
-    );
+    // add_settings_field(
+    //     'unsubscribe_link',
+    //     'Unsubscribe Link',
+    //     'aben_callback_field_text',
+    //     'aben_section_general_setting',
+    //     'aben_section_general_setting',
+    //     ['id' => 'unsubscribe_link', 'label' => 'Email Unsubscribe Link']
+    // );
 
     add_settings_field(
         'email_frequency',
@@ -239,11 +239,11 @@ function aben_register_settings()
 
     add_settings_field(
         'day_of_week',
-        'Which day',
+        'Select Day',
         'aben_callback_field_select',
         'aben_section_general_setting',
         'aben_section_general_setting',
-        ['id' => 'day_of_week', 'label' => 'Select Day']
+        ['id' => 'day_of_week', 'label' => '']
     );
 
     // SMTP Tab

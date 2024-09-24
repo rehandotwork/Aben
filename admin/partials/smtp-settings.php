@@ -53,8 +53,8 @@ function aben_send_smtp_email($to, $subject, $message)
 {
     $aben_smtp = aben_get_smtp_settings();
     $email_template = aben_get_email_template();
-    // $password = $aben_smtp['smtp_password'];
-    // $smtp_password = aben_decrypt_password($password);
+    $password = $aben_smtp['smtp_password'];
+    $smtp_password = aben_decrypt_password($password);
 
     // Create a new PHPMailer instance
     $mail = new PHPMailer(true);
@@ -66,7 +66,7 @@ function aben_send_smtp_email($to, $subject, $message)
             $mail->Host = $aben_smtp['smtp_host'];
             $mail->SMTPAuth = true;
             $mail->Username = $aben_smtp['smtp_username'];
-            $mail->Password = $aben_smtp['smtp_password'];
+            $mail->Password = $smtp_password;
             $mail->SMTPSecure = $aben_smtp['smtp_encryption'];
             $mail->Port = $aben_smtp['smtp_port'];
 
