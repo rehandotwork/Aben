@@ -78,11 +78,10 @@ class Aben_Email
         <body>
         <div id="aben-email-template" style="font-family:Open Sans,sans-serif;margin:0;padding:0;background: ' . $this->body_bg . ';color: #1f2430;">
         <div style="width:100%;max-width:500px;margin: auto;">
-        <div style="padding:20px;">
-        <p id ="header-text"style="font-size:16px"><strong>' . $this->header_text . '</strong>
-        <img width="16px" data-emoji="👋" class="an1" alt="👋" aria-label="👋" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/15.1/1f44b/72.png" loading="lazy"></p>
+        <div style="padding: 50px 30px 30px 30px;">
+        <p id ="header-text"style="font-size:16px;display: inline;"><strong>' . $this->header_text . '</strong></p>
         <p id="header-subtext" style="font-size:16px;">' . $this->header_subtext . '</p></div>
-        <div id="posts-wrapper" style="padding:10px">';
+        <div id="posts-wrapper"">';
 
         foreach ($this->posts_to_send as $post) {
             if ($this->number_of_posts <= 0) {
@@ -91,31 +90,27 @@ class Aben_Email
             $title = $post['title'];
             $link = $post['link'];
             $excerpt = $post['excerpt'];
-            echo '<div class="post-tile" style="display:flex;margin-bottom:20px;padding:20px;background:' . $this->header_bg . ';">
-            <div style="width:70%">
-            <p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
+            echo '<div class="post-tile" style="display:flex;gap: 20px;margin-bottom:20px;padding:20px;background:' . $this->header_bg . ';">';
+            echo '<div style="width:20%;align-self:start;"><a href="' . $link . '"><img width="100%" src="https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png" /></a></div>';
+            echo '<div style="width:80%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
             if (!empty($excerpt)) {
-                echo '<p style="font-size:14px;color:#333333;margin:5px 0 0">' . $excerpt . '</p>';
+                echo '<p style="font-size:14px;color:#727272;margin:5px 0 0">' . $excerpt . '</p></div>';
             }
-            echo '</div><div style="width:30%;align-content: center;text-align: center;">';
-            if ($this->show_view_post) {
-                echo '<a class="view-post" href="' . $link . '"style="display:inline-block;padding:5px 20px;color:#fff;text-decoration:none;background-color:#0ead5d;border-radius:25px;height:fit-content">' . $this->view_post_text . '</a>';
-            }
-            echo '</div></div>';
+            echo '</div>';
             $this->number_of_posts--;
         }
 
-        echo '<div style="display:flex;padding-bottom:10px;">
+        echo '<div style="display:flex;">
         <div style="width:100%;text-align:center;">';
         if ($this->show_view_all) {
             echo '<a id="view-all-post" href="' . $this->archive_page_slug . '"style="display:inline-block;padding:15px 0px;background-color:#165d31;color:#ffffff;text-decoration:none;width: 100%;font-size:16px;">' . $this->view_all_posts_text . '</a>';
         }
         echo '</div></div></div>
-        <div style="color:#808080;text-align:center;padding:20px;">
+        <div style="color:#808080;text-align:center;padding: 30px 30px 50px 30px;">
         <a href="' . home_url() . '"><img src="' . $this->site_logo . '" alt="Site Logo" style="max-width:180px;margin-top: 10px;"></a>
         <p id="footer-text">' . $this->footer_text . '</p>';
         if ($this->show_unsubscribe) {
-            echo '<p id="unsubscribe"><a href="' . home_url('?unsubscribe={{USER_EMAIL}}') . '" style="color:#808080;text-decoration:none">Unsubscribe</a></p>';
+            echo '<span id="unsubscribe"><a href="' . home_url('?unsubscribe={{USER_EMAIL}}') . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
         }
         echo '</div></div></body></html>';
     }
