@@ -261,3 +261,33 @@ function aben_callback_field_media($args)
     echo '<button type="button" class="button aben-media-remove-button" style="' . ($value ? 'display:block;' : 'display:none;') . '">Remove Image</button>';
     echo '<br><label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
 }
+
+function aben_callback_field_time($args)
+{
+    $options = get_option('aben_options', aben_options_default());
+
+    // Get the field id and label
+    $id = isset($args['id']) ? esc_attr($args['id']) : '';
+    $label = isset($args['label']) ? esc_html($args['label']) : '';
+
+    // Get the saved timestamp (defaults to 23:00 if not set)
+    $timestamp = isset($options[$id]) ? intval($options[$id]) : strtotime('23:00');
+
+    // Create a DateTime object for the saved timestamp in the site's timezone
+    $timezone = wp_timezone_string(); // Get the site's timezone
+    $dateTime = new DateTime();
+    $dateTime->setTimestamp($timestamp);
+    $dateTime->setTimezone(new DateTimeZone($timezone)); // Set to site's timezone
+
+    // Convert the timestamp to local time for display (H:i format)
+    $local_time = $dateTime->format('H:i');
+
+    // Output the time input field with the local time value
+    echo '<input id="aben_options_' . $id . '"
+                name="aben_options[' . $id . ']"
+                type="time"
+                value="' . esc_attr($local_time) . '">';
+
+    // Output the label
+    echo '<br><label for="aben_options_' . $id . '">' . $label . '</label>';
+}

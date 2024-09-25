@@ -145,17 +145,11 @@ function aben_handle_test_email()
     // Get the email address from the form submission
     $to = isset($_POST['test_email_address']) ? sanitize_email($_POST['test_email_address']) : '';
 
-    // Define email subject and body
-    $subject = 'Aben SMTP Test Mail';
-    // $dummy_email = aben_get_email_template();
-    // $message = aben_replace_placeholder($dummy_email);
-
     $aben_settings = aben_get_options();
+
     $email_obj = new Aben_Email(
-        '',
         $aben_settings['archive_page_slug'],
         $aben_settings['number_of_posts'],
-        $aben_settings['unsubscribe_link'],
         $aben_settings['body_bg'],
         $aben_settings['header_text'],
         $aben_settings['header_bg'],
@@ -164,7 +158,6 @@ function aben_handle_test_email()
         $aben_settings['site_logo'],
         $aben_settings['show_view_all'],
         $aben_settings['view_all_posts_text'],
-        $aben_settings['show_number_view_all'],
         $aben_settings['show_view_post'],
         $aben_settings['view_post_text'],
         $aben_settings['show_unsubscribe'],
@@ -225,6 +218,7 @@ function aben_handle_test_email()
     ob_start();
     $email_obj->aben_email_template();
     $message = ob_get_clean();
+    $subject = 'Aben Test Email';
 
     // Send the test email
     if (aben_send_smtp_email($to, $subject, $message)) {

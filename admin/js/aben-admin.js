@@ -73,7 +73,7 @@
   const elementsMap = {
     aben_options_header_text: {
       target: "#header-text",
-      action: (el, value) => el.html(`<strong>${value} {{USERNAME}}</strong>`),
+      action: (el, value) => el.html(`<strong>${value}</strong>`),
     },
     aben_options_header_subtext: {
       target: "#header-subtext",
@@ -110,10 +110,7 @@
     },
     aben_options_view_all_posts_text: {
       target: "#view-all-post",
-      action: (el, value) => {
-        const postNumber = $("#post-number").html(); // Capture the current content inside the span
-        el.html(`${value} <span id="post-number">${postNumber}</span>`); // Update the link text while preserving #post-number
-      },
+      action: (el, value) => el.text(value),
     },
     aben_options_show_view_all: {
       target: "#view-all-post",
@@ -122,13 +119,7 @@
       },
       checkbox: true,
     },
-    aben_options_show_number_view_all: {
-      target: "#post-number",
-      action: (el, value) => {
-        el.css("display", value ? "inline-block" : "none"); // Show/hide the post-number span
-      },
-      checkbox: true,
-    },
+
     aben_options_number_of_posts: {
       target: ".post-tile",
       action: (el, value) => {

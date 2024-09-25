@@ -57,10 +57,8 @@ settings_fields('aben_options');
         $site_logo = aben_get_options()['site_logo'];
 
         $aben_email_dashboard = new Aben_Email(
-            '', //mail_subject
             'https://aben.com/blogs', //archive_page_slug
             6, //number_of_posts
-            'https://aben.com/unsubscribe', //unsubscribe_link
             '#f0eeff', //body_bg
             'Hi Rehan', //header_text
             '#f0eeff', //header_bg
@@ -69,7 +67,6 @@ settings_fields('aben_options');
             $site_logo, //site_logo
             true, //show_view_all
             'View All Posts', //view_all_posts_text
-            true, //show_number_view_all
             true, //show_view_post
             'Read', //view_post_text
             true, //show_unsubscribe
@@ -246,6 +243,15 @@ function aben_register_settings()
         'aben_section_general_setting',
         'aben_section_general_setting',
         ['id' => 'day_of_week', 'label' => '']
+    );
+
+    add_settings_field(
+        'email_time',
+        'Select Time',
+        'aben_callback_field_time',
+        'aben_section_general_setting',
+        'aben_section_general_setting',
+        ['id' => 'email_time', 'label' => '']
     );
 
     // SMTP Tab
@@ -468,4 +474,18 @@ function aben_register_settings()
         ['id' => 'email_body', 'label' => 'Email body (Text/Markup)']
     );
 
+}
+
+// Hook to sanitize_option to add timezone automatically
+add_filter('pre_update_option_aben_options', 'aben_save_timezone_option', 10, 2);
+
+function aben_save_timezone_option($new_value, $old_value)
+{
+    // Automatically get the site's timezone
+    $timezone = wp_timezone_string(); // e.g., 'America/New_York'
+
+    // Add the timezone to the settings array
+    $new_value['timezone'] = $timezone;
+
+    return $new_value;
 }

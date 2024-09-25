@@ -13,11 +13,32 @@ $aben_settings = aben_get_options();
 
 function aben_send_email()
 {
-    $email_template = aben_get_email_template();
-
+    // $email_template = aben_get_email_template();
     error_log('aben_send_email function was called at ' . current_time('mysql'));
 
     $aben_get_posts_result = aben_get_posts_for_email();
+
+    global $aben_settings;
+
+    $email_obj = new Aben_Email(
+        $aben_settings['archive_page_slug'],
+        $aben_settings['number_of_posts'],
+        $aben_settings['body_bg'],
+        $aben_settings['header_text'],
+        $aben_settings['header_bg'],
+        $aben_settings['header_subtext'],
+        $aben_settings['footer_text'],
+        $aben_settings['site_logo'],
+        $aben_settings['show_view_all'],
+        $aben_settings['view_all_posts_text'],
+        $aben_settings['show_view_post'],
+        $aben_settings['view_post_text'],
+        $aben_settings['show_unsubscribe'],
+        $aben_get_posts_result['posts_to_email'],
+    );
+    ob_start();
+    $email_obj->aben_email_template();
+    $email_template = ob_get_clean();
 
     // var_dump($aben_get_posts_result);
 
@@ -32,13 +53,11 @@ function aben_send_email()
 
     if (!empty($posts_published_today)) {
 
-        global $aben_settings;
-
         $post_archive_slug = $aben_settings['archive_page_slug'];
 
         $email_subject = $aben_settings['email_subject'];
 
-        $email_body = aben_replace_placeholder($email_template);
+        $email_body = $email_template;
 
         $admin_email = get_bloginfo('admin_email');
 
@@ -62,9 +81,7 @@ function aben_send_email()
 
                 // echo $user_firstname;
 
-                $personalized_email_body = str_replace('{{USERNAME}}', $user_firstname, $email_body); // Changing placeholders in email body
-
-                $personalized_email_body = str_replace('{{USER_EMAIL}}', $email_address, $email_body);
+                $personalized_email_body = str_replace(['{{USERNAME}}', '{{USER_EMAIL}}'], [$user_firstname, $email_address], $email_body); // Changing placeholders in email body
 
                 if (1 === $aben_settings['use_smtp']) {
                     aben_send_smtp_email($email_address, $email_subject, $personalized_email_body);

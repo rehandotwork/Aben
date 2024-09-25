@@ -38,7 +38,7 @@ function aben_options_default()
         'view_post_text' => 'Read now',
         'show_unsubscribe' => 1,
         'day_of_week' => 6,
-
+        'email_time' => strtotime('23:00'),
     );
 
 }

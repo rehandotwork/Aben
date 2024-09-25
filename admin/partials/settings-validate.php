@@ -36,6 +36,22 @@ function aben_callback_validate_options($input)
                     $options[$key] = sanitize_text_field($value);
                     break;
 
+                case 'email_time':
+                    $time = sanitize_text_field($value); // e.g., "22:00"
+
+                    // Get the current date and site timezone
+                    $timezone = wp_timezone_string(); // e.g., "America/New_York"
+                    $date = new DateTime('now', new DateTimeZone($timezone)); // Current date in site timezone
+
+                    // Set the time based on user input
+                    list($hour, $minute) = explode(':', $time);
+                    $date->setTime((int) $hour, (int) $minute); // Set the user-defined time
+
+                    // Convert to UNIX timestamp and save
+                    $timestamp = $date->getTimestamp();
+                    $options[$key] = $timestamp;
+                    break;
+
                 case 'site_logo':
                     if (!empty($value)) {
                         $options[$key] = sanitize_url($value);
