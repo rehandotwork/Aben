@@ -217,7 +217,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_general_setting',
         'aben_section_general_setting',
-        ['id' => 'email_subject', 'label' => 'Email Subject']
+        ['id' => 'email_subject', 'label' => '']
     );
 
     add_settings_field(
@@ -226,7 +226,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_general_setting',
         'aben_section_general_setting',
-        ['id' => 'archive_page_slug', 'label' => 'Link to All Posts Page']
+        ['id' => 'archive_page_slug', 'label' => 'e.g., https://example.com/blogs']
     );
 
     // add_settings_field(
@@ -288,7 +288,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'smtp_host', 'label' => 'SMTP hostname or IP']
+        ['id' => 'smtp_host', 'label' => 'e.g., smtp.gmail.com']
     );
 
     add_settings_field(
@@ -297,7 +297,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'smtp_port', 'label' => 'SMTP port']
+        ['id' => 'smtp_port', 'label' => 'e.g., 465 for SSL / 587 for TLS']
     );
 
     add_settings_field(
@@ -315,7 +315,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'smtp_username', 'label' => 'SMTP username']
+        ['id' => 'smtp_username', 'label' => 'e.g., user@gmail.com']
     );
 
     add_settings_field(
@@ -324,7 +324,7 @@ function aben_register_settings()
         'aben_callback_field_password',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'smtp_password', 'label' => 'SMTP password']
+        ['id' => 'smtp_password', 'label' => '']
     );
 
     add_settings_field(
@@ -333,16 +333,16 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'from_name', 'label' => 'From name you want to send in email']
+        ['id' => 'from_name', 'label' => 'e.g., Aben WP Plugin']
     );
 
     add_settings_field(
         'from_email',
-        'Reply to',
+        'Reply to Email',
         'aben_callback_field_text',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'from_email', 'label' => 'Reply to email address']
+        ['id' => 'from_email', 'label' => 'e.g., support@website.com']
     );
 
     // Email Template Tab

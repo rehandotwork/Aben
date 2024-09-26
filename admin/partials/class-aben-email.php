@@ -72,6 +72,8 @@ class Aben_Email
     public function aben_email_template()
     {
 
+        $site_icon_url = get_site_icon_url();
+        $logo = empty($this->site_logo) ? $site_icon_url : $this->site_logo;
         echo '<!DOCTYPE html><html><head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -116,7 +118,7 @@ class Aben_Email
         }
         echo '</div></div></div>
         <div style="color:#808080;text-align:center;padding: 30px 30px 50px 30px;">
-        <a href="' . home_url() . '"><img src="' . $this->site_logo . '" alt="Site Logo" style="max-width:180px;margin-top: 10px;"></a>
+        <a href="' . home_url() . '"><img src="' . $logo . '" alt="Site Logo" style="max-width:180px;margin-top: 10px;"></a>
         <p id="footer-text">' . $this->footer_text . '</p>';
         if ($this->show_unsubscribe) {
             echo '<span id="unsubscribe"><a href="' . home_url('?unsubscribe={{USER_EMAIL}}') . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';

@@ -203,4 +203,23 @@
 
   // Trigger on page load to set initial state
   toggleDayOfWeekField();
+
+  function toggleViewAllPostTextField() {
+    // Check if the checkbox is checked
+    if ($("#aben_options_view_all").is(":checked")) {
+      // Hide the row containing the view all posts text
+      $("#aben_options_view_all_posts_text").closest("tr").hide();
+    } else {
+      // Show the row containing the view all posts text
+      $("#aben_options_view_all_posts_text").closest("tr").show();
+    }
+  }
+
+  // Call the function on page load to set the initial state
+  toggleViewAllPostTextField();
+
+  // Attach the change event handler to the checkbox
+  $("#aben_options_view_all").on("change", function () {
+    toggleViewAllPostTextField();
+  });
 })(jQuery);
