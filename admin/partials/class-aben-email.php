@@ -90,9 +90,9 @@ class Aben_Email
             $title = $post['title'];
             $link = $post['link'];
             $excerpt = $post['excerpt'];
-            echo '<div class="post-tile" style="display:flex;gap: 20px;margin-bottom:20px;padding:20px;background:' . $this->header_bg . ';">';
-            echo '<div style="width:20%;align-self:start;"><a href="' . $link . '"><img width="100%" src="https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png" /></a></div>';
-            echo '<div style="width:80%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
+            echo '<div class="post-tile" style="display:flex;gap: 25px;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';
+            echo '<div style="width:15%;align-self:start;"><a href="' . $link . '"><img width="100%" src="https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png" /></a></div>';
+            echo '<div style="width:85%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
             if (!empty($excerpt)) {
                 echo '<p style="font-size:14px;color:#727272;margin:5px 0 0">' . $excerpt . '</p></div>';
             }
