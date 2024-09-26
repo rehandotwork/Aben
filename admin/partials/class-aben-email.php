@@ -71,6 +71,7 @@ class Aben_Email
 
     public function aben_email_template()
     {
+
         echo '<!DOCTYPE html><html><head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -90,9 +91,17 @@ class Aben_Email
             $title = $post['title'];
             $link = $post['link'];
             $excerpt = $post['excerpt'];
+            $image = $post['featured_image_url'];
+
+            // var_dump($this->show_view_post);
+
+            $excerpt_width = $this->show_view_post ? 85 : 100;
+
             echo '<div class="post-tile" style="display:flex;gap: 25px;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';
-            echo '<div style="width:15%;align-self:start;"><a href="' . $link . '"><img width="100%" src="https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png" /></a></div>';
-            echo '<div style="width:85%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
+            if ($this->show_view_post) {
+                echo '<div class="view-post" style="width:15%;align-self:start;"><a href="' . $link . '"><img width="100%" src="' . $image . '" alt="' . $title . '" /></a></div>';
+            }
+            echo '<div style="width:' . $excerpt_width . '%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
             if (!empty($excerpt)) {
                 echo '<p style="font-size:14px;color:#727272;margin:5px 0 0">' . $excerpt . '</p></div>';
             }

@@ -166,51 +166,61 @@ function aben_handle_test_email()
                 'title' => 'Understanding WordPress Plugins',
                 'link' => 'https://example.com/understanding-wordpress-plugins',
                 'excerpt' => 'Learn about the basics of WordPress plugins, how they work, and why they are useful.',
+                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
             ],
             [
                 'title' => '10 Tips for Optimizing Your Website',
                 'link' => 'https://example.com/optimizing-your-website',
                 'excerpt' => 'Follow these essential tips to ensure your website runs smoothly and efficiently.',
+                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
             ],
             [
                 'title' => 'The Importance of SEO in 2024',
                 'link' => 'https://example.com/importance-of-seo',
                 'excerpt' => 'SEO remains crucial for online success. Discover how to stay ahead in 2024.',
+                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
             ],
             [
                 'title' => 'Best Practices for Web Development',
                 'link' => 'https://example.com/web-development-best-practices',
                 'excerpt' => 'Adopt these best practices to enhance your web development workflow and deliver top-notch projects.',
+                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
+                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
             ],
         ]
     );

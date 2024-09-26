@@ -105,6 +105,8 @@ function aben_get_today_posts()
 
             $excerpt = $post->post_excerpt;
 
+            $featured_image_url = get_the_post_thumbnail_url($id);
+
             $link = get_permalink($id);
 
             $author_id = $post->post_author;
@@ -125,6 +127,7 @@ function aben_get_today_posts()
                 'title' => $title,
                 'link' => $link,
                 'excerpt' => $excerpt,
+                'featured_image_url' => $featured_image_url,
                 'author' => $author,
                 'country' => $country,
             );
@@ -190,6 +193,7 @@ function aben_get_weekly_posts($selected_day_num)
             $id = $post->ID;
             $title = $post->post_title;
             $excerpt = $post->post_excerpt;
+            $featured_image_url = get_the_post_thumbnail_url($id);
             $link = get_permalink($id);
             $author_id = $post->post_author;
 
@@ -197,6 +201,7 @@ function aben_get_weekly_posts($selected_day_num)
                 'title' => $title,
                 'link' => $link,
                 'excerpt' => $excerpt,
+                'featured_image_url' => $featured_image_url,
 
             );
         }

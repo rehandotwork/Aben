@@ -9,38 +9,40 @@ function aben_callback_validate_options($input)
     // Retrieve existing options from the database
     $options = aben_get_options();
 
-    // Loop through each key in the input and update only non-empty values
+    // Loop through each key in the input and update values, including empty ones where appropriate
     foreach ($input as $key => $value) {
-        // Only update options with valid, non-empty values
-        if (isset($value) && (is_string($value) ? trim($value) !== '' : true)) {
-            switch ($key) {
-                case 'body_bg':
-                case 'header_bg':
-                    $options[$key] = sanitize_hex_color($value);
-                    break;
+        // Handle validation based on field type
+        switch ($key) {
+            case 'body_bg':
+            case 'header_bg':
+                // Allow empty value to clear the color
+                $options[$key] = empty($value) ? '' : sanitize_hex_color($value);
+                break;
 
-                case 'header_text':
-                case 'header_subtext':
-                case 'footer_text':
-                case 'view_all_posts_text':
-                case 'view_post_text':
-                case 'post_type':
-                case 'user_roles':
-                case 'email_frequency':
-                case 'email_subject':
-                case 'smtp_host':
-                case 'smtp_encryption':
-                case 'smtp_username':
-                case 'from_name':
-                case 'day_of_week':
-                    $options[$key] = sanitize_text_field($value);
-                    break;
+            case 'header_text':
+            case 'header_subtext':
+            case 'footer_text':
+            case 'view_all_posts_text':
+            case 'view_post_text':
+            case 'post_type':
+            case 'user_roles':
+            case 'email_frequency':
+            case 'email_subject':
+            case 'smtp_host':
+            case 'smtp_encryption':
+            case 'smtp_username':
+            case 'from_name':
+            case 'day_of_week':
+                // Allow empty value to clear text fields
+                $options[$key] = sanitize_text_field($value);
+                break;
 
-                case 'email_time':
+            case 'email_time':
+                if (!empty($value)) {
                     $time = sanitize_text_field($value); // e.g., "22:00"
 
                     // Get the current date and site timezone
-                    $timezone = wp_timezone_string(); // e.g., "America/New_York"
+                    $timezone = wp_timezone_string();
                     $date = new DateTime('now', new DateTimeZone($timezone)); // Current date in site timezone
 
                     // Set the time based on user input
@@ -50,51 +52,49 @@ function aben_callback_validate_options($input)
                     // Convert to UNIX timestamp and save
                     $timestamp = $date->getTimestamp();
                     $options[$key] = $timestamp;
-                    break;
+                }
+                break;
 
-                case 'site_logo':
-                    if (!empty($value)) {
-                        $options[$key] = sanitize_url($value);
-                    } else {
-                        $options[$key] = '';
-                    }
-                    break;
+            case 'site_logo':
+                // Allow empty value to remove the logo
+                $options[$key] = sanitize_url($value);
+                break;
 
-                case 'archive_page_slug':
-                case 'unsubscribe_link':
-                    $options[$key] = esc_url_raw($value);
-                    break;
+            case 'archive_page_slug':
+            case 'unsubscribe_link':
+                // Allow empty value to remove the URL
+                $options[$key] = esc_url_raw($value);
+                break;
 
-                case 'email_body':
-                    $options[$key] = wp_kses_post($value);
-                    break;
+            case 'email_body':
+                $options[$key] = wp_kses_post($value);
+                break;
 
-                case 'smtp_port':
-                case 'number_of_posts':
-                    $options[$key] = intval($value);
-                    break;
+            case 'smtp_port':
+            case 'number_of_posts':
+                $options[$key] = intval($value);
+                break;
 
-                case 'smtp_password':
-                    if (!empty($value)) {
-                        $options[$key] = aben_encrypt_password($value);
-                    } else {
-                        // If no password was provided, keep the existing one
-                        $options[$key] = $options['smtp_password'];
-                    }
-                    break;
+            case 'smtp_password':
+                if (!empty($value)) {
+                    $options[$key] = aben_encrypt_password($value);
+                } else {
+                    // If no password was provided, keep the existing one
+                    $options[$key] = isset($options['smtp_password']) ? $options['smtp_password'] : '';
+                }
+                break;
 
-                case 'from_email':
-                    $options[$key] = sanitize_email($value);
-                    break;
+            case 'from_email':
+                $options[$key] = sanitize_email($value);
+                break;
 
-                case 'show_view_all':
-                case 'show_unsubscribe':
-                case 'use_smtp':
-                case 'show_number_view_all':
-                case 'show_view_post':
-                    $options[$key] = !empty($value) ? 1 : 0;
-                    break;
-            }
+            case 'show_view_all':
+            case 'show_unsubscribe':
+            case 'use_smtp':
+            case 'show_number_view_all':
+            case 'show_view_post':
+                $options[$key] = !empty($value) ? 1 : 0;
+                break;
         }
     }
 
