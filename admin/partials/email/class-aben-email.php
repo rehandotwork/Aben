@@ -74,6 +74,7 @@ class Aben_Email
 
         $site_icon_url = get_site_icon_url();
         $logo = empty($this->site_logo) ? $site_icon_url : $this->site_logo;
+        $brand = aben_get_options()['brand'];
         echo '<!DOCTYPE html><html><head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -114,15 +115,16 @@ class Aben_Email
         echo '<div style="display:flex;">
         <div style="width:100%;text-align:center;">';
         if ($this->show_view_all) {
-            echo '<a id="view-all-post" href="' . $this->archive_page_slug . '"style="display:inline-block;padding:15px 0px;background-color:#165d31;color:#ffffff;text-decoration:none;width: 100%;font-size:16px;">' . $this->view_all_posts_text . '</a>';
+            echo '<a id="view-all-post" href="' . $this->archive_page_slug . '"style="display:inline-block;padding:15px 0px;background-color:#2271b1;color:#ffffff;text-decoration:none;width: 100%;font-size:16px;">' . $this->view_all_posts_text . '</a>';
         }
         echo '</div></div></div>
         <div style="color:#808080;text-align:center;padding: 30px 30px 50px 30px;">
-        <a href="' . home_url() . '"><img src="' . $logo . '" alt="Site Logo" style="max-width:180px;margin-top: 10px;"></a>
+        <a href="' . home_url() . '"><img src="' . $logo . '" alt="Site Logo" style="max-height:80px; object-fit:contain; margin-top: 10px;"></a>
         <p id="footer-text">' . $this->footer_text . '</p>';
         if ($this->show_unsubscribe) {
             echo '<span id="unsubscribe"><a href="' . home_url('?unsubscribe={{USER_EMAIL}}') . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
         }
+        echo '<p>' . $brand . '</p>';
         echo '</div></div></body></html>';
     }
 }

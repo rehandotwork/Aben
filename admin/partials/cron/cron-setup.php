@@ -5,7 +5,7 @@ if (!defined('ABSPATH')) {
     exit;
 
 }
-// require_once 'email-settings.php';
+// require_once 'email-build.php';
 
 // add_action('admin_notices', 'aben_get_cron_settings');
 

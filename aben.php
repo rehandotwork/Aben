@@ -46,7 +46,7 @@ function activate_aben()
     require_once plugin_dir_path(__FILE__) . 'includes/class-aben-activator.php';
     Aben_Activator::activate();
 
-    aben_add_user_meta_to_existing_users(); //Refer user-meta.php
+    aben_add_user_meta_to_existing_users(); //Refer add-user-meta.php
     aben_register_cron();
 
 }
@@ -65,24 +65,23 @@ function deactivate_aben()
 }
 
 // Always include these files (both frontend and admin)
-include_once dirname(__FILE__) . '/admin/partials/user-meta.php';
-include_once dirname(__FILE__) . '/admin/partials/cron-settings.php';
-include_once dirname(__FILE__) . '/admin/partials/register-cron.php';
-include_once dirname(__FILE__) . '/admin/partials/send-email.php';
-include_once dirname(__FILE__) . '/admin/partials/update-cron.php';
-include_once dirname(__FILE__) . '/admin/partials/email-settings.php';
-include_once dirname(__FILE__) . '/admin/partials/class-aben-email.php';
+include_once dirname(__FILE__) . '/admin/partials/user/add-user-meta.php';
+include_once dirname(__FILE__) . '/admin/partials/cron/cron-setup.php';
+include_once dirname(__FILE__) . '/admin/partials/cron/register-cron.php';
+include_once dirname(__FILE__) . '/admin/partials/email/send-email.php';
+include_once dirname(__FILE__) . '/admin/partials/cron/update-cron.php';
+include_once dirname(__FILE__) . '/admin/partials/email/email-build.php';
+include_once dirname(__FILE__) . '/admin/partials/email/class-aben-email.php';
 
 // Only include these files for admin
 if (is_admin()) {
-    include_once dirname(__FILE__) . '/admin/partials/admin-menu.php';
-    include_once dirname(__FILE__) . '/admin/partials/settings-register.php';
-    include_once dirname(__FILE__) . '/admin/partials/settings-default.php';
-    include_once dirname(__FILE__) . '/admin/partials/settings-callbacks.php';
-    include_once dirname(__FILE__) . '/admin/partials/settings-validate.php';
-    include_once dirname(__FILE__) . '/admin/partials/user-settings.php';
-    include_once dirname(__FILE__) . '/admin/partials/user-callbacks.php';
-    include_once dirname(__FILE__) . '/admin/partials/smtp-settings.php';
+    include_once dirname(__FILE__) . '/admin/partials/menu/admin-menu.php';
+    include_once dirname(__FILE__) . '/admin/partials/settings/settings-register.php';
+    include_once dirname(__FILE__) . '/admin/partials/settings/settings-default.php';
+    include_once dirname(__FILE__) . '/admin/partials/settings/settings-callbacks.php';
+    include_once dirname(__FILE__) . '/admin/partials/settings/settings-validate.php';
+    include_once dirname(__FILE__) . '/admin/partials/user/add-user-settings.php';
+    include_once dirname(__FILE__) . '/admin/partials/smtp/smtp-setup.php';
 }
 
 register_activation_hook(__FILE__, 'activate_aben');

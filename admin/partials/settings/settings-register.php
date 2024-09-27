@@ -16,8 +16,8 @@ function aben_display_settings_page()
 
     $tabs = array(
         'general' => 'General',
-        'smtp' => 'SMTP',
         'email' => 'Email Template',
+        'smtp' => 'SMTP',
         'test_email' => 'Test Email',
     );
 
@@ -55,7 +55,7 @@ settings_fields('aben_options');
         // do_settings_sections('aben_section_email_template');
 
         $site_logo = aben_get_options()['site_logo'];
-        // $show_view_post = aben_get_options()['show_view_post'];
+        $show_view_post = aben_get_options()['show_view_post'];
 
         $aben_email_dashboard = new Aben_Email(
             'https://aben.com/blogs', //archive_page_slug
@@ -68,7 +68,7 @@ settings_fields('aben_options');
             $site_logo, //site_logo
             true, //show_view_all
             'View All Posts', //view_all_posts_text
-            true, //show_view_post
+            $show_view_post, //show_view_post
             'Read', //view_post_text
             true, //show_unsubscribe
             [
@@ -194,24 +194,6 @@ function aben_register_settings()
     );
 
     add_settings_field(
-        'post_type',
-        'Post Type',
-        'aben_callback_field_select',
-        'aben_section_general_setting',
-        'aben_section_general_setting',
-        ['id' => 'post_type', 'label' => 'Enable notification for post type']
-    );
-
-    add_settings_field(
-        'user_roles',
-        'Users',
-        'aben_callback_field_select',
-        'aben_section_general_setting',
-        'aben_section_general_setting',
-        ['id' => 'user_roles', 'label' => 'Enable notification for users']
-    );
-
-    add_settings_field(
         'email_subject',
         'Email Subject',
         'aben_callback_field_text',
@@ -221,35 +203,35 @@ function aben_register_settings()
     );
 
     add_settings_field(
-        'archive_page_slug',
-        'All Posts Page Link',
-        'aben_callback_field_text',
-        'aben_section_general_setting',
-        'aben_section_general_setting',
-        ['id' => 'archive_page_slug', 'label' => 'e.g., https://example.com/blogs']
-    );
-
-    // add_settings_field(
-    //     'unsubscribe_link',
-    //     'Unsubscribe Link',
-    //     'aben_callback_field_text',
-    //     'aben_section_general_setting',
-    //     'aben_section_general_setting',
-    //     ['id' => 'unsubscribe_link', 'label' => 'Email Unsubscribe Link']
-    // );
-
-    add_settings_field(
-        'email_frequency',
-        'Email Frequency',
+        'user_roles',
+        'Send To',
         'aben_callback_field_select',
         'aben_section_general_setting',
         'aben_section_general_setting',
-        ['id' => 'email_frequency', 'label' => 'When to send Email']
+        ['id' => 'user_roles', 'label' => '']
+    );
+
+    add_settings_field(
+        'post_type',
+        'Post Type',
+        'aben_callback_field_select',
+        'aben_section_general_setting',
+        'aben_section_general_setting',
+        ['id' => 'post_type', 'label' => '']
+    );
+
+    add_settings_field(
+        'email_frequency',
+        'Email Delivery',
+        'aben_callback_field_select',
+        'aben_section_general_setting',
+        'aben_section_general_setting',
+        ['id' => 'email_frequency', 'label' => '']
     );
 
     add_settings_field(
         'day_of_week',
-        'Select Day',
+        'Schedule Day',
         'aben_callback_field_select',
         'aben_section_general_setting',
         'aben_section_general_setting',
@@ -258,7 +240,7 @@ function aben_register_settings()
 
     add_settings_field(
         'email_time',
-        'Select Time',
+        'Schedule Time',
         'aben_callback_field_time',
         'aben_section_general_setting',
         'aben_section_general_setting',
@@ -288,7 +270,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'smtp_host', 'label' => 'e.g., smtp.gmail.com']
+        ['id' => 'smtp_host', 'label' => 'e.g., smtp.server.com']
     );
 
     add_settings_field(
@@ -315,7 +297,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'smtp_username', 'label' => 'e.g., user@gmail.com']
+        ['id' => 'smtp_username', 'label' => 'e.g., user@website.com']
     );
 
     add_settings_field(
@@ -342,7 +324,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'from_email', 'label' => 'e.g., support@website.com']
+        ['id' => 'from_email', 'label' => 'e.g., email@website.com']
     );
 
     // Email Template Tab
@@ -407,15 +389,6 @@ function aben_register_settings()
         ['id' => 'show_view_post', 'label' => 'Yes']
     );
 
-    // add_settings_field(
-    //     'view_post_text',
-    //     'Change "View Post" text to',
-    //     'aben_callback_field_text',
-    //     'aben_section_email_setting',
-    //     'aben_section_email_setting',
-    //     ['id' => 'view_post_text', 'label' => '']
-    // );
-
     add_settings_field(
         'show_view_all',
         'Show View All Posts Button',
@@ -424,14 +397,6 @@ function aben_register_settings()
         'aben_section_email_setting',
         ['id' => 'show_view_all', 'label' => 'Yes']
     );
-    // add_settings_field(
-    //     'show_number_view_all',
-    //     'Show Posts Number',
-    //     'aben_callback_field_checkbox',
-    //     'aben_section_email_setting',
-    //     'aben_section_email_setting',
-    //     ['id' => 'show_number_view_all', 'label' => 'Show Total Posts Number']
-    // );
 
     add_settings_field(
         'view_all_posts_text',
@@ -440,6 +405,15 @@ function aben_register_settings()
         'aben_section_email_setting',
         'aben_section_email_setting',
         ['id' => 'view_all_posts_text', 'label' => '']
+    );
+
+    add_settings_field(
+        'archive_page_slug',
+        'All Posts Page Link',
+        'aben_callback_field_text',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'archive_page_slug', 'label' => 'e.g., https://website.com/blogs']
     );
 
     add_settings_field(
@@ -497,6 +471,17 @@ function aben_save_timezone_option($new_value, $old_value)
 
     // Add the timezone to the settings array
     $new_value['timezone'] = $timezone;
+
+    return $new_value;
+}
+
+add_filter('pre_update_option_aben_options', 'aben_save_brand', 10, 2);
+
+function aben_save_brand($new_value, $old_value)
+{
+    $brand = '<a style="text-decoration:none;" href="https://aben.com">Powered by Aben</a>';
+
+    $new_value['brand'] = $brand;
 
     return $new_value;
 }

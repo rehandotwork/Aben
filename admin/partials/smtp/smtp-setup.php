@@ -31,7 +31,7 @@ function aben_get_email_template()
 }
 
 // Include PHPMailer from the plugin's `includes` directory
-require_once plugin_dir_path(__DIR__) . '../includes/vendor/autoload.php';
+require_once plugin_dir_path(__DIR__) . '../../includes/vendor/autoload.php';
 
 function aben_get_smtp_settings()
 {

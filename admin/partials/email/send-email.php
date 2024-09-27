@@ -5,8 +5,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-require_once 'email-settings.php';
-
+require_once __DIR__ . '/email-build.php';
 $aben_settings = aben_get_options();
 
 // add_action('admin_notices', 'aben_send_email');
@@ -163,6 +162,3 @@ function aben_get_posts_for_email()
 
     return $aben_get_posts_result;
 }
-
-// $posts = aben_get_posts_for_email();
-// var_dump($posts);
