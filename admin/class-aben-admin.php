@@ -101,7 +101,8 @@ class Aben_Admin
          * class.
          */
 
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/aben-admin.js', array('jquery'), $this->version, false);
+        wp_enqueue_media();
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/aben-admin.js', array('jquery'), $this->version, true);
 
     }
 
