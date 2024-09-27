@@ -1,7 +1,7 @@
-=== Plugin Name ===
+=== Auto Bulk Email Notifications (Aben) ===
 Contributors: @rehanwork
 Donate link: https://rehan.work/
-Tags: Email, Notification
+Tags: Email, Notification, Marketing
 Requires at least: 4.3.0
 Tested up to: 6.5.3
 Stable tag: 4.3
