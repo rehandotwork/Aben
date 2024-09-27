@@ -12,12 +12,11 @@ function aben_get_options() //Fetching Plugin Settings and Returning in Array
     $options = get_option('aben_options', 'aben_options_default');
     $setting = array();
 
-    foreach ($options as $key => $value) {
+    if (is_array($options)) {foreach ($options as $key => $value) {
 
         $setting[$key] = $value;
 
-    }
-
+    }}
     return $setting;
 
 }

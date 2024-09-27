@@ -53,7 +53,7 @@ settings_fields('aben_options');
         echo '<div id = "aben-email-tab-grid" style="display:grid; grid-template-columns:4fr 6fr; grid-gap:1rem;">';
         do_settings_sections('aben_section_email_setting');
 
-        $site_logo = aben_get_options()['site_logo'];
+        $site_logo = isset(aben_get_options()['site_logo']) ? aben_get_options()['site_logo'] : '';
         $show_view_post = aben_get_options()['show_view_post'];
 
         $aben_email_dashboard = new Aben_Email(
