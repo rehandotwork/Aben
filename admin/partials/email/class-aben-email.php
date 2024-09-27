@@ -83,7 +83,8 @@ class Aben_Email
         <div id="aben-email-template" style="font-family:Open Sans,sans-serif;margin:0;padding:0;background: ' . $this->body_bg . ';color: #1f2430;">
         <div style="width:100%;max-width:500px;margin: auto;">
         <div style="padding: 50px 30px 30px 30px;">
-        <p id ="header-text"style="font-size:16px;display: inline;"><strong>' . $this->header_text . '</strong></p>
+        <p id ="header-text" style="font-size:16px;display: inline;"><strong>' . $this->header_text . '</strong></p>
+        <img width="16px" data-emoji="👋" class="an1" alt="👋" aria-label="👋" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/15.1/1f44b/72.png" loading="lazy">
         <p id="header-subtext" style="font-size:16px;">' . $this->header_subtext . '</p></div>
         <div id="posts-wrapper"">';
 
@@ -98,9 +99,9 @@ class Aben_Email
 
             $excerpt_width = $this->show_view_post ? 85 : 100;
 
-            echo '<div class="post-tile" style="display:flex;gap: 25px;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';
+            echo '<div class="post-tile" style="display:flex;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';
             if ($this->show_view_post) {
-                echo '<div class="view-post" style="width:15%;align-self:start;"><a href="' . $link . '"><img width="100%" src="' . $image . '" alt="' . $title . '" /></a></div>';
+                echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:start;"><a href="' . $link . '"><img width="100%" src="' . $image . '" alt="' . $title . '" /></a></div>';
             }
             echo '<div style="width:' . $excerpt_width . '%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
             if (!empty($excerpt)) {

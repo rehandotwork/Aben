@@ -340,7 +340,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'header_text', 'label' => '{{USERNAME}} will be replaced with user\'s name']
+        ['id' => 'header_text', 'label' => 'Use {{USERNAME}} to display user\'s name']
     );
 
     add_settings_field(
