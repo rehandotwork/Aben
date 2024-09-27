@@ -146,20 +146,3 @@ function aben_decrypt_password($encrypted_password)
         return openssl_decrypt($encrypted_password, 'aes-256-cbc', $encryption_key, 0, $iv);
     }
 }
-
-// add_action('admin_notices', 'aben_check');
-
-function aben_check()
-{
-    $plain_pass = 'abcd1234!@#$  efgh';
-    // echo "Plain Password - {$plain_pass}";
-    $hashed_password = aben_encrypt_password($plain_pass);
-    // echo "Encrypted Password - {$hashed_password} <br/>";
-    $decrypted_password = aben_decrypt_password($hashed_password);
-    // echo "Decrypted Password - {$decrypted_password}";
-
-    if ($decrypted_password === $plain_pass) {
-        echo '<div class="notice notice-success is-dismissible"><p>Password encryption and decryption is working correctly</p></div>';
-    }
-
-}

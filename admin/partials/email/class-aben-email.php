@@ -96,8 +96,6 @@ class Aben_Email
             $excerpt = $post['excerpt'];
             $image = $post['featured_image_url'];
 
-            // var_dump($this->show_view_post);
-
             $excerpt_width = $this->show_view_post ? 85 : 100;
 
             echo '<div class="post-tile" style="display:flex;gap: 25px;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';

@@ -6,7 +6,6 @@ if (!defined('ABSPATH')) {
 }
 
 add_action('aben_cron_event', 'aben_send_email');
-// add_action('admin_notices', 'aben_register_cron');
 
 function aben_register_cron()
 {
@@ -70,8 +69,6 @@ function aben_register_cron()
 
 function aben_deregister_cron()
 {
-    // wp_unschedule_event( $timestamp:integer, $hook:string, $args:array, $wp_error:boolean )
     error_log('aben_deregister_cron called');
-
     wp_clear_scheduled_hook('aben_cron_event');
 }

@@ -10,11 +10,6 @@ if (!defined('ABSPATH')) {
 
 function aben_get_users()
 {
-    // $options = get_option('aben_options', 'aben_options_default');
-
-    // $selected_role = $options['user_roles'];
-
-    // echo $selected_role;
 
     $users = get_users(); // All Users
 
@@ -39,18 +34,12 @@ function aben_add_user_meta_to_existing_users()
     foreach ($users as $user) {
 
         $user_id = $user->ID;
-        // echo $user_id;
 
         if (!metadata_exists('user', $user_id, 'aben_notification')) {
 
             add_user_meta($user_id, 'aben_notification', '1');
 
-            // error_log('User Meta Added');
-
         }
-        // else {
-        //     error_log('User meta already present');
-        // }
 
     }
 

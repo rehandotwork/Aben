@@ -52,13 +52,12 @@ settings_fields('aben_options');
     } elseif ($current_tab === 'email') {
         echo '<div id = "aben-email-tab-grid" style="display:grid; grid-template-columns:4fr 6fr; grid-gap:1rem;">';
         do_settings_sections('aben_section_email_setting');
-        // do_settings_sections('aben_section_email_template');
 
         $site_logo = aben_get_options()['site_logo'];
         $show_view_post = aben_get_options()['show_view_post'];
 
         $aben_email_dashboard = new Aben_Email(
-            'https://aben.com/blogs', //archive_page_slug
+            'https://rehan.work/blog/', //archive_page_slug
             6, //number_of_posts
             '#f0eeff', //body_bg
             'Hi Rehan', //header_text
@@ -341,7 +340,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'header_text', 'label' => '{{USERNAME}} will be replaced with user\'s name in the real email']
+        ['id' => 'header_text', 'label' => '{{USERNAME}} will be replaced with user\'s name']
     );
 
     add_settings_field(
@@ -350,25 +349,25 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'header_subtext', 'label' => 'Subtext in the email header']
+        ['id' => 'header_subtext', 'label' => '']
     );
 
     add_settings_field(
         'body_bg',
-        'Body Background',
+        'Body Background Color',
         'aben_callback_field_color',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'body_bg', 'label' => 'Email Body Background Color']
+        ['id' => 'body_bg', 'label' => '']
     );
 
     add_settings_field(
         'header_bg',
-        'Post Tile Background',
+        'Post Tile Background Color',
         'aben_callback_field_color',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'header_bg', 'label' => 'Post  Tile Background Color']
+        ['id' => 'header_bg', 'label' => '']
     );
 
     add_settings_field(
@@ -377,7 +376,7 @@ function aben_register_settings()
         'aben_callback_field_select',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'number_of_posts', 'label' => 'Number of Posts to Send']
+        ['id' => 'number_of_posts', 'label' => 'Posts are showing for demonstration only']
     );
 
     add_settings_field(
@@ -391,7 +390,7 @@ function aben_register_settings()
 
     add_settings_field(
         'show_view_all',
-        'Show View All Posts Button',
+        'Show Button',
         'aben_callback_field_checkbox',
         'aben_section_email_setting',
         'aben_section_email_setting',
@@ -400,7 +399,7 @@ function aben_register_settings()
 
     add_settings_field(
         'view_all_posts_text',
-        'Change "View All Posts" text to',
+        'Button Text',
         'aben_callback_field_text',
         'aben_section_email_setting',
         'aben_section_email_setting',
@@ -409,7 +408,7 @@ function aben_register_settings()
 
     add_settings_field(
         'archive_page_slug',
-        'All Posts Page Link',
+        'Button Link',
         'aben_callback_field_text',
         'aben_section_email_setting',
         'aben_section_email_setting',
@@ -418,11 +417,11 @@ function aben_register_settings()
 
     add_settings_field(
         'site_logo',
-        'Site Logo',
+        'Footer Logo',
         'aben_callback_field_media',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'site_logo', 'label' => 'Select Logo']
+        ['id' => 'site_logo', 'label' => '']
     );
 
     add_settings_field(
@@ -431,7 +430,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'footer_text', 'label' => 'Footer Text']
+        ['id' => 'footer_text', 'label' => '']
     );
 
     add_settings_field(
@@ -440,7 +439,7 @@ function aben_register_settings()
         'aben_callback_field_checkbox',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'show_unsubscribe', 'label' => 'Show Unsubscribe']
+        ['id' => 'show_unsubscribe', 'label' => 'Yes']
     );
 
     add_settings_section(
@@ -479,7 +478,7 @@ add_filter('pre_update_option_aben_options', 'aben_save_brand', 10, 2);
 
 function aben_save_brand($new_value, $old_value)
 {
-    $brand = '<a style="text-decoration:none;" href="https://aben.com">Powered by Aben</a>';
+    $brand = '<a style="text-decoration:none;" href="https://rehan.work/aben">Powered by Aben</a>';
 
     $new_value['brand'] = $brand;
 

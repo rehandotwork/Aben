@@ -8,3 +8,8 @@
         width: unset;
     }
  }
+
+ div#aben-email-tab-grid > :first-child {
+    max-height:80vh;
+    
+}

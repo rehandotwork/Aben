@@ -5,18 +5,13 @@ if (!defined('ABSPATH')) {
     exit;
 
 }
-// require_once 'email-build.php';
-
-// add_action('admin_notices', 'aben_get_cron_settings');
-
-// print_r($settings);
 
 function aben_get_cron_settings()
 {
     $settings = aben_get_options();
 
     $email_frequency = $settings['email_frequency'];
-    // var_dump($email_frequency);
+
     $day_of_week = intval($settings['day_of_week']);
 
     $email_time = $settings['email_time'];
@@ -46,6 +41,3 @@ function aben_get_cron_settings()
     ];
 
 }
-
-// $cron_setting = aben_get_cron_settings();
-// var_dump($cron_setting);

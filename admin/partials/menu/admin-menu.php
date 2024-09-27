@@ -9,13 +9,13 @@ if (!defined('ABSPATH')) {
 function aben_add_top_level_menu()
 {
     add_menu_page(
-        'Auto Bulk Email Notification Setting',
+        'Aben Settings',
         'Aben',
         'manage_options',
         'aben',
         'aben_display_settings_page',
         'dashicons-email-alt',
-        null
+        26,
     );
 }
 

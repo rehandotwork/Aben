@@ -15,7 +15,7 @@
  * @wordpress-plugin
  * Plugin Name:       Auto Bulk Email Notifications (Aben)
  * Plugin URI:        https://rehan.work/aben
- * Description:       This plugin allows WordPress Admin to auto-send bulk email notifications to their users through the website directly. Use it for any post type like blogs, products, News, Jobs etc. No third party mailing service required.
+ * Description:       This plugin allows WordPress Admin to auto-send bulk email notifications for their WordPress posts from the website directly. No third party service required.
  * Version:           1.0.0
  * Author:            Rehan Khan
  * Author URI:        https://rehan.work/

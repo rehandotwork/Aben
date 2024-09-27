@@ -112,6 +112,10 @@
       target: "#view-all-post",
       action: (el, value) => el.text(value),
     },
+    aben_options_archive_page_slug: {
+      target: "#view-all-post",
+      action: (el, value) => el.attr("href", value),
+    },
     aben_options_show_view_all: {
       target: "#view-all-post",
       action: (el, value) => {

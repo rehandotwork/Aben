@@ -7,8 +7,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-// add_action('admin_notices', 'aben_get_email_template');
-
 function aben_get_email_template()
 {
     // Start output buffering to capture the output
@@ -99,8 +97,6 @@ function aben_send_own_smtp_email($to, $subject, $message)
     $mail = new PHPMailer(true);
 
     try {
-        // Debugging output for troubleshooting
-        // $mail->SMTPDebug = 2; // Set to 2 for full debug output in logs
         $mail->isSMTP();
         $mail->Host = 'mail.inaqani.com';
         $mail->SMTPAuth = true;

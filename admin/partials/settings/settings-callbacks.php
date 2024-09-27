@@ -87,8 +87,6 @@ function aben_callback_field_select($args)
 
         $select_options = $post_types;
 
-        // var_dump($select_options);
-
     } else if ($id === 'user_roles') {
 
         global $wp_roles;
@@ -99,11 +97,7 @@ function aben_callback_field_select($args)
 
         $roles = $wp_roles->roles;
 
-        // print_r($roles);
-
         $role_names = array_keys($roles);
-
-        // print_r($role_names);
 
         foreach ($role_names as $role_name) {
 
@@ -153,10 +147,6 @@ function aben_callback_field_select($args)
             'once_in_a_day' => 'Once in a Day',
             'once_in_a_week' => 'Once in a Week',
         );
-
-        // var_dump($select_options);
-
-        // aben_update_cron(); // Refer to update-cron.php
 
     }
 

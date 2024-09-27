@@ -30,7 +30,7 @@ function aben_options_default()
         'header_bg' => '#f5f7fa',
         'header_subtext' => 'This email sent using Auto Bulk Email Notification(Aben) plugin',
         'footer_text' => 'Auto Bulk Email Notification &copy; | All Rights Reserved',
-        'site-logo' => '',
+        'site-logo' => get_site_icon_url(),
         'show_view_all' => 1,
         'view_all_posts_text' => 'View All Posts',
         'show_number_view_all' => 1,
