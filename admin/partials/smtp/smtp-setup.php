@@ -227,7 +227,9 @@ function aben_handle_test_email()
     $subject = 'Aben Test Email';
 
     // Send the test email
-    if (aben_send_smtp_email($to, $subject, $message)) {
+    if ($aben_settings['use_smtp'] && aben_send_smtp_email($to, $subject, $message)) {
+        wp_redirect(add_query_arg('test_email_sent', 'success', wp_get_referer()));
+    } else if (!$aben_settings['use_smtp'] && aben_send_own_smtp_email($to, $subject, $message)) {
         wp_redirect(add_query_arg('test_email_sent', 'success', wp_get_referer()));
     } else {
         wp_redirect(add_query_arg('test_email_sent', 'failure', wp_get_referer()));

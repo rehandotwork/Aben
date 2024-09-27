@@ -58,7 +58,7 @@ settings_fields('aben_options');
 
         $aben_email_dashboard = new Aben_Email(
             'https://rehan.work/blog/', //archive_page_slug
-            6, //number_of_posts
+            10, //number_of_posts
             '#f0eeff', //body_bg
             'Hi Rehan', //header_text
             '#f0eeff', //header_bg
@@ -478,7 +478,7 @@ add_filter('pre_update_option_aben_options', 'aben_save_brand', 10, 2);
 
 function aben_save_brand($new_value, $old_value)
 {
-    $brand = '<a style="text-decoration:none;" href="https://rehan.work/aben">Powered by Aben</a>';
+    $brand = '<a style="text-decoration:none;" href="https://rehan.work/aben" target="_blank">Powered by Aben</a>';
 
     $new_value['brand'] = $brand;
 
