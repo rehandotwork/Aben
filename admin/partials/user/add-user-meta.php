@@ -1,4 +1,4 @@
-<?php // Add User Meta
+<?php // Add user meta to subscribe to Aben Notifications
 
 if (!defined('ABSPATH')) {
 
@@ -17,8 +17,7 @@ function aben_get_users()
 
 }
 
-// Add User Meta on Registration
-
+// Add user meta on new user registration
 add_action('user_register', 'aben_add_user_meta', 10, 1);
 
 function aben_add_user_meta($user_id)
@@ -26,7 +25,7 @@ function aben_add_user_meta($user_id)
     add_user_meta($user_id, 'aben_notification', '1');
 }
 
-// Adds User Meta to Existing Users
+// Adds user meta for existing users
 function aben_add_user_meta_to_existing_users()
 {
     $users = aben_get_users();
@@ -44,3 +43,61 @@ function aben_add_user_meta_to_existing_users()
     }
 
 }
+
+// Handle the "Subscribe Again" button click for unsubscribed users
+function aben_subscribe_user_action() {
+    // Check if the action and user ID are set
+    if (isset($_GET['action']) && $_GET['action'] === 'aben_subscribe_user' && isset($_GET['user_id'])) {
+        $user_id = intval($_GET['user_id']);
+        
+        // Verify if the user exists
+        if ($user_id && get_userdata($user_id)) {
+            // Update the user's 'aben_notification' meta back to '1' (subscribed)
+            update_user_meta($user_id, 'aben_notification', '1');
+
+            // show notice
+            wp_redirect(add_query_arg('subscribed', 'true', wp_get_referer()));
+            exit;
+        }
+    }
+}
+add_action('admin_init', 'aben_subscribe_user_action');
+
+// Add a notice after subscribing the user
+function aben_admin_notice() {
+    if (isset($_GET['subscribed']) && $_GET['subscribed'] == 'true') {
+        echo '<div class="updated notice is-dismissible"><p>User successfully resubscribed.</p></div>';
+    }
+    if (isset($_GET['unsubscribed']) && $_GET['unsubscribed'] == 'true') {
+        echo '<div class="updated notice is-dismissible"><p>User successfully added to unsubscribed list.</p></div>';
+    }
+}
+add_action('admin_notices', 'aben_admin_notice');
+
+// Function to handle manually adding an email to the unsubscribed list
+function aben_handle_manual_unsubscribe() {
+    if (isset($_POST['aben_add_unsubscribed'])) {
+        $email = sanitize_email($_POST['aben_unsubscribe_email']);
+
+        // Check if the email is valid
+        if (is_email($email)) {
+            // Get user by email
+            $user = get_user_by('email', $email);
+
+            if ($user) {
+                // Update the user's 'aben_notification' meta to '0' (unsubscribed)
+                update_user_meta($user->ID, 'aben_notification', '0');
+
+                // show notice
+                wp_redirect(add_query_arg('unsubscribed', 'true', wp_get_referer()));
+                exit;
+            } else {
+                echo '<div class="error notice"><p>No user found with that email address.</p></div>';
+            }
+        } else {
+            echo '<div class="error notice"><p>Invalid email format. Please try again.</p></div>';
+        }
+    }
+}
+add_action('admin_init', 'aben_handle_manual_unsubscribe');
+

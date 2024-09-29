@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 function aben_add_top_level_menu()
 {
     add_menu_page(
-        'Auto Bulk Email Notifications',
+        'Settings: Auto Bulk Email Notifications',
         'Aben',
         'manage_options',
         'aben',

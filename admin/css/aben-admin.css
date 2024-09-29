@@ -11,5 +11,16 @@
 
  div#aben-email-tab-grid > :first-child {
     max-height:80vh;
-    
-}
+ }
+ .unsubscribe-header {
+    margin: 20px 0;
+ }
+
+ .unsubscribe-header h1 {
+    display: inline;
+ }
+
+ .unsubscribe-header form {
+    display: inline;
+    float: right;
+ }

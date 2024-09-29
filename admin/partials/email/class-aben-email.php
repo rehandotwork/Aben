@@ -121,7 +121,7 @@ class Aben_Email
         <a href="' . home_url() . '"><img src="' . $logo . '" alt="Site Logo" style="max-height:80px; object-fit:contain; margin-top: 10px;"></a>
         <p id="footer-text">' . $this->footer_text . '</p>';
         if ($this->show_unsubscribe) {
-            echo '<span id="unsubscribe"><a href="' . home_url('?unsubscribe={{USER_EMAIL}}') . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
+            echo '<span id="unsubscribe"><a href="' . home_url('?aben-unsubscribe={{USER_EMAIL}}') . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
         }
         echo '<p>' . $brand . '</p>';
         echo '</div></div></body></html>';

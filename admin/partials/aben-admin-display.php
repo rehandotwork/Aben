@@ -11,10 +11,19 @@
  * @package    Aben
  * @subpackage Aben/admin/partials
  */
-?>
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
 
-<?php
-
-// echo "Aben Working Fine";
+ include_once dirname(__FILE__) . '/menu/admin-menu.php';
+ include_once dirname(__FILE__) . '/settings/settings-register.php';
+ include_once dirname(__FILE__) . '/settings/settings-default.php';
+ include_once dirname(__FILE__) . '/settings/settings-callbacks.php';
+ include_once dirname(__FILE__) . '/settings/settings-validate.php';
+ include_once dirname(__FILE__) . '/user/add-user-settings.php';
+ include_once dirname(__FILE__) . '/user/add-user-meta.php';
+ include_once dirname(__FILE__) . '/smtp/smtp-setup.php';
+ include_once dirname(__FILE__) . '/email/send-email.php';
+ include_once dirname(__FILE__) . '/email/email-build.php';
+ include_once dirname(__FILE__) . '/email/class-aben-email.php';
+ include_once dirname(__FILE__) . '/cron/cron-setup.php';
+ include_once dirname(__FILE__) . '/cron/register-cron.php';
+ include_once dirname(__FILE__) . '/cron/update-cron.php';

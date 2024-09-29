@@ -64,30 +64,22 @@ function deactivate_aben()
 
 }
 
-// Always include these files (both frontend and admin)
-include_once dirname(__FILE__) . '/admin/partials/user/add-user-meta.php';
-include_once dirname(__FILE__) . '/admin/partials/cron/cron-setup.php';
-include_once dirname(__FILE__) . '/admin/partials/cron/register-cron.php';
-include_once dirname(__FILE__) . '/admin/partials/email/send-email.php';
-include_once dirname(__FILE__) . '/admin/partials/cron/update-cron.php';
-include_once dirname(__FILE__) . '/admin/partials/email/email-build.php';
-include_once dirname(__FILE__) . '/admin/partials/email/class-aben-email.php';
-
-// Only include these files for admin
-if (is_admin()) {
-    include_once dirname(__FILE__) . '/admin/partials/menu/admin-menu.php';
-    include_once dirname(__FILE__) . '/admin/partials/settings/settings-register.php';
-    include_once dirname(__FILE__) . '/admin/partials/settings/settings-default.php';
-    include_once dirname(__FILE__) . '/admin/partials/settings/settings-callbacks.php';
-    include_once dirname(__FILE__) . '/admin/partials/settings/settings-validate.php';
-    include_once dirname(__FILE__) . '/admin/partials/user/add-user-settings.php';
-    include_once dirname(__FILE__) . '/admin/partials/smtp/smtp-setup.php';
-}
-
 register_activation_hook(__FILE__, 'activate_aben');
 
 register_deactivation_hook(__FILE__, 'deactivate_aben');
 
+// Include files for public facing side
+if (!is_admin()) {
+    include_once dirname(__FILE__) . '/public/partials/aben-public-display.php';
+}
+
+// Include files for admin dashboard sife
+if (is_admin()) {
+    include_once dirname(__FILE__) . '/admin/partials/aben-admin-display.php';
+}
+
+
+// Display plugin settings link with deactivate link
 function aben_show_plugin_settings_link($links, $file)
 {
     if (plugin_basename(__FILE__) == $file) {

@@ -11,6 +11,6 @@
  * @package    Aben
  * @subpackage Aben/public/partials
  */
-?>
 
-<!-- This file should primarily consist of HTML with a little bit of PHP. -->
+include_once dirname(__FILE__) . '/unsubscribe/aben-unsubscribe.php';
+

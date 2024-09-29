@@ -19,6 +19,7 @@ function aben_display_settings_page()
         'email' => 'Email Template',
         'smtp' => 'SMTP',
         'test_email' => 'Test Email',
+        'unsubscribe' => 'Unsubscribe',
     );
 
     $current_tab = isset($_GET['tab']) && isset($tabs[$_GET['tab']]) ? $_GET['tab'] : 'general';
@@ -140,8 +141,8 @@ settings_fields('aben_options');
     // Add a hidden field to identify the active tab if needed
     echo '<input type="hidden" name="aben_tab" value="' . esc_attr($current_tab) . '" />';
 
-    // Add submit button for all tabs except "test_email"
-    if ($current_tab !== 'test_email') {
+    // Add submit button for all tabs except "test_email" and "unsubscribe" tabs
+    if ($current_tab !== 'test_email' && $current_tab !== 'unsubscribe') {
         submit_button();
     }
     ?>
@@ -167,14 +168,88 @@ settings_fields('aben_options');
                 </p>
                 <?php wp_nonce_field('aben_send_test_email', 'aben_test_email_nonce');?>
             </form>
+        <?php endif;?>
 
+        <?php if ($current_tab === 'unsubscribe'):?>
+            <div class="wrap">
+                <div class="unsubscribe-header">
+                    <h1>Unsubscribed Users</h1>
+                    <!-- Add to Unsubscribed Form -->
+                    <form method="post" action="">
+                        <input type="email" name="aben_unsubscribe_email" placeholder="Enter email address" required>
+                        <input type="submit" name="aben_add_unsubscribed" class="button action" value="Add to Unsubscribed">
+                    </form>
+                </div>
+                <table class="widefat fixed" cellspacing="0">
+                    <thead>
+                        <tr>
+                            <th class="manage-column column-columnname" width="20px;" scope="col">#</th>
+                            <th class="manage-column column-columnname" scope="col">Email</th>
+                            <th class="manage-column column-columnname" scope="col">Name</th>
+                            <th class="manage-column column-columnname" scope="col">Role</th>
+                            <th class="manage-column column-columnname" scope="col">Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php
+                        // Query to fetch all users with 'aben_notification' meta set to '0'
+                        $args = array(
+                            'meta_key'     => 'aben_notification',
+                            'meta_value'   => '0',
+                            'meta_compare' => '=',
+                        );
+                        
+                        // Get the users based on the query
+                        $unsubscribed_users = get_users($args);
+                        
+                        $serial_number = 1;
+                        
+                        if (!empty($unsubscribed_users)) {
+                            // Loop through each unsubscribed user
+                            foreach ($unsubscribed_users as $user) {
+                                // Get user roles (WordPress users can have multiple roles)
+                                $roles = $user->roles;
+                                $role_display = implode(', ', $roles); // Display roles as comma-separated
+
+                                // Generate the URL for subscribing the user again
+                                $subscribe_url = add_query_arg( array(
+                                    'action' => 'aben_subscribe_user',
+                                    'user_id' => $user->ID,
+                                ), admin_url('admin.php'));
+
+                                ?>
+                                <tr>
+                                    <td><?php echo esc_html($serial_number); ?></td>
+                                    <td><?php echo esc_html($user->user_email); ?></td>
+                                    <td><?php echo esc_html($user->display_name); ?></td>
+                                    <td><?php echo esc_html($role_display); ?></td>
+                                    <td>
+                                        <form method="post" action="<?php echo esc_url($subscribe_url); ?>">
+                                            <input type="hidden" name="user_id" value="<?php echo esc_attr($user->ID); ?>">
+                                            <input type="submit" class="button action" value="Subscribe Again">
+                                        </form>
+                                    </td>
+                                </tr>
+                                <?php
+                                $serial_number++;
+                            }
+                        } else {
+                            ?>
+                            <tr>
+                                <td colspan="4">No unsubscribed users found.</td>
+                            </tr>
+                            <?php
+                        }
+                        ?>
+                    </tbody>
+                </table>
+            </div>
         <?php endif;?>
     </div>
     <?php
 }
 
 //ABEN Register Settings
-
 function aben_register_settings()
 {
 

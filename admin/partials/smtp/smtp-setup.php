@@ -108,7 +108,7 @@ function aben_send_own_smtp_email($to, $subject, $message)
         $mail->Port = 465;
 
         // Set the sender information
-        $mail->setFrom('notifications@gulfworking.com', 'Auto Bulk Email Notifications(Aben)');
+        $mail->setFrom('', 'Aben');
         $mail->addAddress($to);
         $mail->isHTML(true);
         $mail->Subject = $subject;
@@ -224,7 +224,7 @@ function aben_handle_test_email()
     ob_start();
     $email_obj->aben_email_template();
     $message = ob_get_clean();
-    $subject = 'Aben Test Email';
+    $subject = 'Test Email';
 
     // Send the test email
     if ($aben_settings['use_smtp'] && aben_send_smtp_email($to, $subject, $message)) {
