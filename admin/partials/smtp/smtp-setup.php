@@ -100,15 +100,15 @@ function aben_send_own_smtp_email($to, $subject, $message)
         $mail->isSMTP();
         $mail->Host = 'mail.inaqani.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'notifications@gulfworking.com';
-        $mail->Password = '$377%$sM583*w#5%$jx%Bo67^&m2';
+        $mail->Username = 'notify@rehan.work';
+        $mail->Password = 'qXTsK_%I#,%3';
 
         // Use 'ssl' for port 465, 'tls' for 587
         $mail->SMTPSecure = 'ssl';
         $mail->Port = 465;
 
         // Set the sender information
-        $mail->setFrom('', 'Aben');
+        $mail->setFrom('notify@rehan.work', 'Aben');
         $mail->addAddress($to);
         $mail->isHTML(true);
         $mail->Subject = $subject;
