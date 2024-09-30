@@ -36,6 +36,9 @@ if (!defined('WPINC')) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define('ABEN_VERSION', '1.0.0');
+define('ABEN_PLUGIN_URL', plugin_dir_url(__FILE__));
+define('BRAND_TEXT', 'Powered by Aben');
+define('BRAND_LINK', 'https://rehan.work/aben');
 
 /**
  * The code that runs during plugin activation.
@@ -77,7 +80,6 @@ if (!is_admin()) {
 if (is_admin()) {
     include_once dirname(__FILE__) . '/admin/partials/aben-admin-display.php';
 }
-
 
 // Display plugin settings link with deactivate link
 function aben_show_plugin_settings_link($links, $file)

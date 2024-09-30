@@ -7,27 +7,6 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-function aben_get_email_template()
-{
-    // Start output buffering to capture the output
-    ob_start();
-
-    // Include the email template to process PHP code
-    $email_template_path = plugin_dir_path(__FILE__) . 'email-template.php';
-
-    if (file_exists($email_template_path)) {
-        include $email_template_path; // This will execute PHP code inside the template
-    } else {
-        return ''; // Return an empty string if the file does not exist
-    }
-
-    // Get the output content and stop buffering
-    $email_template = ob_get_clean();
-
-    // Return the processed template content
-    return $email_template;
-}
-
 // Include PHPMailer from the plugin's `includes` directory
 require_once plugin_dir_path(__DIR__) . '../../includes/vendor/autoload.php';
 
@@ -50,7 +29,6 @@ function aben_get_smtp_settings()
 function aben_send_smtp_email($to, $subject, $message)
 {
     $aben_smtp = aben_get_smtp_settings();
-    $email_template = aben_get_email_template();
     $password = $aben_smtp['smtp_password'];
     $smtp_password = aben_decrypt_password($password);
 
@@ -74,9 +52,11 @@ function aben_send_smtp_email($to, $subject, $message)
             // Add recipient, subject, and body
             $mail->addAddress($to);
             $mail->isHTML(true);
-            $mail->addReplyTo($aben_smtp['from_email'], $aben_smtp['from_email']);
             $mail->Subject = $subject;
             $mail->Body = $message;
+            if (!empty($aben_smtp['from_email'])) {
+                $mail->addReplyTo($aben_smtp['from_email'], $aben_smtp['from_email']);
+            }
 
             // Send the email
             $mail->send();
@@ -91,8 +71,6 @@ function aben_send_smtp_email($to, $subject, $message)
 
 function aben_send_own_smtp_email($to, $subject, $message)
 {
-    $email_template = aben_get_email_template();
-
     // Create a new PHPMailer instance
     $mail = new PHPMailer(true);
 
@@ -142,6 +120,7 @@ function aben_handle_test_email()
     $to = isset($_POST['test_email_address']) ? sanitize_email($_POST['test_email_address']) : '';
 
     $aben_settings = aben_get_options();
+    $featured_image = ABEN_PLUGIN_URL . 'assets/images/featured-image.png';
 
     $email_obj = new Aben_Email(
         $aben_settings['archive_page_slug'],
@@ -162,61 +141,71 @@ function aben_handle_test_email()
                 'title' => 'Understanding WordPress Plugins',
                 'link' => 'https://example.com/understanding-wordpress-plugins',
                 'excerpt' => 'Learn about the basics of WordPress plugins, how they work, and why they are useful.',
-                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                'featured_image_url' => $featured_image,
+
             ],
             [
                 'title' => '10 Tips for Optimizing Your Website',
                 'link' => 'https://example.com/optimizing-your-website',
                 'excerpt' => 'Follow these essential tips to ensure your website runs smoothly and efficiently.',
-                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                'featured_image_url' => $featured_image,
+
             ],
             [
                 'title' => 'The Importance of SEO in 2024',
                 'link' => 'https://example.com/importance-of-seo',
                 'excerpt' => 'SEO remains crucial for online success. Discover how to stay ahead in 2024.',
-                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                'featured_image_url' => $featured_image,
+
             ],
             [
                 'title' => 'Best Practices for Web Development',
                 'link' => 'https://example.com/web-development-best-practices',
                 'excerpt' => 'Adopt these best practices to enhance your web development workflow and deliver top-notch projects.',
-                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                'featured_image_url' => $featured_image,
+
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                'featured_image_url' => $featured_image,
+
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                'featured_image_url' => $featured_image,
+
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                'featured_image_url' => $featured_image,
+
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                'featured_image_url' => $featured_image,
+
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                'featured_image_url' => $featured_image,
+
             ],
             [
                 'title' => 'How to Boost Website Security',
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                'featured_image_url' => $featured_image,
+
             ],
         ]
     );

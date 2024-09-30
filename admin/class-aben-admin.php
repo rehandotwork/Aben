@@ -104,6 +104,11 @@ class Aben_Admin
         wp_enqueue_media();
         wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/aben-admin.js', array('jquery'), $this->version, true);
 
+        $current_user = wp_get_current_user();
+        wp_localize_script($this->plugin_name, 'currentUserData', array(
+            'user_name' => $current_user->display_name,
+        ));
+
     }
 
 }

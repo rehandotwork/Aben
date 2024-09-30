@@ -56,6 +56,7 @@ settings_fields('aben_options');
 
         $site_logo = isset(aben_get_options()['site_logo']) ? aben_get_options()['site_logo'] : '';
         $show_view_post = aben_get_options()['show_view_post'];
+        $featured_image = ABEN_PLUGIN_URL . 'assets/images/featured-image.png';
 
         $aben_email_dashboard = new Aben_Email(
             'https://rehan.work/blog/', //archive_page_slug
@@ -76,61 +77,61 @@ settings_fields('aben_options');
                     'title' => 'Understanding WordPress Plugins',
                     'link' => 'https://example.com/understanding-wordpress-plugins',
                     'excerpt' => 'Learn about the basics of WordPress plugins, how they work, and why they are useful.',
-                    'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                    'featured_image_url' => $featured_image,
                 ],
                 [
                     'title' => '10 Tips for Optimizing Your Website',
                     'link' => 'https://example.com/optimizing-your-website',
                     'excerpt' => 'Follow these essential tips to ensure your website runs smoothly and efficiently.',
-                    'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                    'featured_image_url' => $featured_image,
                 ],
                 [
                     'title' => 'The Importance of SEO in 2024',
                     'link' => 'https://example.com/importance-of-seo',
                     'excerpt' => 'SEO remains crucial for online success. Discover how to stay ahead in 2024.',
-                    'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                    'featured_image_url' => $featured_image,
                 ],
                 [
                     'title' => 'Best Practices for Web Development',
                     'link' => 'https://example.com/web-development-best-practices',
                     'excerpt' => 'Adopt these best practices to enhance your web development workflow and deliver top-notch projects.',
-                    'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                    'featured_image_url' => $featured_image,
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                    'featured_image_url' => $featured_image,
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                    'featured_image_url' => $featured_image,
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                    'featured_image_url' => $featured_image,
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                    'featured_image_url' => $featured_image,
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                    'featured_image_url' => $featured_image,
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => 'https://styles.redditmedia.com/t5_2qh49/styles/communityIcon_357lawpgz5x11.png',
+                    'featured_image_url' => $featured_image,
                 ],
             ]//posts_to_send
         );
@@ -170,7 +171,7 @@ settings_fields('aben_options');
             </form>
         <?php endif;?>
 
-        <?php if ($current_tab === 'unsubscribe'):?>
+        <?php if ($current_tab === 'unsubscribe'): ?>
             <div class="wrap">
                 <div class="unsubscribe-header">
                     <h1>Unsubscribed Users</h1>
@@ -192,37 +193,37 @@ settings_fields('aben_options');
                     </thead>
                     <tbody>
                         <?php
-                        // Query to fetch all users with 'aben_notification' meta set to '0'
-                        $args = array(
-                            'meta_key'     => 'aben_notification',
-                            'meta_value'   => '0',
-                            'meta_compare' => '=',
-                        );
-                        
-                        // Get the users based on the query
-                        $unsubscribed_users = get_users($args);
-                        
-                        $serial_number = 1;
-                        
-                        if (!empty($unsubscribed_users)) {
-                            // Loop through each unsubscribed user
-                            foreach ($unsubscribed_users as $user) {
-                                // Get user roles (WordPress users can have multiple roles)
-                                $roles = $user->roles;
-                                $role_display = implode(', ', $roles); // Display roles as comma-separated
+// Query to fetch all users with 'aben_notification' meta set to '0'
+    $args = array(
+        'meta_key' => 'aben_notification',
+        'meta_value' => '0',
+        'meta_compare' => '=',
+    );
 
-                                // Generate the URL for subscribing the user again
-                                $subscribe_url = add_query_arg( array(
-                                    'action' => 'aben_subscribe_user',
-                                    'user_id' => $user->ID,
-                                ), admin_url('admin.php'));
+    // Get the users based on the query
+    $unsubscribed_users = get_users($args);
 
-                                ?>
+    $serial_number = 1;
+
+    if (!empty($unsubscribed_users)) {
+        // Loop through each unsubscribed user
+        foreach ($unsubscribed_users as $user) {
+            // Get user roles (WordPress users can have multiple roles)
+            $roles = $user->roles;
+            $role_display = implode(', ', $roles); // Display roles as comma-separated
+
+            // Generate the URL for subscribing the user again
+            $subscribe_url = add_query_arg(array(
+                'action' => 'aben_subscribe_user',
+                'user_id' => $user->ID,
+            ), admin_url('admin.php'));
+
+            ?>
                                 <tr>
                                     <td><?php echo esc_html($serial_number); ?></td>
                                     <td><?php echo esc_html($user->user_email); ?></td>
-                                    <td><?php echo esc_html($user->display_name); ?></td>
-                                    <td><?php echo esc_html($role_display); ?></td>
+                                    <td><?php echo ucwords(esc_html($user->display_name)); ?></td>
+                                    <td><?php echo ucwords(esc_html($role_display)); ?></td>
                                     <td>
                                         <form method="post" action="<?php echo esc_url($subscribe_url); ?>">
                                             <input type="hidden" name="user_id" value="<?php echo esc_attr($user->ID); ?>">
@@ -231,16 +232,16 @@ settings_fields('aben_options');
                                     </td>
                                 </tr>
                                 <?php
-                                $serial_number++;
-                            }
-                        } else {
-                            ?>
+$serial_number++;
+        }
+    } else {
+        ?>
                             <tr>
                                 <td colspan="4">No unsubscribed users found.</td>
                             </tr>
                             <?php
-                        }
-                        ?>
+}
+    ?>
                     </tbody>
                 </table>
             </div>
@@ -549,13 +550,13 @@ function aben_save_timezone_option($new_value, $old_value)
     return $new_value;
 }
 
-add_filter('pre_update_option_aben_options', 'aben_save_brand', 10, 2);
+// add_filter('pre_update_option_aben_options', 'aben_save_brand', 10, 2);
 
-function aben_save_brand($new_value, $old_value)
-{
-    $brand = '<a style="text-decoration:none;" href="https://rehan.work/aben" target="_blank">Powered by Aben</a>';
+// function aben_save_brand($new_value, $old_value)
+// {
+//     $brand = '<a style="text-decoration:none;" href="https://rehan.work/aben" target="_blank">Powered by Aben</a>';
 
-    $new_value['brand'] = $brand;
+//     $new_value['brand'] = $brand;
 
-    return $new_value;
-}
+//     return $new_value;
+// }

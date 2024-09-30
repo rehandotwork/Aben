@@ -74,7 +74,7 @@ class Aben_Email
 
         $site_icon_url = get_site_icon_url();
         $logo = empty($this->site_logo) ? $site_icon_url : $this->site_logo;
-        $brand = isset(aben_get_options()['brand']) ? aben_get_options()['brand'] : '<a style="text-decoration:none;" href="https://rehan.work/aben" target="_blank">Powered by Aben</a>';
+        // $brand = isset(aben_get_options()['brand']) ? aben_get_options()['brand'] : '<a style="text-decoration:none;" href="https://rehan.work/aben" target="_blank">Powered by Aben</a>';
         echo '<!DOCTYPE html><html><head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -123,7 +123,7 @@ class Aben_Email
         if ($this->show_unsubscribe) {
             echo '<span id="unsubscribe"><a href="' . home_url('?aben-unsubscribe={{USER_EMAIL}}') . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
         }
-        echo '<p>' . $brand . '</p>';
+        echo '<p><a href="' . BRAND_LINK . '" style="text-decoration:none;">' . BRAND_TEXT . '</a></p>';
         echo '</div></div></body></html>';
     }
 }

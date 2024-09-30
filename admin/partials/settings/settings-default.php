@@ -26,7 +26,7 @@ function aben_options_default()
         'from_name' => 'Auto Bulk Email Notification',
         'from_email' => '',
         'body_bg' => '#f5f7fa',
-        'header_text' => 'Hello Aben',
+        'header_text' => 'Hello {{USERNAME}}',
         'header_bg' => '#f5f7fa',
         'header_subtext' => 'This email sent using Auto Bulk Email Notification(Aben) plugin',
         'footer_text' => 'Auto Bulk Email Notification &copy; | All Rights Reserved',
