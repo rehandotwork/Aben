@@ -120,7 +120,7 @@ function aben_handle_test_email()
     $to = isset($_POST['test_email_address']) ? sanitize_email($_POST['test_email_address']) : '';
 
     $aben_settings = aben_get_options();
-    $featured_image = ABEN_PLUGIN_URL . 'assets/images/featured-image.png';
+    $featured_image = FEATURED_IMAGE;
 
     $email_obj = new Aben_Email(
         $aben_settings['archive_page_slug'],
@@ -213,6 +213,9 @@ function aben_handle_test_email()
     ob_start();
     $email_obj->aben_email_template();
     $message = ob_get_clean();
+    $current_user = wp_get_current_user()->display_name;
+    $current_user = explode(' ', $current_user)[0];
+    $message = str_replace('{{USERNAME}}', $current_user, $message);
     $subject = 'Test Email';
 
     // Send the test email

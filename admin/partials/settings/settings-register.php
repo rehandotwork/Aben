@@ -56,7 +56,7 @@ settings_fields('aben_options');
 
         $site_logo = isset(aben_get_options()['site_logo']) ? aben_get_options()['site_logo'] : '';
         $show_view_post = aben_get_options()['show_view_post'];
-        $featured_image = ABEN_PLUGIN_URL . 'assets/images/featured-image.png';
+        $featured_image = FEATURED_IMAGE;
 
         $aben_email_dashboard = new Aben_Email(
             'https://rehan.work/blog/', //archive_page_slug
@@ -549,14 +549,3 @@ function aben_save_timezone_option($new_value, $old_value)
 
     return $new_value;
 }
-
-// add_filter('pre_update_option_aben_options', 'aben_save_brand', 10, 2);
-
-// function aben_save_brand($new_value, $old_value)
-// {
-//     $brand = '<a style="text-decoration:none;" href="https://rehan.work/aben" target="_blank">Powered by Aben</a>';
-
-//     $new_value['brand'] = $brand;
-
-//     return $new_value;
-// }

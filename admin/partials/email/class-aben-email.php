@@ -74,7 +74,6 @@ class Aben_Email
 
         $site_icon_url = get_site_icon_url();
         $logo = empty($this->site_logo) ? $site_icon_url : $this->site_logo;
-        // $brand = isset(aben_get_options()['brand']) ? aben_get_options()['brand'] : '<a style="text-decoration:none;" href="https://rehan.work/aben" target="_blank">Powered by Aben</a>';
         echo '<!DOCTYPE html><html><head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -100,14 +99,14 @@ class Aben_Email
             $excerpt_width = $this->show_view_post ? 85 : 100;
 
             echo '<div class="post-tile" style="display:flex;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';
-            if ($this->show_view_post) {
+            if ($this->show_view_post && !empty($image)) {
                 echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:start;"><a href="' . $link . '"><img width="100%" src="' . $image . '" alt="' . $title . '" /></a></div>';
             }
             echo '<div style="width:' . $excerpt_width . '%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
             if (!empty($excerpt)) {
-                echo '<p style="font-size:14px;color:#727272;margin:5px 0 0">' . $excerpt . '</p></div>';
+                echo '<p style="font-size:14px;color:#727272;margin:5px 0 0">' . $excerpt . '</p>';
             }
-            echo '</div>';
+            echo '</div></div>';
             $this->number_of_posts--;
         }
 

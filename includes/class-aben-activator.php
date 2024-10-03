@@ -51,6 +51,14 @@ class Aben_Activator
             file_put_contents($config_file, $key_line, FILE_APPEND | LOCK_EX);
         }
 
+        if (!defined('ALTERNATE_WP_CRON')) {
+            // Prepare the line to add
+            $key_line = "define('ALTERNATE_WP_CRON', true);";
+
+            // Use file_put_contents to add the line to wp-config.php
+            file_put_contents($config_file, $key_line, FILE_APPEND | LOCK_EX);
+        }
+
     }
 
 }
