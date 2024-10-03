@@ -24,9 +24,9 @@
       }
 
       mediaUploader = wp.media({
-        title: "Select or Upload Media",
+        title: "Select or Upload Image",
         button: {
-          text: "Use this media",
+          text: "Use this image",
         },
         multiple: false,
       });
@@ -39,6 +39,8 @@
           .toJSON();
         $input.val(attachment.url);
         $preview.attr("src", attachment.url).show();
+        $removeButton.text("X");
+        $removeButton.css("color", "red");
         $removeButton.show(); // Show the Remove Image button
       });
 

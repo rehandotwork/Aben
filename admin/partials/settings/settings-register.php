@@ -27,6 +27,10 @@ function aben_display_settings_page()
     ?>
 
     <div class="wrap">
+        <?php if (isset($_GET['settings-updated'])) {
+        echo '<div class="notice notice-success is-dismissible"><p>Settings Saved.</p></div>';
+    }
+    ?>
         <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 
         <nav class="nav-tab-wrapper">

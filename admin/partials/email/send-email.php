@@ -70,7 +70,7 @@ function aben_send_email()
 
                 $user = get_user_by('email', $email_address);
 
-                $user_display_name = ucwords($user->display_name);
+                $user_display_name = ucfirst($user->display_name);
 
                 $user_display_name = explode(' ', $user_display_name);
 

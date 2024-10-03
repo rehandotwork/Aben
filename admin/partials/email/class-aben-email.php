@@ -100,7 +100,7 @@ class Aben_Email
 
             echo '<div class="post-tile" style="display:flex;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';
             if ($this->show_view_post && !empty($image)) {
-                echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:start;"><a href="' . $link . '"><img width="100%" src="' . $image . '" alt="' . $title . '" /></a></div>';
+                echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:start;"><a href="' . $link . '"><img width="100%" max-width="100px" src="' . $image . '" alt="' . $title . '" /></a></div>';
             }
             echo '<div style="width:' . $excerpt_width . '%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
             if (!empty($excerpt)) {
