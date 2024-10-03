@@ -15,27 +15,31 @@ function aben_send_email()
 
     $aben_get_posts_result = aben_get_posts_for_email();
 
-    global $aben_settings;
+    if ($aben_get_posts_result) {
 
-    $email_obj = new Aben_Email(
-        $aben_settings['archive_page_slug'],
-        $aben_settings['number_of_posts'],
-        $aben_settings['body_bg'],
-        $aben_settings['header_text'],
-        $aben_settings['header_bg'],
-        $aben_settings['header_subtext'],
-        $aben_settings['footer_text'],
-        $aben_settings['site_logo'],
-        $aben_settings['show_view_all'],
-        $aben_settings['view_all_posts_text'],
-        $aben_settings['show_view_post'],
-        $aben_settings['view_post_text'],
-        $aben_settings['show_unsubscribe'],
-        $aben_get_posts_result['posts_to_email'],
-    );
-    ob_start();
-    $email_obj->aben_email_template();
-    $email_template = ob_get_clean();
+        global $aben_settings;
+
+        $email_obj = new Aben_Email(
+            $aben_settings['archive_page_slug'],
+            $aben_settings['number_of_posts'],
+            $aben_settings['body_bg'],
+            $aben_settings['header_text'],
+            $aben_settings['header_bg'],
+            $aben_settings['header_subtext'],
+            $aben_settings['footer_text'],
+            $aben_settings['site_logo'],
+            $aben_settings['show_view_all'],
+            $aben_settings['view_all_posts_text'],
+            $aben_settings['show_view_post'],
+            $aben_settings['view_post_text'],
+            $aben_settings['show_unsubscribe'],
+            $aben_get_posts_result['posts_to_email'],
+        );
+        ob_start();
+        $email_obj->aben_email_template();
+        $email_template = ob_get_clean();
+
+    }
 
     if (!empty($aben_get_posts_result)) {
 
@@ -104,6 +108,5 @@ function aben_get_posts_for_email()
     } else {
         $aben_get_posts_result = aben_get_today_posts();
     }
-
     return $aben_get_posts_result;
 }

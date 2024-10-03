@@ -36,8 +36,8 @@ function aben_register_cron()
                 $today_timestamp += DAY_IN_SECONDS; // Move to the next day
             }
 
-            wp_schedule_event($timestamp, 'daily', 'aben_cron_event');
-            error_log('Daily aben_cron_event scheduled at ' . date('Y-m-d H:i:s', $timestamp));
+            wp_schedule_event($today_timestamp, 'daily', 'aben_cron_event');
+            error_log('Daily aben_cron_event scheduled at ' . date('Y-m-d H:i:s', $today_timestamp));
         }
     }
 

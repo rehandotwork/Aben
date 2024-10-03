@@ -55,6 +55,9 @@ function aben_get_users_email()
 
 function aben_get_today_posts()
 {
+    $get_settings = aben_get_options();
+    $post_type = $get_settings['post_type'];
+
     $today = getdate(); // Get Today's Date
 
     $year = $today['year'];
@@ -70,7 +73,7 @@ function aben_get_today_posts()
                 'day' => $day,
             ),
         ),
-
+        'post_type' => $post_type,
     );
 
     $posts = get_posts($args);
@@ -142,6 +145,8 @@ function aben_get_weekly_posts($selected_day_num)
     $start_date = date('Y-m-d', $start_of_week); // Start date (e.g., last Saturday)
     $end_date = date('Y-m-d', $end_of_week); // End date (e.g., following Friday)
 
+    $get_settings = aben_get_options();
+    $post_type = $get_settings['post_type'];
     // Query posts within the week range
     $args = array(
         'numberposts' => -1,
@@ -152,6 +157,7 @@ function aben_get_weekly_posts($selected_day_num)
                 'inclusive' => true, // Include start and end dates
             ),
         ),
+        'post_type' => $post_type, // Add the post type here
     );
 
     $posts = get_posts($args);
