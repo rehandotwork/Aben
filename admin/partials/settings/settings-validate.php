@@ -142,6 +142,11 @@ function aben_decrypt_password($encrypted_password)
         $iv = substr($decoded, 0, $iv_length);
         $encrypted_password = substr($decoded, $iv_length);
 
+        // Ensure IV is exactly 16 bytes (aes-256-cbc expects 16 bytes for IV)
+        if (strlen($iv) < $iv_length) {
+            $iv = str_pad($iv, $iv_length, "\0"); // Padding with null bytes
+        }
+
         // Decrypt the password using the same key and IV
         return openssl_decrypt($encrypted_password, 'aes-256-cbc', $encryption_key, 0, $iv);
     }
