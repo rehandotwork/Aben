@@ -67,6 +67,16 @@ class Aben_Email
         $this->view_post_text = $view_post_text;
         $this->show_unsubscribe = $show_unsubscribe;
         $this->posts_to_send = $posts_to_send;
+
+    }
+
+    /** Check for GW Add On is activated or not */
+    public function is_aben_gw_active()
+    {
+        // Get the list of active plugins
+        $active_plugins = get_option('active_plugins');
+        return in_array('aben-gw-add-on/aben-gw.php', $active_plugins);
+
     }
 
     public function aben_email_template()
@@ -96,17 +106,19 @@ class Aben_Email
             $excerpt = $post['excerpt'];
             $image = $post['featured_image_url'];
 
-            $excerpt_width = $this->show_view_post ? 85 : 100;
+            $excerpt_width = $this->show_view_post && $this->is_aben_gw_active() ? 60 : ($this->show_view_post || $this->is_aben_gw_active() ? 85 : 100);
 
             echo '<div class="post-tile" style="display:flex;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';
             if ($this->show_view_post && !empty($image)) {
-                echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:start;"><a href="' . $link . '"><img width="100%" max-width="100px" src="' . $image . '" alt="' . $title . '" /></a></div>';
+                echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:center;"><a href="' . $link . '"><img width="100%" max-width="100px" src="' . $image . '" alt="' . $title . '" /></a></div>';
             }
             echo '<div style="width:' . $excerpt_width . '%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
             if (!empty($excerpt)) {
                 echo '<p style="font-size:14px;color:#727272;margin:5px 0 0">' . $excerpt . '</p>';
             }
-            echo '</div></div>';
+            echo '</div>';
+            do_action('aben_button', $link);
+            echo '</div>';
             $this->number_of_posts--;
         }
 
@@ -125,4 +137,5 @@ class Aben_Email
         echo '<p><a href="' . BRAND_LINK . '" style="text-decoration:none;">' . BRAND_TEXT . '</a></p>';
         echo '</div></div></body></html>';
     }
+
 }
