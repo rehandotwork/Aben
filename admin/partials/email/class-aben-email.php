@@ -92,11 +92,14 @@ class Aben_Email
         <div id="aben-email-template" style="font-family:Open Sans,sans-serif;margin:0;padding:0;background: ' . $this->body_bg . ';color: #1f2430;">
         <div style="width:100%;max-width:500px;margin: auto;">
         <div style="padding: 50px 30px 30px 30px;">
-        <p id ="header-text" style="font-size:16px;display: inline;"><strong>' . $this->header_text . '</strong></p>
-        <img width="16px" data-emoji="👋" class="an1" alt="👋" aria-label="👋" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/15.1/1f44b/72.png" loading="lazy">
-        <p id="header-subtext" style="font-size:16px;">' . $this->header_subtext . '</p></div>
+        <p id ="header-text" style="font-size:16px;display: inline;"><strong>' . $this->header_text . '</strong></p>';
+        do_action('aben_after_header_text'); // After Header Text Hook
+        echo '<img width="16px" data-emoji="👋" class="an1" alt="👋" aria-label="👋" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/15.1/1f44b/72.png" loading="lazy">
+        <p id="header-subtext" style="font-size:16px;">' . $this->header_subtext . '</p>';
+        do_action('aben_after_header_sub_text'); //After Header Sub Text Hook
+        echo '</div>
         <div id="posts-wrapper"">';
-
+        do_action('aben_before_posts_loop'); // Before Posts Loop Hook
         foreach ($this->posts_to_send as $post) {
             if ($this->number_of_posts <= 0) {
                 break;
@@ -117,11 +120,11 @@ class Aben_Email
                 echo '<p style="font-size:14px;color:#727272;margin:5px 0 0">' . $excerpt . '</p>';
             }
             echo '</div>';
-            do_action('aben_button', $link);
+            do_action('aben_post_button_hook', $link); // Post Button Hook
             echo '</div>';
             $this->number_of_posts--;
         }
-
+        do_action('aben_after_posts_loop'); // After Posts Loop Hook
         echo '<div style="display:flex;">
         <div style="width:100%;text-align:center;">';
         if ($this->show_view_all) {
@@ -129,12 +132,14 @@ class Aben_Email
         }
         echo '</div></div></div>
         <div style="color:#808080;text-align:center;padding: 30px 30px 50px 30px;">
-        <a href="' . home_url() . '"><img src="' . $logo . '" alt="Site Logo" style="max-height:80px; object-fit:contain; margin-top: 10px;"></a>
-        <p id="footer-text">' . $this->footer_text . '</p>';
+        <a href="' . home_url() . '"><img src="' . $logo . '" alt="Site Logo" style="max-height:80px; object-fit:contain; margin-top: 10px;"></a><div>';
+        do_action('aben_before_footer_text'); // Before Footer Text Hook
+        echo '</div><p id="footer-text">' . $this->footer_text . '</p><div>';
+        do_action('aben_after_footer_text'); // After Footer Text Hook
         if ($this->show_unsubscribe) {
             echo '<span id="unsubscribe"><a href="' . home_url('?aben-unsubscribe={{USER_EMAIL}}') . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
         }
-        echo '<p><a href="' . BRAND_LINK . '" style="text-decoration:none;">' . BRAND_TEXT . '</a></p>';
+        echo '</div><p><a href="' . BRAND_LINK . '" style="text-decoration:none;">' . BRAND_TEXT . '</a></p>';
         echo '</div></div></body></html>';
     }
 
