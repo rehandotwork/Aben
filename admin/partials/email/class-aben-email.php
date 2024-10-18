@@ -122,6 +122,7 @@ class Aben_Email
             echo '</div>';
             do_action('aben_post_button_hook', $link); // Post Button Hook
             echo '</div>';
+            do_action('aben_within_posts_loop'); // Within Posts Loop Hook
             $this->number_of_posts--;
         }
         do_action('aben_after_posts_loop'); // After Posts Loop Hook

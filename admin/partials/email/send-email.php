@@ -76,7 +76,19 @@ function aben_send_email()
 
                 $user_firstname = $user_display_name[0];
 
-                $personalized_email_body = str_replace(['{{USERNAME}}', '{{USER_EMAIL}}'], [$user_firstname, $email_address], $email_body); // Changing placeholders in email body
+                if (function_exists('aben_generate_login_token')) {
+                    $auto_login_token = aben_generate_login_token($email_address);
+                } else {
+                    $auto_login_token = '';
+                }
+
+                $personalized_email_body = str_replace(
+
+                    ['{{USERNAME}}', '{{USER_EMAIL}}', '{{TOKEN}}'],
+                    [$user_firstname, $email_address, $auto_login_token],
+                    $email_body
+
+                ); // Changing placeholders in email body
 
                 if (1 === $aben_settings['use_smtp']) {
                     aben_send_smtp_email($email_address, $email_subject, $personalized_email_body);
