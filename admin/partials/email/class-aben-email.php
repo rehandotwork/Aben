@@ -100,10 +100,14 @@ class Aben_Email
         echo '</div>
         <div id="posts-wrapper"">';
         do_action('aben_before_posts_loop'); // Before Posts Loop Hook
+        $ad_tile_location = 0;
         foreach ($this->posts_to_send as $post) {
             if ($this->number_of_posts <= 0) {
                 break;
             }
+
+            do_action('aben_within_posts_loop', $this->number_of_posts); // Within Posts Loop Hook
+
             $title = $post['title'];
             $link = $post['link'];
             $excerpt = $post['excerpt'];
@@ -122,6 +126,7 @@ class Aben_Email
             echo '</div>';
             do_action('aben_post_button_hook', $link); // Post Button Hook
             echo '</div>';
+
             $this->number_of_posts--;
         }
         do_action('aben_after_posts_loop'); // After Posts Loop Hook
