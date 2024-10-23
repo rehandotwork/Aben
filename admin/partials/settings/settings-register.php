@@ -18,7 +18,7 @@ function aben_display_settings_page()
         'general' => 'General',
         'email' => 'Email Template',
         'smtp' => 'SMTP',
-        'test_email' => 'Test Email',
+        'email_logs' => 'Email Logs',
         'unsubscribe' => 'Unsubscribe',
     );
 
@@ -147,33 +147,18 @@ settings_fields('aben_options');
     echo '<input type="hidden" name="aben_tab" value="' . esc_attr($current_tab) . '" />';
 
     // Add submit button for all tabs except "test_email" and "unsubscribe" tabs
-    if ($current_tab !== 'test_email' && $current_tab !== 'unsubscribe') {
+    if ($current_tab !== 'email_logs' && $current_tab !== 'unsubscribe') {
         submit_button();
     }
     ?>
-        </form>
+    </form>
+    <?php if ($current_tab == 'email'):
+            aben_send_test_email(); 
+    endif;?>
 
-        <?php if ($current_tab === 'test_email'): ?>
-            <!-- Display success or error message if available -->
-            <?php if (isset($_GET['test_email_sent'])): ?>
-                <div class="notice notice-<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?> is-dismissible">
-                    <p><?php echo $_GET['test_email_sent'] === 'success' ? 'Test email sent successfully.' : 'SMTP connection failed. Please check your credentials and try again'; ?></p>
-                </div>
-            <?php endif;?>
-
-            <!-- Test Email Form -->
-            <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
-                <p>
-                    <label for="test_email_address">Send Test Mail To:</label>
-                    <input type="email" id="test_email_address" name="test_email_address" class="regular-text" required />
-                </p>
-                <p>
-                    <input type="hidden" name="action" value="aben_send_test_email" />
-                    <input type="submit" class="button button-primary" value="Send Test Email" />
-                </p>
-                <?php wp_nonce_field('aben_send_test_email', 'aben_test_email_nonce');?>
-            </form>
-        <?php endif;?>
+    <?php if ($current_tab === 'email_logs'):
+                   
+    endif;?>
 
         <?php if ($current_tab === 'unsubscribe'): ?>
             <div class="wrap">
@@ -553,3 +538,22 @@ function aben_save_timezone_option($new_value, $old_value)
 
     return $new_value;
 }
+
+function aben_send_test_email() { ?>
+    <!-- Display success or error message if available -->
+    <?php if (isset($_GET['test_email_sent'])): ?>
+        <div class="notice notice-<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?> is-dismissible">
+            <p><?php echo $_GET['test_email_sent'] === 'success' ? 'Test email sent successfully.' : 'SMTP connection failed. Please check your credentials and try again'; ?></p>
+        </div>
+    <?php endif; ?>
+    <!-- Test Email Form -->
+    <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+        <p style="float: right;">
+            <input type="email" id="test_email_address" placeholder="Enter Email Address" name="test_email_address" class="regular-text" required />
+            <input type="hidden" name="action" value="aben_send_test_email" />
+            <input type="submit" class="button button-primary" value="Send Test Email" />
+        </p>
+        <?php wp_nonce_field('aben_send_test_email', 'aben_test_email_nonce');?>
+    </form>
+        
+<?php } ?>
