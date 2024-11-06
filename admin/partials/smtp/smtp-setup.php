@@ -31,6 +31,7 @@ function aben_send_smtp_email($to, $subject, $message)
     $aben_smtp = aben_get_smtp_settings();
     $password = $aben_smtp['smtp_password'];
     $smtp_password = aben_decrypt_password($password);
+    $email_logger = new Aben_Email_Logs();
 
     // Create a new PHPMailer instance
     $mail = new PHPMailer(true);
@@ -59,8 +60,12 @@ function aben_send_smtp_email($to, $subject, $message)
             }
 
             // Send the email
-            $mail->send();
-            error_log('Mail Sent via Custom SMTP');
+            if ($mail->send()) {
+
+                error_log('Mail Sent via Custom SMTP');
+                $email_logger->log_email($to, $subject, $message, 'sent');
+            }
+
             return true;
         }
     } catch (Exception $e) {
@@ -71,6 +76,8 @@ function aben_send_smtp_email($to, $subject, $message)
 
 function aben_send_own_smtp_email($to, $subject, $message)
 {
+    $email_logger = new Aben_Email_Logs();
+
     // Create a new PHPMailer instance
     $mail = new PHPMailer(true);
 
@@ -93,8 +100,11 @@ function aben_send_own_smtp_email($to, $subject, $message)
         $mail->Body = $message;
 
         // Send the email
-        $mail->send();
-        error_log('Mail Sent via SMTP');
+        if ($mail->send()) {
+
+            error_log('Mail Sent via Custom SMTP');
+            $email_logger->log_email($to, $subject, $message, 'sent');
+        }
         return true;
     } catch (Exception $e) {
         error_log('SMTP Error: ' . $mail->ErrorInfo);

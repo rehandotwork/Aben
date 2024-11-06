@@ -26,23 +26,24 @@ function aben_display_settings_page()
 
     ?>
 
-    <div class="wrap">
-        <?php if (isset($_GET['settings-updated'])) {
+<div class="wrap">
+    <?php if (isset($_GET['settings-updated'])) {
         echo '<div class="notice notice-success is-dismissible"><p>Settings Saved.</p></div>';
     }
     ?>
-        <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+    <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
 
-        <nav class="nav-tab-wrapper">
-            <?php foreach ($tabs as $tab => $name): ?>
-                <a href="?page=aben&tab=<?php echo $tab; ?>" class="nav-tab <?php echo $current_tab === $tab ? 'nav-tab-active' : ''; ?>">
-                    <?php echo $name; ?>
-                </a>
-            <?php endforeach;?>
-        </nav>
+    <nav class="nav-tab-wrapper">
+        <?php foreach ($tabs as $tab => $name): ?>
+        <a href="?page=aben&tab=<?php echo $tab; ?>"
+            class="nav-tab <?php echo $current_tab === $tab ? 'nav-tab-active' : ''; ?>">
+            <?php echo $name; ?>
+        </a>
+        <?php endforeach;?>
+    </nav>
 
-        <form action="options.php" method="post">
-            <?php
+    <form action="options.php" method="post">
+        <?php
 settings_fields('aben_options');
 
     // Display only the relevant settings based on the active tab
@@ -141,6 +142,31 @@ settings_fields('aben_options');
         );
         $aben_email_dashboard->aben_email_template();
         echo '</div>';
+    } else if ($current_tab === 'email_logs') {
+
+        $logger = new Aben_Email_Logs();
+        $total_logs = $logger->get_total_logs_count($filters = []);
+        $logs = $logger->get_logs(150); // Fetch latest 150 logs
+
+        echo '<h1>Email Logs</h1>';
+        echo '<table class="wp-list-table widefat fixed striped">';
+        echo '<thead><tr><th>Subject</th><th>To</th><th>Status</th><th>Date/Time</th></tr></thead><tbody>';
+
+        foreach ($logs as $log) {
+
+            $date = new DateTime($log->sent_at);
+            $sent_at = $date->format('j F Y / H:i A');
+
+            echo '<tr>';
+            echo '<td>' . esc_html($log->subject) . '</td>';
+            echo '<td>' . esc_html($log->email_to) . '</td>';
+            echo '<td>' . esc_html($log->status) . '</td>';
+            echo '<td>' . $sent_at . '</td>';
+            echo '</tr>';
+        }
+
+        echo '</tbody></table>';
+
     }
 
     // Add a hidden field to identify the active tab if needed
@@ -153,35 +179,35 @@ settings_fields('aben_options');
     ?>
     </form>
     <?php if ($current_tab == 'email'):
-            aben_send_test_email(); 
+        aben_send_test_email();
     endif;?>
 
     <?php if ($current_tab === 'email_logs'):
-                   
+
     endif;?>
 
-        <?php if ($current_tab === 'unsubscribe'): ?>
-            <div class="wrap">
-                <div class="unsubscribe-header">
-                    <h1>Unsubscribed Users</h1>
-                    <!-- Add to Unsubscribed Form -->
-                    <form method="post" action="">
-                        <input type="email" name="aben_unsubscribe_email" placeholder="Enter email address" required>
-                        <input type="submit" name="aben_add_unsubscribed" class="button action" value="Add to Unsubscribed">
-                    </form>
-                </div>
-                <table class="widefat fixed" cellspacing="0">
-                    <thead>
-                        <tr>
-                            <th class="manage-column column-columnname" width="20px;" scope="col">#</th>
-                            <th class="manage-column column-columnname" scope="col">Email</th>
-                            <th class="manage-column column-columnname" scope="col">Name</th>
-                            <th class="manage-column column-columnname" scope="col">Role</th>
-                            <th class="manage-column column-columnname" scope="col">Actions</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <?php
+    <?php if ($current_tab === 'unsubscribe'): ?>
+    <div class="wrap">
+        <div class="unsubscribe-header">
+            <h1>Unsubscribed Users</h1>
+            <!-- Add to Unsubscribed Form -->
+            <form method="post" action="">
+                <input type="email" name="aben_unsubscribe_email" placeholder="Enter email address" required>
+                <input type="submit" name="aben_add_unsubscribed" class="button action" value="Add to Unsubscribed">
+            </form>
+        </div>
+        <table class="widefat fixed" cellspacing="0">
+            <thead>
+                <tr>
+                    <th class="manage-column column-columnname" width="20px;" scope="col">#</th>
+                    <th class="manage-column column-columnname" scope="col">Email</th>
+                    <th class="manage-column column-columnname" scope="col">Name</th>
+                    <th class="manage-column column-columnname" scope="col">Role</th>
+                    <th class="manage-column column-columnname" scope="col">Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <?php
 // Query to fetch all users with 'aben_notification' meta set to '0'
     $args = array(
         'meta_key' => 'aben_notification',
@@ -208,35 +234,35 @@ settings_fields('aben_options');
             ), admin_url('admin.php'));
 
             ?>
-                                <tr>
-                                    <td><?php echo esc_html($serial_number); ?></td>
-                                    <td><?php echo esc_html($user->user_email); ?></td>
-                                    <td><?php echo ucwords(esc_html($user->display_name)); ?></td>
-                                    <td><?php echo ucwords(esc_html($role_display)); ?></td>
-                                    <td>
-                                        <form method="post" action="<?php echo esc_url($subscribe_url); ?>">
-                                            <input type="hidden" name="user_id" value="<?php echo esc_attr($user->ID); ?>">
-                                            <input type="submit" class="button action" value="Subscribe Again">
-                                        </form>
-                                    </td>
-                                </tr>
-                                <?php
+                <tr>
+                    <td><?php echo esc_html($serial_number); ?></td>
+                    <td><?php echo esc_html($user->user_email); ?></td>
+                    <td><?php echo ucwords(esc_html($user->display_name)); ?></td>
+                    <td><?php echo ucwords(esc_html($role_display)); ?></td>
+                    <td>
+                        <form method="post" action="<?php echo esc_url($subscribe_url); ?>">
+                            <input type="hidden" name="user_id" value="<?php echo esc_attr($user->ID); ?>">
+                            <input type="submit" class="button action" value="Subscribe Again">
+                        </form>
+                    </td>
+                </tr>
+                <?php
 $serial_number++;
         }
     } else {
         ?>
-                            <tr>
-                                <td colspan="4">No unsubscribed users found.</td>
-                            </tr>
-                            <?php
+                <tr>
+                    <td colspan="4">No unsubscribed users found.</td>
+                </tr>
+                <?php
 }
     ?>
-                    </tbody>
-                </table>
-            </div>
-        <?php endif;?>
+            </tbody>
+        </table>
     </div>
-    <?php
+    <?php endif;?>
+</div>
+<?php
 }
 
 //ABEN Register Settings
@@ -539,21 +565,24 @@ function aben_save_timezone_option($new_value, $old_value)
     return $new_value;
 }
 
-function aben_send_test_email() { ?>
-    <!-- Display success or error message if available -->
-    <?php if (isset($_GET['test_email_sent'])): ?>
-        <div class="notice notice-<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?> is-dismissible">
-            <p><?php echo $_GET['test_email_sent'] === 'success' ? 'Test email sent successfully.' : 'SMTP connection failed. Please check your credentials and try again'; ?></p>
-        </div>
-    <?php endif; ?>
-    <!-- Test Email Form -->
-    <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
-        <p style="float: right;">
-            <input type="email" id="test_email_address" placeholder="Enter Email Address" name="test_email_address" class="regular-text" required />
-            <input type="hidden" name="action" value="aben_send_test_email" />
-            <input type="submit" class="button button-primary" value="Send Test Email" />
-        </p>
-        <?php wp_nonce_field('aben_send_test_email', 'aben_test_email_nonce');?>
-    </form>
-        
-<?php } ?>
+function aben_send_test_email()
+{?>
+<!-- Display success or error message if available -->
+<?php if (isset($_GET['test_email_sent'])): ?>
+<div class="notice notice-<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?> is-dismissible">
+    <p><?php echo $_GET['test_email_sent'] === 'success' ? 'Test email sent successfully.' : 'SMTP connection failed. Please check your credentials and try again'; ?>
+    </p>
+</div>
+<?php endif;?>
+<!-- Test Email Form -->
+<form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+    <p style="float: right;">
+        <input type="email" id="test_email_address" placeholder="Enter Email Address" name="test_email_address"
+            class="regular-text" required />
+        <input type="hidden" name="action" value="aben_send_test_email" />
+        <input type="submit" class="button button-primary" value="Send Test Email" />
+    </p>
+    <?php wp_nonce_field('aben_send_test_email', 'aben_test_email_nonce');?>
+</form>
+
+<?php }?>

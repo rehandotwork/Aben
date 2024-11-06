@@ -49,6 +49,7 @@ function activate_aben()
 {
     require_once plugin_dir_path(__FILE__) . 'includes/class-aben-activator.php';
     Aben_Activator::activate();
+    aben_create_email_logs_table();
 
     aben_add_user_meta_to_existing_users(); //Refer add-user-meta.php
     aben_register_cron();
@@ -92,6 +93,28 @@ function aben_show_plugin_settings_link($links, $file)
     return $links;
 }
 add_filter('plugin_action_links', 'aben_show_plugin_settings_link', 10, 2);
+
+/** Function add add custom email logs table to the database */
+function aben_create_email_logs_table()
+{
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'aben_email_logs';
+
+    // SQL statement to create the table
+    $charset_collate = $wpdb->get_charset_collate();
+    $sql = "CREATE TABLE $table_name (
+        id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
+        email_to VARCHAR(255) NOT NULL,
+        subject VARCHAR(255) NOT NULL,
+        message TEXT NOT NULL,
+        status  VARCHAR(255) NOT NULL,
+        sent_at DATETIME DEFAULT CURRENT_TIMESTAMP,
+        PRIMARY KEY (id)
+    ) $charset_collate;";
+
+    require_once ABSPATH . 'wp-admin/includes/upgrade.php';
+    dbDelta($sql);
+}
 
 /**
  * The core plugin class that is used to define internationalization,
