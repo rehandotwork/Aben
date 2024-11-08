@@ -104,19 +104,7 @@ function aben_get_today_posts()
 
             $author = get_the_author_meta('display_name', $author_id);
 
-            $custom_tax = 'country';
-
-            $tax = taxonomy_exists($custom_tax) ? $custom_tax : 'category';
-
-            $taxonomy_objects = get_the_terms($id, $tax);
-
-            $taxonomies = [];
-
-            if (!empty($taxonomy_objects)) {
-                foreach ($taxonomy_objects as $index => $taxonomy) {
-                    $taxonomies[$index] = $taxonomy->name;
-                }
-            }
+            $taxonomies = aben_get_post_tax($id, 'country'); //Default taxonomy is 'category'
 
             $posts_to_email[] = array(
                 'id' => $id,
@@ -204,19 +192,7 @@ function aben_get_weekly_posts($selected_day_num)
 
             $author_id = $post->post_author;
 
-            $custom_tax = 'country';
-
-            $tax = taxonomy_exists($custom_tax) ? $custom_tax : 'category';
-
-            $taxonomy_objects = get_the_terms($id, $tax);
-
-            $taxonomies = [];
-
-            if (!empty($taxonomy_objects)) {
-                foreach ($taxonomy_objects as $index => $taxonomy) {
-                    $taxonomies[$index] = $taxonomy->name;
-                }
-            }
+            $taxonomies = aben_get_post_tax($id, 'country');
 
             $posts_to_email[] = array(
                 'id' => $id,
@@ -237,4 +213,21 @@ function aben_get_weekly_posts($selected_day_num)
     }
 
     return null; // No posts found for the week
+}
+
+function aben_get_post_tax($post_id, $custom_tax)
+{
+
+    $tax = taxonomy_exists($custom_tax) ? $custom_tax : 'category';
+
+    $taxonomy_objects = get_the_terms($post_id, $tax);
+
+    $taxonomies = [];
+
+    if (!empty($taxonomy_objects)) {
+        foreach ($taxonomy_objects as $index => $taxonomy) {
+            $taxonomies[$index] = $taxonomy->name;
+        }
+    }
+    return $taxonomies;
 }

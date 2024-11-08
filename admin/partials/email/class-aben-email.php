@@ -117,7 +117,7 @@ class Aben_Email
 
             $excerpt_width = $this->show_view_post && $this->is_aben_gw_active() ? 60 : ($this->show_view_post || $this->is_aben_gw_active() ? 85 : 100);
 
-            echo '<div class="post-tile" style="display:flex;flex-direction:column;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';
+            echo '<div class="post-tile" style="display:flex;flex-direction:column;margin-bottom:20px;padding:25px; border-radius:3px; background:' . $this->header_bg . ';">';
             echo '<div style="margin-bottom:10px; display:flex; column-gap:10px;">';
             echo '<div>';
             if ($category_csv) {echo '<p style="margin:0; color:#727272; line-height:1;"><span>&#9998; </span>' . $category_csv . '</p>';}
@@ -137,14 +137,14 @@ class Aben_Email
             $this->number_of_posts--;
         }
         do_action('aben_after_posts_loop'); // After Posts Loop Hook
-        echo '<div style="display:flex;">
+        echo '<div style="display:flex; border-radius:3px; overflow:hidden">
         <div style="width:100%;text-align:center;">';
         if ($this->show_view_all) {
             echo '<a id="view-all-post" href="' . $this->archive_page_slug . '"style="display:inline-block;padding:15px 0px;background-color:#2271b1;color:#ffffff;text-decoration:none;width: 100%;font-size:16px;">' . $this->view_all_posts_text . '</a>';
         }
         echo '</div></div></div>
         <div style="color:#808080;text-align:center;padding: 30px 30px 50px 30px;">
-        <a href="' . home_url() . '"><img src="' . $logo . '" alt="Site Logo" style="max-height:80px; object-fit:contain; margin-top: 10px;"></a><div>';
+        <a href="' . home_url() . '"><img src="' . $logo . '" alt="Site Logo" style="max-height:40px; object-fit:contain; margin-top: 10px;"></a><div>';
         do_action('aben_before_footer_text'); // Before Footer Text Hook
         echo '</div><p id="footer-text">' . $this->footer_text . '</p><div>';
         do_action('aben_after_footer_text'); // After Footer Text Hook
