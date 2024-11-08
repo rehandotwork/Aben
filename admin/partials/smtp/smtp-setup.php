@@ -85,15 +85,15 @@ function aben_send_own_smtp_email($to, $subject, $message)
         $mail->isSMTP();
         $mail->Host = 'mail.inaqani.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'aben@rehan.work';
-        $mail->Password = 'Gz*ktvbPKn!E';
+        $mail->Username = 'notifications@gulfworking.com';
+        $mail->Password = '$377%$sM583*w#5%$jx%Bo67^&m2';
 
         // Use 'ssl' for port 465, 'tls' for 587
         $mail->SMTPSecure = 'ssl';
         $mail->Port = 465;
 
         // Set the sender information
-        $mail->setFrom('notify@rehan.work', 'Aben');
+        $mail->setFrom('notifications@gulfworking.com', 'Gulfworking.com | Daily Gulf Jobs');
         $mail->addAddress($to);
         $mail->isHTML(true);
         $mail->Subject = $subject;
@@ -102,7 +102,7 @@ function aben_send_own_smtp_email($to, $subject, $message)
         // Send the email
         if ($mail->send()) {
 
-            error_log('Mail Sent via Custom SMTP');
+            error_log('Mail Sent via Aben default SMTP');
             $email_logger->log_email($to, $subject, $message, 'sent');
         }
         return true;
@@ -152,13 +152,14 @@ function aben_handle_test_email()
                 'link' => 'https://example.com/understanding-wordpress-plugins',
                 'excerpt' => 'Learn about the basics of WordPress plugins, how they work, and why they are useful.',
                 'featured_image_url' => $featured_image,
-
+                'category' => ['Category 1', 'Category 2'],
             ],
             [
                 'title' => '10 Tips for Optimizing Your Website',
                 'link' => 'https://example.com/optimizing-your-website',
                 'excerpt' => 'Follow these essential tips to ensure your website runs smoothly and efficiently.',
                 'featured_image_url' => $featured_image,
+                'category' => ['Category 1', 'Category 2'],
 
             ],
             [
@@ -166,6 +167,7 @@ function aben_handle_test_email()
                 'link' => 'https://example.com/importance-of-seo',
                 'excerpt' => 'SEO remains crucial for online success. Discover how to stay ahead in 2024.',
                 'featured_image_url' => $featured_image,
+                'category' => ['Category 1', 'Category 2'],
 
             ],
             [
@@ -173,6 +175,7 @@ function aben_handle_test_email()
                 'link' => 'https://example.com/web-development-best-practices',
                 'excerpt' => 'Adopt these best practices to enhance your web development workflow and deliver top-notch projects.',
                 'featured_image_url' => $featured_image,
+                'category' => ['Category 1', 'Category 2'],
 
             ],
             [
@@ -180,6 +183,7 @@ function aben_handle_test_email()
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                 'featured_image_url' => $featured_image,
+                'category' => ['Category 1', 'Category 2'],
 
             ],
             [
@@ -187,6 +191,7 @@ function aben_handle_test_email()
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                 'featured_image_url' => $featured_image,
+                'category' => ['Category 1', 'Category 2'],
 
             ],
             [
@@ -194,6 +199,7 @@ function aben_handle_test_email()
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                 'featured_image_url' => $featured_image,
+                'category' => ['Category 1', 'Category 2'],
 
             ],
             [
@@ -201,6 +207,7 @@ function aben_handle_test_email()
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                 'featured_image_url' => $featured_image,
+                'category' => ['Category 1', 'Category 2'],
 
             ],
             [
@@ -208,6 +215,7 @@ function aben_handle_test_email()
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                 'featured_image_url' => $featured_image,
+                'category' => ['Category 1', 'Category 2'],
 
             ],
             [
@@ -215,6 +223,7 @@ function aben_handle_test_email()
                 'link' => 'https://example.com/boost-website-security',
                 'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                 'featured_image_url' => $featured_image,
+                'category' => ['Category 1', 'Category 2'],
 
             ],
         ]

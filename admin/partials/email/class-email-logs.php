@@ -89,6 +89,11 @@ class Aben_Email_Logs
         return $wpdb->get_results($wpdb->prepare($query, ...$params));
     }
 
+    public function delete_all_logs()
+    {
+        return null;
+    }
+
     /**
      * Get the total number of email logs for pagination purposes.
      *

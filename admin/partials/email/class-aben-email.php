@@ -111,11 +111,18 @@ class Aben_Email
             $title = $post['title'];
             $link = $post['link'];
             $excerpt = $post['excerpt'];
+            $category = $post['category'];
+            $category_csv = !empty($category) ? implode(', ', $category) : null;
             $image = $post['featured_image_url'];
 
             $excerpt_width = $this->show_view_post && $this->is_aben_gw_active() ? 60 : ($this->show_view_post || $this->is_aben_gw_active() ? 85 : 100);
 
-            echo '<div class="post-tile" style="display:flex;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';
+            echo '<div class="post-tile" style="display:flex;flex-direction:column;margin-bottom:20px;padding:25px;background:' . $this->header_bg . ';">';
+            echo '<div style="margin-bottom:10px; display:flex; column-gap:10px;">';
+            echo '<div>';
+            if ($category_csv) {echo '<p style="margin:0; color:#727272; line-height:1;"><span>&#9998; </span>' . $category_csv . '</p>';}
+            echo '</div></div>';
+            echo '<div style="display:flex">';
             if ($this->show_view_post && !empty($image)) {
                 echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:center;"><a href="' . $link . '"><img width="100%" max-width="100px" src="' . $image . '" alt="' . $title . '" /></a></div>';
             }
@@ -125,7 +132,7 @@ class Aben_Email
             }
             echo '</div>';
             do_action('aben_post_button_hook', $link); // Post Button Hook
-            echo '</div>';
+            echo '</div></div>';
 
             $this->number_of_posts--;
         }

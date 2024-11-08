@@ -90,7 +90,11 @@ function aben_get_today_posts()
 
             $title = $post->post_title;
 
-            $excerpt = $post->post_excerpt;
+            $content = $post->post_content;
+
+            $content_excerpt = wp_trim_words(strip_tags($content), 15, '...');
+
+            $excerpt = empty($post->post_excerpt) ? $content_excerpt : $post->post_excerpt;
 
             $featured_image_url = get_the_post_thumbnail_url($id);
 
@@ -100,12 +104,28 @@ function aben_get_today_posts()
 
             $author = get_the_author_meta('display_name', $author_id);
 
+            $custom_tax = 'country';
+
+            $tax = taxonomy_exists($custom_tax) ? $custom_tax : 'category';
+
+            $taxonomy_objects = get_the_terms($id, $tax);
+
+            $taxonomies = [];
+
+            if (!empty($check_tax)) {
+                foreach ($taxonomy_objects as $index => $taxonomy) {
+                    $taxonomies[$index] = $taxonomy->name;
+                }
+            }
+
             $posts_to_email[] = array(
+                'id' => $id,
                 'title' => $title,
                 'link' => $link,
                 'excerpt' => $excerpt,
                 'featured_image_url' => $featured_image_url,
                 'author' => $author,
+                'category' => $taxonomies,
             );
 
         }
@@ -167,20 +187,47 @@ function aben_get_weekly_posts($selected_day_num)
 
     if (!empty($posts_published_this_week)) {
         foreach ($posts as $post) {
+
             $id = $post->ID;
+
             $title = $post->post_title;
-            $excerpt = $post->post_excerpt;
+
+            $content = $post->post_content;
+
+            $content_excerpt = wp_trim_words(strip_tags($content), 15, '...');
+
+            $excerpt = empty($post->post_excerpt) ? $content_excerpt : $post->post_excerpt;
+
             $featured_image_url = get_the_post_thumbnail_url($id);
+
             $link = get_permalink($id);
+
             $author_id = $post->post_author;
 
+            $custom_tax = 'country';
+
+            $tax = taxonomy_exists($custom_tax) ? $custom_tax : 'category';
+
+            $taxonomy_objects = get_the_terms($id, $tax);
+
+            $taxonomies = [];
+
+            if (!empty($taxonomy_objects)) {
+                foreach ($taxonomy_objects as $index => $taxonomy) {
+                    $taxonomies[$index] = $taxonomy->name;
+                }
+            }
+
             $posts_to_email[] = array(
+                'id' => $id,
                 'title' => $title,
                 'link' => $link,
                 'excerpt' => $excerpt,
                 'featured_image_url' => $featured_image_url,
+                'category' => $taxonomies,
 
             );
+
         }
 
         return array(

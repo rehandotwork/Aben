@@ -83,60 +83,79 @@ settings_fields('aben_options');
                     'link' => 'https://example.com/understanding-wordpress-plugins',
                     'excerpt' => 'Learn about the basics of WordPress plugins, how they work, and why they are useful.',
                     'featured_image_url' => $featured_image,
+                    'category' => ['Category 1', 'Category 2'],
                 ],
                 [
                     'title' => '10 Tips for Optimizing Your Website',
                     'link' => 'https://example.com/optimizing-your-website',
                     'excerpt' => 'Follow these essential tips to ensure your website runs smoothly and efficiently.',
                     'featured_image_url' => $featured_image,
+                    'category' => ['Category 1', 'Category 2'],
+
                 ],
                 [
                     'title' => 'The Importance of SEO in 2024',
                     'link' => 'https://example.com/importance-of-seo',
                     'excerpt' => 'SEO remains crucial for online success. Discover how to stay ahead in 2024.',
                     'featured_image_url' => $featured_image,
+                    'category' => ['Category 1', 'Category 2'],
+
                 ],
                 [
                     'title' => 'Best Practices for Web Development',
                     'link' => 'https://example.com/web-development-best-practices',
                     'excerpt' => 'Adopt these best practices to enhance your web development workflow and deliver top-notch projects.',
                     'featured_image_url' => $featured_image,
+                    'category' => ['Category 1', 'Category 2'],
+
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                     'featured_image_url' => $featured_image,
+                    'category' => ['Category 1', 'Category 2'],
+
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                     'featured_image_url' => $featured_image,
+                    'category' => ['Category 1', 'Category 2'],
+
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                     'featured_image_url' => $featured_image,
+                    'category' => ['Category 1', 'Category 2'],
+
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                     'featured_image_url' => $featured_image,
+                    'category' => ['Category 1', 'Category 2'],
+
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                     'featured_image_url' => $featured_image,
+                    'category' => ['Category 1', 'Category 2'],
+
                 ],
                 [
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
                     'featured_image_url' => $featured_image,
+                    'category' => ['Category 1', 'Category 2'],
+
                 ],
             ]//posts_to_send
         );
@@ -146,11 +165,12 @@ settings_fields('aben_options');
 
         $logger = new Aben_Email_Logs();
         $total_logs = $logger->get_total_logs_count($filters = []);
-        $logs = $logger->get_logs(150); // Fetch latest 150 logs
+        $logs = $logger->get_logs(100); // Fetch latest 100 logs
+        $count = 1;
 
         echo '<h1>Email Logs</h1>';
-        echo '<table class="wp-list-table widefat fixed striped">';
-        echo '<thead><tr><th>Subject</th><th>To</th><th>Status</th><th>Date/Time</th></tr></thead><tbody>';
+        echo '<table class="widefat fixed">';
+        echo '<thead><tr><th width="20px">#</th><th>Subject</th><th>To</th><th>Status</th><th>Date/Time</th></tr></thead><tbody>';
 
         foreach ($logs as $log) {
 
@@ -158,6 +178,7 @@ settings_fields('aben_options');
             $sent_at = $date->format('j F Y / H:i A');
 
             echo '<tr>';
+            echo '<td>' . $count++ . '</td>';
             echo '<td>' . esc_html($log->subject) . '</td>';
             echo '<td>' . esc_html($log->email_to) . '</td>';
             echo '<td>' . esc_html($log->status) . '</td>';

@@ -9,6 +9,8 @@ require_once __DIR__ . '/email-build.php';
 
 $aben_settings = aben_get_options();
 
+// add_action('admin_notices', 'aben_send_email');
+
 function aben_send_email()
 {
     error_log('aben_send_email function was called at ' . current_time('mysql'));
@@ -120,5 +122,5 @@ function aben_get_posts_for_email()
     } else {
         $aben_get_posts_result = aben_get_today_posts();
     }
-    return $aben_get_posts_result;
+    return ($aben_get_posts_result);
 }
