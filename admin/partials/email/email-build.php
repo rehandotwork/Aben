@@ -112,7 +112,7 @@ function aben_get_today_posts()
 
             $taxonomies = [];
 
-            if (!empty($check_tax)) {
+            if (!empty($taxonomy_objects)) {
                 foreach ($taxonomy_objects as $index => $taxonomy) {
                     $taxonomies[$index] = $taxonomy->name;
                 }
