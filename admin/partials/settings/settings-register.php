@@ -164,7 +164,6 @@ settings_fields('aben_options');
     } else if ($current_tab === 'email_logs') {
 
         $logger = new Aben_Email_Logs();
-        $total_logs = $logger->get_total_logs_count($filters = []);
         $logs = $logger->get_logs(100); // Fetch latest 100 logs
         $count = 1;
 

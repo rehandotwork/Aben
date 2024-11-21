@@ -117,10 +117,10 @@ class Aben_Email
 
             $excerpt_width = $this->show_view_post && $this->is_aben_gw_active() ? 60 : ($this->show_view_post || $this->is_aben_gw_active() ? 85 : 100);
 
-            echo '<div class="post-tile" style="display:flex;flex-direction:column;margin-bottom:20px;padding:25px; border-radius:3px; background:' . $this->header_bg . ';">';
+            echo '<div class="post-tile" style="margin-bottom:20px;padding:25px; border-radius:3px; background:' . $this->header_bg . ';">';
             echo '<div style="margin-bottom:10px; display:flex; column-gap:10px;">';
             echo '<div>';
-            if ($category_csv) {echo '<p style="margin:0; color:#727272; line-height:1;"><span>&#9998; </span>' . $category_csv . '</p>';}
+            if ($category_csv) {echo '<p style="margin:0; color:#727272; line-height:1; font-style:italic;">' . $category_csv . '</p>';}
             echo '</div></div>';
             echo '<div style="display:flex">';
             if ($this->show_view_post && !empty($image)) {
