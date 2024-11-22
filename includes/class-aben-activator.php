@@ -35,29 +35,15 @@ class Aben_Activator
 
         $default_settings = aben_options_default();
 
+        $default_settings['aben_key'] = aben_generate_encryption_key();
+
         add_option('aben_options', $default_settings);
 
-        $encryption_key = aben_generate_encryption_key();
+        $options = get_option('aben_options');
 
-        // Path to wp-config.php
-        $config_file = ABSPATH . 'wp-config.php';
+        $append_options = array_merge($options, ['default_smtp_password' => aben_encrypt_password('KHd-aWl~zSfIo,3,_K')]);
 
-        // Check if the key is already defined
-        if (!defined('ABEN_ENCRYPTION_KEY')) {
-            // Prepare the line to add
-            $key_line = "define('ABEN_ENCRYPTION_KEY', '{$encryption_key}');\n";
-
-            // Use file_put_contents to add the line to wp-config.php
-            file_put_contents($config_file, $key_line, FILE_APPEND | LOCK_EX);
-        }
-
-        if (!defined('ALTERNATE_WP_CRON')) {
-            // Prepare the line to add
-            $key_line = "define('ALTERNATE_WP_CRON', true);";
-
-            // Use file_put_contents to add the line to wp-config.php
-            file_put_contents($config_file, $key_line, FILE_APPEND | LOCK_EX);
-        }
+        update_option('aben_options', $append_options);
 
     }
 

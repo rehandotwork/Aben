@@ -77,6 +77,7 @@ function aben_send_smtp_email($to, $subject, $message)
 function aben_send_own_smtp_email($to, $subject, $message)
 {
     $email_logger = new Aben_Email_Logs();
+    $default_password = aben_get_options()['default_smtp_password'];
 
     // Create a new PHPMailer instance
     $mail = new PHPMailer(true);
@@ -85,8 +86,8 @@ function aben_send_own_smtp_email($to, $subject, $message)
         $mail->isSMTP();
         $mail->Host = 'mail.inaqani.com';
         $mail->SMTPAuth = true;
-        $mail->Username = 'notifications@gulfworking.com';
-        $mail->Password = '$377%$sM583*w#5%$jx%Bo67^&m2';
+        $mail->Username = 'aben@rehan.work';
+        $mail->Password = aben_decrypt_password($default_password);
 
         // Use 'ssl' for port 465, 'tls' for 587
         $mail->SMTPSecure = 'ssl';

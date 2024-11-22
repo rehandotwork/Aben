@@ -97,7 +97,6 @@ function aben_callback_validate_options($input)
                 break;
         }
     }
-
     return $options;
 }
 
@@ -108,7 +107,7 @@ function aben_generate_encryption_key($length = 32)
 
 function aben_encrypt_password($password)
 {
-    $encryption_key = ABEN_ENCRYPTION_KEY; //Constant defined in wp-config upon plugin activation
+    $encryption_key = aben_get_options()['aben_key'];
 
     if (!$encryption_key) {
 
@@ -128,7 +127,7 @@ function aben_encrypt_password($password)
 
 function aben_decrypt_password($encrypted_password)
 {
-    $encryption_key = ABEN_ENCRYPTION_KEY; // Same key used for encryption
+    $encryption_key = aben_get_options()['aben_key'];
 
     if (!$encryption_key) {
 
