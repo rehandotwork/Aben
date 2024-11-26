@@ -27,7 +27,7 @@ function aben_send_email()
             $aben_settings['header_bg'],
             $aben_settings['header_subtext'],
             $aben_settings['footer_text'],
-            $aben_settings['site_logo'],
+            $aben_settings['site-logo'],
             $aben_settings['show_view_all'],
             $aben_settings['view_all_posts_text'],
             $aben_settings['show_view_post'],

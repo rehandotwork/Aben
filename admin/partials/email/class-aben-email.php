@@ -112,11 +112,11 @@ class Aben_Email
 
             foreach($filterable_fields as $field) { 
                 if(isset($post[$field])) {
-                    $post[$field] = apply_filters( "aben_post_{$field}_filter", $post[$field], $post['id'] );
+                    $post[$field] = apply_filters( "aben_post_{$field}_filter", $post[$field], $post['id'] ?? NULL );
                 }
             }
             
-            $id = $post['id'];
+            $id = $post['id'] ?? NULL;
             $author_id = $post['author'] ?? NULL;
             $title = $post['title'];
             $link = $post['link'];
