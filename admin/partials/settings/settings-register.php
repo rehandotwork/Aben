@@ -79,6 +79,7 @@ settings_fields('aben_options');
             true, //show_unsubscribe
             [
                 [
+                    
                     'title' => 'Understanding WordPress Plugins',
                     'link' => 'https://example.com/understanding-wordpress-plugins',
                     'excerpt' => 'Learn about the basics of WordPress plugins, how they work, and why they are useful.',
@@ -150,6 +151,7 @@ settings_fields('aben_options');
 
                 ],
                 [
+
                     'title' => 'How to Boost Website Security',
                     'link' => 'https://example.com/boost-website-security',
                     'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
@@ -162,31 +164,53 @@ settings_fields('aben_options');
         $aben_email_dashboard->aben_email_template();
         echo '</div>';
     } else if ($current_tab === 'email_logs') {
-
         $logger = new Aben_Email_Logs();
-        $logs = $logger->get_logs(100); // Fetch latest 100 logs
-        $count = 1;
+        $per_page = 150; // Logs per page
+        $current_page = isset($_GET['paged']) ? absint($_GET['paged']) : 1; // Get the current page from URL
+        $offset = ($current_page - 1) * $per_page; // Calculate offset for SQL query
 
-        echo '<h1>Email Logs</h1>';
-        echo '<table class="widefat fixed">';
-        echo '<thead><tr><th width="20px">#</th><th>Subject</th><th>To</th><th>Status</th><th>Date/Time</th></tr></thead><tbody>';
+        // Fetch logs with limit and offset
+        $logs = $logger->get_logs($per_page, $offset);
+        $total_logs = $logger->get_logs_count();
 
-        foreach ($logs as $log) {
+        if (!empty($logs)) {
+            echo '<table class="widefat fixed aben-email-logs">';
+            echo '<thead><tr>';
+            echo '<th>#</th><th>Subject</th><th>To</th><th>Status</th><th>Date/Time</th>';
+            echo '</tr></thead><tbody>';
 
-            $date = new DateTime($log->sent_at);
-            $sent_at = $date->format('j F Y / H:i A');
+            $count = $offset + 1; // Start count based on the offset
+            foreach ($logs as $log) {
+                $date = new DateTime($log->sent_at);
+                $sent_at = $date->format('j F Y / H:i A');
 
-            echo '<tr>';
-            echo '<td>' . $count++ . '</td>';
-            echo '<td>' . esc_html($log->subject) . '</td>';
-            echo '<td>' . esc_html($log->email_to) . '</td>';
-            echo '<td>' . esc_html($log->status) . '</td>';
-            echo '<td>' . $sent_at . '</td>';
-            echo '</tr>';
+                echo '<tr>';
+                echo '<td>' . esc_html($count++) . '</td>';
+                echo '<td>' . esc_html($log->subject) . '</td>';
+                echo '<td>' . esc_html($log->email_to) . '</td>';
+                echo '<td>' . esc_html($log->status) . '</td>';
+                echo '<td>' . esc_html($sent_at) . '</td>';
+                echo '</tr>';
+            }
+
+            echo '</tbody></table>';
+
+            // Add pagination
+            $pagination_args = [
+                'base' => add_query_arg('paged', '%#%'),
+                'format' => '',
+                'current' => max(1, $current_page),
+                'total' => ceil($total_logs / $per_page),
+                'prev_text' => '&laquo; Previous',
+                'next_text' => 'Next &raquo;',
+            ];
+
+            echo '<div class="pagination-wrap">';
+            echo paginate_links($pagination_args);
+            echo '</div>';
+        } else {
+            echo '<p>No email logs available.</p>';
         }
-
-        echo '</tbody></table>';
-
     }
 
     // Add a hidden field to identify the active tab if needed

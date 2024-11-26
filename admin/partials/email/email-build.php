@@ -200,6 +200,7 @@ function aben_get_weekly_posts($selected_day_num)
                 'link' => $link,
                 'excerpt' => $excerpt,
                 'featured_image_url' => $featured_image_url,
+                'author' => $author,
                 'category' => $taxonomies,
 
             );

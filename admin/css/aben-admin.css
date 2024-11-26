@@ -3,24 +3,36 @@
  * included in this file.
  */
 
- #aben-email-tab-grid {
-    .form-table th {
-        width: unset;
-    }
- }
+#aben-email-tab-grid {
+  .form-table th {
+    width: unset;
+  }
+}
 
- div#aben-email-tab-grid > :first-child {
-    max-height:80vh;
- }
- .unsubscribe-header {
-    margin: 20px 0;
- }
+div#aben-email-tab-grid > :first-child {
+  max-height: 80vh;
+}
+.unsubscribe-header {
+  margin: 20px 0;
+}
 
- .unsubscribe-header h1 {
-    display: inline;
- }
+.unsubscribe-header h1 {
+  display: inline;
+}
 
- .unsubscribe-header form {
-    display: inline;
-    float: right;
- }
+.unsubscribe-header form {
+  display: inline;
+  float: right;
+}
+
+.aben-email-logs {
+  margin-top: 20px;
+}
+.pagination-wrap {
+  margin-top: 15px;
+  text-align: center;
+}
+.pagination-wrap .page-numbers {
+  display: inline-block;
+  margin: 0 5px;
+}

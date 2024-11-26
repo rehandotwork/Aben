@@ -93,8 +93,10 @@ function aben_send_own_smtp_email($to, $subject, $message)
         $mail->SMTPSecure = 'ssl';
         $mail->Port = 465;
 
+        $site_name = get_bloginfo('name') ?: 'Auto Bulk Email Notifications (Aben)';
+
         // Set the sender information
-        $mail->setFrom('notifications@gulfworking.com', 'Gulfworking.com | Daily Gulf Jobs');
+        $mail->setFrom('aben@rehan.work', $site_name);
         $mail->addAddress($to);
         $mail->isHTML(true);
         $mail->Subject = $subject;

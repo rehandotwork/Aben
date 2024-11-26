@@ -43,6 +43,24 @@ class Aben_Email_Logs
                 '%s', // sent_at
             ]
         );
+ 
+        // Clear old logs after adding a new one
+        $this->clear_old_logs();
+    }
+
+    /**
+     * Clear logs older than 30 days.
+     */
+    public function clear_old_logs()
+    {
+        global $wpdb;
+
+        // Delete logs older than 30 days
+        $wpdb->query(
+            $wpdb->prepare(
+                "DELETE FROM $this->table_name WHERE sent_at < DATE_SUB(NOW(), INTERVAL 30 DAY)"
+            )
+        );
     }
 
     /**
@@ -89,44 +107,38 @@ class Aben_Email_Logs
         return $wpdb->get_results($wpdb->prepare($query, ...$params));
     }
 
-    public function delete_all_logs()
-    {
-        return null;
-    }
-
     /**
-     * Get the total number of email logs for pagination purposes.
-     *
-     * @param array $filters Optional filters to apply to the query.
-     *
-     * @return int The total count of email logs.
-     */
-    public function get_total_logs_count($filters = [])
-    {
-        global $wpdb;
+ * Get the total number of email logs.
+ *
+ * @param array $filters Optional filters to apply to the query.
+ * @return int Total number of logs.
+ */
+public function get_logs_count($filters = [])
+{
+    global $wpdb;
 
-        // Initialize the WHERE clause and parameters
-        $where = '';
-        $params = [];
+    // Initialize the WHERE clause and parameters
+    $where = '';
+    $params = [];
 
-        // Apply filters (if any)
-        if (!empty($filters)) {
-            foreach ($filters as $key => $value) {
-                if (!empty($value)) {
-                    // For security, sanitize the filter value and add a placeholder for it
-                    $where .= " AND $key LIKE %s";
-                    $params[] = '%' . sanitize_text_field($value) . '%'; // Use LIKE for partial matches
-                }
+    // Apply filters (if any)
+    if (!empty($filters)) {
+        foreach ($filters as $key => $value) {
+            if (!empty($value)) {
+                $where .= " AND $key LIKE %s";
+                $params[] = '%' . sanitize_text_field($value) . '%';
             }
         }
+    }
 
-        // Build the SQL query to count the total number of records
-        $query = "
+    // Query to count the total logs
+    $query = "
         SELECT COUNT(*) FROM $this->table_name
         WHERE 1=1 $where
     ";
 
-        // Execute the query and return the total count
-        return $wpdb->get_var($wpdb->prepare($query, ...$params));
-    }
+    // Execute the query and return the total count
+    return (int) $wpdb->get_var($query);
+}
+
 }

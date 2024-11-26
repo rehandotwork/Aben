@@ -105,14 +105,24 @@ class Aben_Email
             if ($this->number_of_posts <= 0) {
                 break;
             }
-
+            
             do_action('aben_within_posts_loop', $this->number_of_posts); // Within Posts Loop Hook
 
+            $filterable_fields = ['title', 'link', 'excerpt', 'featured_image_url', 'author'];
+
+            foreach($filterable_fields as $field) { 
+                if(isset($post[$field])) {
+                    $post[$field] = apply_filters( "aben_post_{$field}_filter", $post[$field], $post['id'] );
+                }
+            }
+            
+            $id = $post['id'];
+            $author_id = $post['author'] ?? NULL;
             $title = $post['title'];
             $link = $post['link'];
             $excerpt = $post['excerpt'];
             $category = $post['category'];
-            $category_csv = !empty($category) ? implode(', ', $category) : null;
+            $category_csv = !empty($category) ? implode(', ', $category) : NULL;
             $image = $post['featured_image_url'];
 
             $excerpt_width = $this->show_view_post && $this->is_aben_gw_active() ? 60 : ($this->show_view_post || $this->is_aben_gw_active() ? 85 : 100);
