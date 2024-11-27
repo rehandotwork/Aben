@@ -56,11 +56,7 @@ class Aben_Email_Logs
         global $wpdb;
 
         // Delete logs older than 30 days
-        $wpdb->query(
-            $wpdb->prepare(
-                "DELETE FROM $this->table_name WHERE sent_at < DATE_SUB(NOW(), INTERVAL 30 DAY)"
-            )
-        );
+        $wpdb->query("DELETE FROM $this->table_name WHERE sent_at < DATE_SUB(NOW(), INTERVAL 30 DAY)");
     }
 
     /**

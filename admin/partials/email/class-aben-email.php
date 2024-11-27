@@ -134,7 +134,7 @@ class Aben_Email
             echo '</div></div>';
             echo '<div style="display:flex">';
             if ($this->show_view_post && !empty($image)) {
-                echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:center;"><a href="' . $link . '"><img width="100%" max-width="100px" src="' . $image . '" alt="' . $title . '" /></a></div>';
+                echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:center; margin-top:auto; margin-bottom:auto;"><a href="' . $link . '"><img width="100%" max-width="100px" src="' . $image . '" alt="' . $title . '" /></a></div>';
             }
             echo '<div style="width:' . $excerpt_width . '%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
             if (!empty($excerpt)) {

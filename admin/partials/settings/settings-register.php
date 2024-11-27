@@ -176,7 +176,7 @@ settings_fields('aben_options');
         if (!empty($logs)) {
             echo '<table class="widefat fixed aben-email-logs">';
             echo '<thead><tr>';
-            echo '<th>#</th><th>Subject</th><th>To</th><th>Status</th><th>Date/Time</th>';
+            echo '<th width = 5%>#</th><th width = 30%>Subject</th><th width = 30%>To</th><th width = 10%>Status</th><th width = 20%>Date/Time</th>';
             echo '</tr></thead><tbody>';
 
             $count = $offset + 1; // Start count based on the offset
