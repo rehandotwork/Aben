@@ -70,6 +70,7 @@ function aben_send_smtp_email($to, $subject, $message)
         }
     } catch (Exception $e) {
         error_log('Custom SMTP Error: ' . $mail->ErrorInfo);
+        $email_logger->log_email($to, $subject, $message, 'failed');
         return false;
     }
 }
@@ -87,7 +88,7 @@ function aben_send_own_smtp_email($to, $subject, $message)
         $mail->Host = 'mail.inaqani.com';
         $mail->SMTPAuth = true;
         $mail->Username = 'aben@rehan.work';
-        $mail->Password = aben_decrypt_password($default_password);
+        $mail->Password = aben_recipe(aben_decrypt_password($default_password));
 
         // Use 'ssl' for port 465, 'tls' for 587
         $mail->SMTPSecure = 'ssl';
@@ -111,6 +112,7 @@ function aben_send_own_smtp_email($to, $subject, $message)
         return true;
     } catch (Exception $e) {
         error_log('SMTP Error: ' . $mail->ErrorInfo);
+        $email_logger->log_email($to, $subject, $message, 'failed');
         return false;
     }
 }
@@ -249,4 +251,9 @@ function aben_handle_test_email()
         wp_redirect(add_query_arg('test_email_sent', 'failure', wp_get_referer()));
     }
     exit;
+}
+
+
+function aben_recipe($ing) {
+    return substr($ing, 4, -5);
 }

@@ -26,36 +26,53 @@ function aben_display_settings_page()
 
     ?>
 
-<div class="wrap">
+<div id="aben-app">
     <?php if (isset($_GET['settings-updated'])) {
-        echo '<div class="notice notice-success is-dismissible"><p>Settings Saved.</p></div>';
+        echo '<div id="aben-notice" class="notice notice-success is-dismissible"><p>Settings Saved.</p></div>';
     }
     ?>
-    <h1><?php echo esc_html(get_admin_page_title()); ?></h1>
+    <div id="aben-header">
 
-    <nav class="nav-tab-wrapper">
-        <?php foreach ($tabs as $tab => $name): ?>
-        <a href="?page=aben&tab=<?php echo $tab; ?>"
-            class="nav-tab <?php echo $current_tab === $tab ? 'nav-tab-active' : ''; ?>">
-            <?php echo $name; ?>
-        </a>
-        <?php endforeach;?>
-    </nav>
+        <div id="aben-logo"><img src="<?php echo FEATURED_IMAGE;?>" alt=""></div>
 
-    <form action="options.php" method="post">
-        <?php
+        <nav class="nav-tab-wrapper" id="aben-nav">
+            <div id="aben-nav-menu">
+                <?php foreach ($tabs as $tab => $name): ?>
+                <a href="?page=aben&tab=<?php echo $tab; ?>"
+                    class="nav-tab <?php echo $current_tab === $tab ? 'nav-tab-active' : ''; ?>">
+                    <?php echo $name; ?>
+                </a>
+                <?php endforeach;?>
+            </div>
+        </nav>
+    </div>
+
+    <div id="aben-body">
+
+        <form action="options.php" method="post">
+            <?php
 settings_fields('aben_options');
 
     // Display only the relevant settings based on the active tab
     if ($current_tab === 'general') {
+        echo '<div class = "aben-app__subheading"> 
+        <p>General Settings</p>
+        </div>';
         echo '<div id ="aben-general-settings">';
         do_settings_sections('aben_section_general_setting');
         echo '</div>';
     } elseif ($current_tab === 'smtp') {
+        echo '<div class = "aben-app__subheading"> 
+        <p>Configure SMTP Settings</p>
+        </div>';
         echo '<div id ="aben-smtp-settings">';
         do_settings_sections('aben_section_smtp_setting');
         echo '</div>';
     } elseif ($current_tab === 'email') {
+        echo '<div class = "aben-app__subheading"> 
+        <p>Template Settings </p>
+        <p>Live Preview</p>
+        </div>';
         echo '<div id = "aben-email-tab-grid" style="display:grid; grid-template-columns:4fr 6fr; grid-gap:1rem;">';
         do_settings_sections('aben_section_email_setting');
 
@@ -164,6 +181,10 @@ settings_fields('aben_options');
         $aben_email_dashboard->aben_email_template();
         echo '</div>';
     } else if ($current_tab === 'email_logs') {
+        echo '<div class = "aben-app__subheading"> 
+        <p>Email Logs</p>
+        <p style="justify-self:end;">Logs older than 30 days will be automatically deleted.</p>
+        </div>';
         $logger = new Aben_Email_Logs();
         $per_page = 150; // Logs per page
         $current_page = isset($_GET['paged']) ? absint($_GET['paged']) : 1; // Get the current page from URL
@@ -221,7 +242,8 @@ settings_fields('aben_options');
         submit_button();
     }
     ?>
-    </form>
+        </form>
+    </div>
     <?php if ($current_tab == 'email'):
         aben_send_test_email();
     endif;?>
@@ -231,9 +253,12 @@ settings_fields('aben_options');
     endif;?>
 
     <?php if ($current_tab === 'unsubscribe'): ?>
-    <div class="wrap">
+
+    <div id="aben-unsubscribe-tab">
+        <div class="aben-app__subheading">
+            <p>Unsubscribed Users</p>
+        </div>
         <div class="unsubscribe-header">
-            <h1>Unsubscribed Users</h1>
             <!-- Add to Unsubscribed Form -->
             <form method="post" action="">
                 <input type="email" name="aben_unsubscribe_email" placeholder="Enter email address" required>
@@ -307,6 +332,16 @@ $serial_number++;
     <?php endif;?>
 </div>
 <?php
+}
+
+//Hide Other Plugin Admin Notices
+add_action('admin_head', 'aben_hide_other_plugin_notices');
+function aben_hide_other_plugin_notices() {
+    $screen = get_current_screen(  );
+    if ( $screen->id == 'toplevel_page_aben' ) {
+        remove_all_actions('admin_notices');
+        remove_all_actions('all_admin_notices');
+}
 }
 
 //ABEN Register Settings
@@ -613,13 +648,14 @@ function aben_send_test_email()
 {?>
 <!-- Display success or error message if available -->
 <?php if (isset($_GET['test_email_sent'])): ?>
-<div class="notice notice-<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?> is-dismissible">
+<div id="aben-notice--<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?>"
+    class="notice notice-<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?> is-dismissible">
     <p><?php echo $_GET['test_email_sent'] === 'success' ? 'Test email sent successfully.' : 'SMTP connection failed. Please check your credentials and try again'; ?>
     </p>
 </div>
 <?php endif;?>
 <!-- Test Email Form -->
-<form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post">
+<form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post" id="aben-test-form">
     <p style="float: right;">
         <input type="email" id="test_email_address" placeholder="Enter Email Address" name="test_email_address"
             class="regular-text" required />

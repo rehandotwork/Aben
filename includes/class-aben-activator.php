@@ -41,7 +41,7 @@ class Aben_Activator
 
         $options = get_option('aben_options');
 
-        $append_options = array_merge($options, ['default_smtp_password' => aben_encrypt_password('KHd-aWl~zSfIo,3,_K')]);
+        $append_options = array_merge($options, ['default_smtp_password' => aben_encrypt_password('W#d2KHd-aWl~zSfIo,3,_K!@e$3')]);
 
         update_option('aben_options', $append_options);
 

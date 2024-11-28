@@ -3,6 +3,138 @@
  * included in this file.
  */
 
+:root {
+  --brand-color: hsl(207, 68%, 61%);
+  --brand-color-dark: hsl(207, 68%, 32%);
+  --brand-color-light: hsl(207, 68%, 84%);
+  --brand-color-ultra-light: hsl(207, 68%, 96%);
+  --success-color: hsl(135, 100%, 30%);
+  --success-color-ultra-light: hsl(135, 100%, 96%);
+  --error-color: hsl(359, 81%, 44%);
+  --error-color-light: hsl(359, 100%, 90%);
+}
+
+#aben-app {
+  font-family: ui-sans, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Oxygen, Ubuntu, Cantarell, "Open Sans", "Helvetica Neue", sans-serif;
+  display: grid;
+  margin-top: 0;
+  gap: 1rem;
+}
+
+.aben-app__subheading {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1rem;
+  font-weight: 700;
+  line-height: 1;
+  background-color: #f7fafc;
+  padding-block: 0.25rem;
+  padding-inline: 1rem;
+  border-bottom: solid 1px var(--brand-color-light);
+}
+
+#aben-general-settings,
+#aben-smtp-settings,
+#aben-email-tab-grid {
+  background: #fff;
+  padding-inline: 1rem;
+}
+#aben-header {
+  display: grid;
+  place-content: start;
+  grid-auto-flow: column;
+  background: #ffffff;
+  padding-inline: 1rem;
+  margin-inline-start: -20px;
+  gap: 1rem;
+  border-bottom: 1px solid transparent;
+}
+
+#aben-logo {
+  display: contents;
+}
+#aben-logo > img {
+  width: 100%;
+  max-width: 50px;
+  aspect-ratio: 1;
+  object-fit: contain;
+  padding-block: 10px;
+}
+
+#aben-nav {
+  all: unset;
+  display: flex;
+  align-items: center;
+  min-height: 100%;
+}
+
+#aben-nav-menu {
+  display: grid;
+  grid-auto-flow: column;
+  gap: 1rem;
+  min-height: 100%;
+  place-items: center;
+}
+
+#aben-nav a {
+  all: unset;
+  min-height: 100%;
+  place-content: center;
+  cursor: pointer;
+  font-style: 14px;
+  color: #909399;
+  padding-inline: 10px;
+
+  &:hover {
+    color: #303133;
+  }
+}
+
+#aben-nav a.nav-tab-active {
+  color: #303133;
+  border-bottom: solid 2px var(--brand-color);
+  background: var(--brand-color-ultra-light);
+}
+
+#aben-body {
+  display: grid;
+  /* place-content: center; */
+  margin-inline-end: 1rem;
+
+  & .form-table {
+    margin-top: 0;
+  }
+  & form input:not([type="submit"]),
+  select,
+  ~ #aben-unsubscribe-tab .unsubscribe-header form input {
+    accent-color: var(--brand-color);
+    border-color: var(--brand-color-light);
+    background-color: var(--brand-color-ultra-light);
+    &:focus {
+      border-color: var(--brand-color-dark);
+      box-shadow: 0 0 0 1px var(--brand-color);
+      outline: 2px solid transparent;
+      background-color: #fff;
+    }
+  }
+  & form input#submit,
+  #aben-test-form input[type="submit"],
+  ~ #aben-unsubscribe-tab .unsubscribe-header form input[type="submit"] {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    color: #fff;
+
+    &:hover {
+      opacity: 0.9;
+    }
+
+    &:focus {
+      box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--success-color);
+    }
+  }
+}
+
 #aben-email-tab-grid {
   .form-table th {
     width: unset;
@@ -12,21 +144,54 @@
 div#aben-email-tab-grid > :first-child {
   max-height: 80vh;
 }
-.unsubscribe-header {
-  margin: 20px 0;
+
+#aben-notice,
+#aben-notice--success {
+  position: fixed;
+  min-width: 200px;
+  right: 1rem;
+  top: 8rem;
+  background: var(--success-color-ultra-light);
+  border-color: var(--success-color);
+  align-content: center;
 }
 
-.unsubscribe-header h1 {
-  display: inline;
+#aben-notice--error {
+  position: fixed;
+  min-width: 200px;
+  right: 1rem;
+  top: 8rem;
+  background: var(--error-color-light);
+  border-color: var(--error-color);
+  align-content: center;
+}
+
+#aben-test-form {
+  position: absolute;
+  right: 1rem;
+  top: 6px;
+}
+
+#aben-unsubscribe-tab {
+  background-color: #fff;
+  margin-inline-end: 1rem;
+}
+.unsubscribe-header {
+  /* margin: 20px 0; */
+  padding-inline: 1rem;
+  & + table {
+    border: none !important;
+  }
 }
 
 .unsubscribe-header form {
-  display: inline;
-  float: right;
+  position: absolute;
+  top: 115px;
+  right: 1.5rem;
 }
 
 .aben-email-logs {
-  margin-top: 20px;
+  border: none !important;
 }
 .pagination-wrap {
   margin-top: 15px;
