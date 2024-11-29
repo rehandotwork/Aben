@@ -25,7 +25,7 @@ function aben_options_default()
         'smtp_password' => '',
         'from_name' => 'Aben',
         'from_email' => '',
-        'body_bg' => '#ffffff',
+        'body_bg' => '#eef6fb',
         'header_text' => 'Hello {{USERNAME}}',
         'header_bg' => '#f5f5f5',
         'header_subtext' => 'This email sent using Auto Bulk Email Notification(Aben) plugin',

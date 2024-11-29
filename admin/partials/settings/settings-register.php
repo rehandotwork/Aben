@@ -71,7 +71,7 @@ settings_fields('aben_options');
     } elseif ($current_tab === 'email') {
         echo '<div class = "aben-app__subheading"> 
         <p>Template Settings </p>
-        <p>Live Preview</p>
+        <p>Email Preview</p>
         </div>';
         echo '<div id = "aben-email-tab-grid" style="display:grid; grid-template-columns:4fr 6fr; grid-gap:1rem;">';
         do_settings_sections('aben_section_email_setting');

@@ -102,6 +102,10 @@
   /* place-content: center; */
   margin-inline-end: 1rem;
 
+  & form table tbody tr td *:not([type="checkbox"], [type="color"]) {
+    min-width: 100%;
+  }
+
   & .form-table {
     margin-top: 0;
   }
@@ -135,9 +139,23 @@
   }
 }
 
+#aben-smtp-settings {
+  & table tr:not(:first-child) {
+    display: none;
+  }
+}
+
 #aben-email-tab-grid {
   .form-table th {
     width: unset;
+  }
+  p.submit {
+    text-align: left;
+    max-width: 100%;
+    padding: 0;
+    position: fixed;
+    bottom: 10px;
+    z-index: 99;
   }
 }
 
