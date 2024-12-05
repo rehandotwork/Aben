@@ -426,7 +426,7 @@ function aben_register_settings()
 
     add_settings_field(
         'use_smtp',
-        'Use SMTP',
+        'Use Your SMTP',
         'aben_callback_field_checkbox',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
