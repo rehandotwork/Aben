@@ -33,7 +33,7 @@ function aben_display_settings_page()
     ?>
     <div id="aben-header">
 
-        <div id="aben-logo"><img src="<?php echo FEATURED_IMAGE;?>" alt=""></div>
+        <div id="aben-logo"><img src="<?php echo PLUGIN_LOGO;?>" alt=""></div>
 
         <nav class="nav-tab-wrapper" id="aben-nav">
             <div id="aben-nav-menu">

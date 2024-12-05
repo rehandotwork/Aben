@@ -14,7 +14,7 @@ function aben_add_top_level_menu()
         'manage_options',
         'aben',
         'aben_display_settings_page',
-        'dashicons-email-alt',
+        'dashicons-email-alt2',
         26,
     );
 }

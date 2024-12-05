@@ -40,6 +40,7 @@ define('ABEN_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('BRAND_TEXT', 'Powered by Aben');
 define('BRAND_LINK', 'https://rehan.work/aben');
 define('FEATURED_IMAGE', 'https://placehold.co/100/ff4500/fff/jpg?font=roboto&text=Featured%5CnImage');
+define('PLUGIN_LOGO', ABEN_PLUGIN_URL.'/assets/images/logo.png');
 
 /**
  * The code that runs during plugin activation.
