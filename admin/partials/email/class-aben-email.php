@@ -79,6 +79,10 @@ class Aben_Email
 
     }
 
+    public static function is_pro() {
+        return aben_get_options()['pro'];
+    }
+
     public function aben_email_template()
     {
 
@@ -161,8 +165,10 @@ class Aben_Email
         if ($this->show_unsubscribe) {
             echo '<span id="unsubscribe"><a href="' . home_url('?aben-unsubscribe={{USER_EMAIL}}') . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
         }
-        echo '</div><p><a href="' . BRAND_LINK . '" style="text-decoration:none;">' . BRAND_TEXT . '</a></p>';
+       if(!self::is_pro()) {
+            echo '</div><p><a href="' . BRAND_LINK . '" style="text-decoration:none;">' . BRAND_TEXT . ' <img src="'.PLUGIN_LOGO .'" width="60px" alt="Aben" style="margin-bottom:-4px"/></a></p>';
         echo '</div></div></body></html>';
+    }
     }
 
 }

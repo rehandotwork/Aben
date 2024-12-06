@@ -37,9 +37,10 @@ if (!defined('WPINC')) {
  */
 define('ABEN_VERSION', '1.0.0');
 define('ABEN_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('BRAND_TEXT', 'Powered by Aben');
+define('BRAND_TEXT', 'Powered by');
 define('BRAND_LINK', 'https://rehan.work/aben');
-define('FEATURED_IMAGE', 'https://placehold.co/100/ff4500/fff/jpg?font=roboto&text=Featured%5CnImage');
+define('BRANDING', ABEN_PLUGIN_URL . '/assets/images/branding.png');
+define('FEATURED_IMAGE', ABEN_PLUGIN_URL . '/assets/images/featured-image.png');
 define('PLUGIN_LOGO', ABEN_PLUGIN_URL.'/assets/images/logo.png');
 
 /**

@@ -20,6 +20,7 @@ function aben_display_settings_page()
         'smtp' => 'SMTP',
         'email_logs' => 'Email Logs',
         'unsubscribe' => 'Unsubscribe',
+        'license' => 'License',
     );
 
     $current_tab = isset($_GET['tab']) && isset($tabs[$_GET['tab']]) ? $_GET['tab'] : 'general';
@@ -68,6 +69,11 @@ settings_fields('aben_options');
         echo '<div id ="aben-smtp-settings">';
         do_settings_sections('aben_section_smtp_setting');
         echo '</div>';
+    } elseif ($current_tab === 'license') {
+        echo '<div class = "aben-app__subheading"> 
+        <p>License Activation</p>
+        </div>';
+        echo '<div id ="aben-license-activation">';
     } elseif ($current_tab === 'email') {
         echo '<div class = "aben-app__subheading"> 
         <p>Template Settings </p>
@@ -94,89 +100,7 @@ settings_fields('aben_options');
             $show_view_post, //show_view_post
             'Read', //view_post_text
             true, //show_unsubscribe
-            [
-                [
-                    
-                    'title' => 'Understanding WordPress Plugins',
-                    'link' => 'https://example.com/understanding-wordpress-plugins',
-                    'excerpt' => 'Learn about the basics of WordPress plugins, how they work, and why they are useful.',
-                    'featured_image_url' => $featured_image,
-                    'category' => ['Category 1', 'Category 2'],
-                ],
-                [
-                    'title' => '10 Tips for Optimizing Your Website',
-                    'link' => 'https://example.com/optimizing-your-website',
-                    'excerpt' => 'Follow these essential tips to ensure your website runs smoothly and efficiently.',
-                    'featured_image_url' => $featured_image,
-                    'category' => ['Category 1', 'Category 2'],
-
-                ],
-                [
-                    'title' => 'The Importance of SEO in 2024',
-                    'link' => 'https://example.com/importance-of-seo',
-                    'excerpt' => 'SEO remains crucial for online success. Discover how to stay ahead in 2024.',
-                    'featured_image_url' => $featured_image,
-                    'category' => ['Category 1', 'Category 2'],
-
-                ],
-                [
-                    'title' => 'Best Practices for Web Development',
-                    'link' => 'https://example.com/web-development-best-practices',
-                    'excerpt' => 'Adopt these best practices to enhance your web development workflow and deliver top-notch projects.',
-                    'featured_image_url' => $featured_image,
-                    'category' => ['Category 1', 'Category 2'],
-
-                ],
-                [
-                    'title' => 'How to Boost Website Security',
-                    'link' => 'https://example.com/boost-website-security',
-                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => $featured_image,
-                    'category' => ['Category 1', 'Category 2'],
-
-                ],
-                [
-                    'title' => 'How to Boost Website Security',
-                    'link' => 'https://example.com/boost-website-security',
-                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => $featured_image,
-                    'category' => ['Category 1', 'Category 2'],
-
-                ],
-                [
-                    'title' => 'How to Boost Website Security',
-                    'link' => 'https://example.com/boost-website-security',
-                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => $featured_image,
-                    'category' => ['Category 1', 'Category 2'],
-
-                ],
-                [
-                    'title' => 'How to Boost Website Security',
-                    'link' => 'https://example.com/boost-website-security',
-                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => $featured_image,
-                    'category' => ['Category 1', 'Category 2'],
-
-                ],
-                [
-                    'title' => 'How to Boost Website Security',
-                    'link' => 'https://example.com/boost-website-security',
-                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => $featured_image,
-                    'category' => ['Category 1', 'Category 2'],
-
-                ],
-                [
-
-                    'title' => 'How to Boost Website Security',
-                    'link' => 'https://example.com/boost-website-security',
-                    'excerpt' => 'Learn the steps you can take to improve your website’s security and protect against potential threats.',
-                    'featured_image_url' => $featured_image,
-                    'category' => ['Category 1', 'Category 2'],
-
-                ],
-            ]//posts_to_send
+            aben_get_test_posts(),
         );
         $aben_email_dashboard->aben_email_template();
         echo '</div>';
@@ -238,7 +162,7 @@ settings_fields('aben_options');
     echo '<input type="hidden" name="aben_tab" value="' . esc_attr($current_tab) . '" />';
 
     // Add submit button for all tabs except "test_email" and "unsubscribe" tabs
-    if ($current_tab !== 'email_logs' && $current_tab !== 'unsubscribe') {
+    if ($current_tab !== 'email_logs' && $current_tab !== 'unsubscribe' && $current_tab !== 'license') {
         submit_button();
     }
     ?>
@@ -246,6 +170,9 @@ settings_fields('aben_options');
     </div>
     <?php if ($current_tab == 'email'):
         aben_send_test_email();
+    endif;?>
+
+    <?php if ($current_tab == 'license'):
     endif;?>
 
     <?php if ($current_tab === 'email_logs'):
@@ -331,7 +258,7 @@ $serial_number++;
     </div>
     <?php endif;?>
 </div>
-<?php
+<?php 
 }
 
 //Hide Other Plugin Admin Notices
@@ -484,7 +411,7 @@ function aben_register_settings()
         'aben_callback_field_text',
         'aben_section_smtp_setting',
         'aben_section_smtp_setting',
-        ['id' => 'from_name', 'label' => 'e.g., Aben WP Plugin']
+        ['id' => 'from_name', 'label' => '']
     );
 
     add_settings_field(
@@ -611,7 +538,16 @@ function aben_register_settings()
         'aben_section_email_setting',
         ['id' => 'show_unsubscribe', 'label' => 'Yes']
     );
-
+    if(!Aben_Email::is_pro()) {
+    add_settings_field(
+        'remove_branding',
+        'Remove',
+        'aben_callback_remove_branding',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'remove_branding', 'label' => BRANDING]
+    );
+    }
     add_settings_section(
         'aben_section_email_template',
         '',
@@ -665,4 +601,4 @@ function aben_send_test_email()
     <?php wp_nonce_field('aben_send_test_email', 'aben_test_email_nonce');?>
 </form>
 
-<?php }?>
+<?php }

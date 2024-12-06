@@ -26,6 +26,7 @@ function aben_callback_section_email_template()
 
 }
 
+
 //Fields Callbacks
 
 function aben_callback_field_text($args)
@@ -280,4 +281,8 @@ function aben_callback_field_time($args)
 
     // Output the label
     echo '<br><label for="aben_options_' . $id . '">' . $label . '</label>';
+}
+
+function aben_callback_remove_branding($args) {
+    echo '<label for="aben_options_'.$args['id'].'"><a href="'.BRAND_LINK.'" target="_blank"><img style="max-width:150px; margin-top:-2px;"id="aben_branding" src="'.$args['label'].'"/></label>';
 }

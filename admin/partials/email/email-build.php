@@ -94,8 +94,7 @@ function aben_get_today_posts()
 
             $content_excerpt = wp_trim_words(strip_tags($content), 15, '...');
 
-            $excerpt = empty($post->post_excerpt) ? $content_excerpt : $post->post_excerpt;
-
+            $excerpt = empty($post->post_excerpt) ? $content_excerpt : wp_trim_words($post->post_excerpt, 15, '...');
             $featured_image_url = get_the_post_thumbnail_url($id);
 
             $link = get_permalink($id);
@@ -184,7 +183,7 @@ function aben_get_weekly_posts($selected_day_num)
 
             $content_excerpt = wp_trim_words(strip_tags($content), 15, '...');
 
-            $excerpt = empty($post->post_excerpt) ? $content_excerpt : $post->post_excerpt;
+            $excerpt = empty($post->post_excerpt) ? $content_excerpt : wp_trim_words($post->post_excerpt, 15, '...');
 
             $featured_image_url = get_the_post_thumbnail_url($id);
 
@@ -231,4 +230,38 @@ function aben_get_post_tax($post_id, $custom_tax)
         }
     }
     return $taxonomies;
+}
+
+function aben_get_test_posts() {
+    $postsArr = get_posts( $args = [
+        'numberposts' => 10,
+        'post_type' => aben_get_options()['post_type'],
+    ] );
+
+    $posts = [];
+
+    foreach($postsArr as $post) {
+        $post_id = $post->ID;
+        $post_title = $post->post_title;
+        $post_link = get_permalink($post_id);
+        $post_image = get_the_post_thumbnail_url($post_id);
+        $post_author = $post->post_author;
+        $post_categories = aben_get_post_tax($post_id, 'category');
+        $post_content = $post->post_content;
+        $post_content_excerpt = wp_trim_words(strip_tags($post_content), 15, '...');
+        $post_excerpt = empty($post->post_excerpt) ? $post_content_excerpt : wp_trim_words($post->post_excerpt, 15, '...');
+
+        $posts[] = [
+            'id' => $post_id,
+            'title' => $post_title,
+            'link' => $post_link,
+            'excerpt' => $post_excerpt,
+            'featured_image_url' => empty($post_image) ? FEATURED_IMAGE : $post_image, // FEATURED_IMAGE is a constant
+            'author' => $post_author,
+            'category' => $post_categories,
+        ];
+
+    }
+   return empty($posts) ? 'No posts found' : $posts;
+
 }
