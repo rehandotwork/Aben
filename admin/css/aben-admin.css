@@ -129,6 +129,7 @@
   }
   & form input#submit,
   #aben-test-form input[type="submit"],
+  #aben-license-settings [type="submit"],
   ~ #aben-unsubscribe-tab .unsubscribe-header form input[type="submit"] {
     background-color: var(--success-color);
     border-color: var(--success-color);
@@ -202,6 +203,46 @@ div#aben-email-tab-grid > :first-child {
 #aben-unsubscribe-tab {
   background-color: #fff;
   margin-inline-end: 1rem;
+}
+#aben-license-settings {
+  background: #fff;
+  display: grid;
+  gap: 1rem;
+  grid-auto-flow: column;
+  align-items: center;
+  justify-content: flex-start;
+  padding: 1rem;
+  line-height: 1;
+  font-family: inherit;
+  font-weight: 600;
+  font-size: 14px;
+  & input#aben-activate-license {
+    width: min(300px, 100vw);
+    margin-left: 100px;
+  }
+  & .aben-pro {
+    padding-inline: 10px;
+    padding-block: 5px;
+    background: var(--success-color-ultra-light);
+    min-width: 200px;
+    border: solid 1px var(--success-color);
+    border-left-width: 3px;
+    & p.aben-pro-active-message {
+      margin: 0;
+      &::after {
+        content: "✓";
+        display: inline-flex;
+        line-height: 1;
+        color: white;
+        padding: 2px;
+        margin-left: 5px;
+        place-content: center;
+        border-radius: 50vw;
+        /* aspect-ratio: 1; */
+        background: var(--success-color);
+      }
+    }
+  }
 }
 .unsubscribe-header {
   /* margin: 20px 0; */
