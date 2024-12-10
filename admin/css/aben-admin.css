@@ -164,11 +164,11 @@
     left: 196px;
     bottom: 10px;
   }
-  & table.form-table tbody > :last-child {
-    & td {
+  & table.form-table tbody > tr:last-child th:has(a#aben_remove_branding) {
+    + td {
       display: none;
     }
-    & th a {
+    & a {
       all: unset;
       padding-block: 10px;
       padding-inline: 10px;

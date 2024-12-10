@@ -668,7 +668,7 @@ function aben_register_settings()
     if(!Aben_Email::is_pro()) {
     add_settings_field(
         'remove_branding',
-        '<a href="/wp-admin/admin.php?page=aben&tab=license">Remove Branding "Powered by Aben"</a>',
+        '<a id ="aben_remove_branding" href="/wp-admin/admin.php?page=aben&tab=license">Remove Branding "Powered by Aben"</a>',
         'aben_callback_remove_branding',
         'aben_section_email_setting',
         'aben_section_email_setting',

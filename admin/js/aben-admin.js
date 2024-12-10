@@ -224,7 +224,7 @@
 })(jQuery);
 
 const removeBranding = document.querySelector(
-  "#aben-email-tab-grid table.form-table tbody > :last-child th"
+  "#aben-email-tab-grid table.form-table tbody > tr:last-child th:has(a#aben_remove_branding)"
 );
 
 removeBranding.setAttribute("colspan", "2");
