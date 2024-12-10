@@ -262,6 +262,6 @@ function aben_get_test_posts() {
         ];
 
     }
-   return empty($posts) ? 'No posts found' : $posts;
+   return $posts;
 
 }

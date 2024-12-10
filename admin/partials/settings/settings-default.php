@@ -11,7 +11,7 @@ function aben_options_default()
     $site_title = get_bloginfo( 'name' );
     $current_year = date('Y');
     return array(
-        'post_type' => 'posts',
+        'post_type' => 'post',
         'user_roles' => 'administrator',
         'email_subject' => 'New post published',
         'archive_page_slug' => home_url('blogs'),
