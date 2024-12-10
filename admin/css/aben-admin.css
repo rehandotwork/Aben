@@ -152,7 +152,7 @@
 }
 
 #aben-email-tab-grid {
-  .form-table th {
+  & .form-table th {
     width: unset;
   }
   p.submit {
@@ -163,6 +163,24 @@
     z-index: 99;
     left: 196px;
     bottom: 10px;
+  }
+  & table.form-table tbody > :last-child {
+    & td {
+      display: none;
+    }
+    & th a {
+      all: unset;
+      padding-block: 10px;
+      padding-inline: 10px;
+      background: hsl(54, 99%, 50%);
+      color: #222;
+      cursor: pointer;
+      border-radius: 2px;
+
+      &:hover {
+        background: hsl(54, 99%, 48%);
+      }
+    }
   }
 }
 
@@ -208,7 +226,6 @@ div#aben-email-tab-grid > :first-child {
   background: #fff;
   display: grid;
   gap: 1rem;
-  grid-auto-flow: column;
   align-items: center;
   justify-content: flex-start;
   padding: 1rem;

@@ -222,3 +222,13 @@
     });
   }
 })(jQuery);
+
+const removeBranding = document.querySelector(
+  "#aben-email-tab-grid table.form-table tbody > :last-child th"
+);
+
+removeBranding.setAttribute("colspan", "2");
+removeBranding.setAttribute(
+  "title",
+  "Remove Powered by Aben from Email Footer"
+);

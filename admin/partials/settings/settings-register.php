@@ -74,13 +74,19 @@ settings_fields('aben_options');
         <p>License Activation</p>
         </div>'; if(!Aben_Email::is_pro()){ ?>
             <div id="aben-license-settings">
-                <form method="POST" action="">
-                    <input type="hidden" name="aben_license_action" value="validate_license" />
-                    <label for="aben-activate-license">Enter License Key</label>
-                    <input type="text" id="aben-activate-license" name="aben_license_key" required />
-                    <?php wp_nonce_field('aben_validate_license', 'aben_license_nonce'); ?>
-                    <input type="submit" class="button button-primary" value="Activate License" />
-                </form>
+                <div class="form-wrapper">
+                    <form method="POST" action="">
+                        <input type="hidden" name="aben_license_action" value="validate_license" />
+                        <label for="aben-activate-license">Enter License Key</label>
+                        <input type="text" id="aben-activate-license" name="aben_license_key" required />
+                        <?php wp_nonce_field('aben_validate_license', 'aben_license_nonce'); ?>
+                        <input type="submit" class="button button-primary" value="Activate License" />
+                    </form>
+                </div>
+                <div class="get-license">
+                    <p>Don't have the license key, get one now for only $5 <a href="https://rehan.work/aben" target="
+                    _blank">Click here to buy</a></p>
+                </div>
             </div>
             <?php 
             if((isset($_GET['license_status']))) {
@@ -662,11 +668,11 @@ function aben_register_settings()
     if(!Aben_Email::is_pro()) {
     add_settings_field(
         'remove_branding',
-        'Remove',
+        '<a href="/wp-admin/admin.php?page=aben&tab=license">Remove Branding "Powered by Aben"</a>',
         'aben_callback_remove_branding',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'remove_branding', 'label' => BRANDING]
+        ['id' => 'remove_branding',]
     );
     }
     add_settings_section(
