@@ -92,9 +92,11 @@ function aben_callback_validate_options($input)
             case 'show_unsubscribe':
             case 'use_smtp':
             case 'show_number_view_all':
-            case 'show_view_post':
+            case 'show_view_post':   
                 $options[$key] = !empty($value) ? 1 : 0;
                 break;
+            case 'revoke_license':
+                $options['pro'] = !$value;
         }
     }
     return $options;

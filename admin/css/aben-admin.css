@@ -225,7 +225,6 @@ div#aben-email-tab-grid > :first-child {
 #aben-license-settings {
   background: #fff;
   display: grid;
-  gap: 1rem;
   align-items: center;
   justify-content: flex-start;
   padding: 1rem;
@@ -236,6 +235,10 @@ div#aben-email-tab-grid > :first-child {
   & input#aben-activate-license {
     width: min(300px, 100vw);
     margin-left: 100px;
+  }
+  & p.submit {
+    margin: 0;
+    padding: 0;
   }
   & .aben-pro {
     padding-inline: 10px;

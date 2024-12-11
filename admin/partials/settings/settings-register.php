@@ -108,6 +108,9 @@ settings_fields('aben_options');
                 <div class="aben-pro">
                     <p class="aben-pro-active-message">License Status : Active</p>
                 </div>
+                <?php 
+                do_settings_sections( 'aben_section_license_setting' );
+                submit_button()?>
             </div>
             <?php }
     } elseif ($current_tab === 'email') {
@@ -695,6 +698,21 @@ function aben_register_settings()
         ['id' => 'email_body', 'label' => 'Email body (Text/Markup)']
     );
 
+    //License Tab
+    add_settings_section( 
+        'aben_section_license_setting',
+        '',
+        '__return_true',
+        'aben_section_license_setting'
+    );
+
+    add_settings_field( 
+        'revoke_license',
+        'Revoke License', 
+        'aben_callback_field_checkbox', 
+        'aben_section_license_setting', 
+        'aben_section_license_setting',
+        ['id' => 'revoke_license', 'label' => 'Yes'] );
 }
 
 // Hook to sanitize_option to add timezone automatically
