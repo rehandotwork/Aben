@@ -29,7 +29,7 @@ function aben_display_settings_page()
 
 <div id="aben-app">
     <?php if (isset($_GET['settings-updated'])) {
-        echo '<div id="aben-notice" class="notice notice-success is-dismissible"><p>Settings Saved.</p></div>';
+        echo '<div id="aben-notice" class="notice notice-success is-dismissible"><p>Saved.</p></div>';
     }
     ?>
     <div id="aben-header">
@@ -708,11 +708,11 @@ function aben_register_settings()
 
     add_settings_field( 
         'revoke_license',
-        'Revoke License', 
+        '', 
         'aben_callback_field_checkbox', 
         'aben_section_license_setting', 
         'aben_section_license_setting',
-        ['id' => 'revoke_license', 'label' => 'Yes'] );
+        ['id' => 'revoke_license', 'label' => 'Revoke License'] );
 }
 
 // Hook to sanitize_option to add timezone automatically
