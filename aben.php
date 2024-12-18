@@ -82,7 +82,7 @@ if (is_admin()) {
 function aben_show_plugin_settings_link($links, $file)
 {
     if (plugin_basename(__FILE__) == $file) {
-        $settings_link = '<a href="admin.php?page=aben">' . __('Settings') . '</a>';
+        $settings_link = '<a href="admin.php?page=aben">' . __('Settings', 'aben') . '</a>';
         array_unshift($links, $settings_link);
     }
     return $links;

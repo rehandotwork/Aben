@@ -9,7 +9,7 @@ add_action('aben_cron_event', 'aben_send_email');
 
 function aben_register_cron()
 {
-    error_log('aben_register_cron called');
+    // error_log('aben_register_cron called');
 
     $cron_settings = aben_get_cron_settings()['sending_frequency'];
     $day_of_week = intval(aben_get_cron_settings()['day_of_week']);
@@ -37,7 +37,7 @@ function aben_register_cron()
             }
 
             wp_schedule_event($today_timestamp, 'daily', 'aben_cron_event');
-            error_log('Daily aben_cron_event scheduled at ' . date('Y-m-d H:i:s', $today_timestamp));
+            // error_log('Daily aben_cron_event scheduled at ' . date('Y-m-d H:i:s', $today_timestamp));
         }
     }
 
@@ -62,13 +62,13 @@ function aben_register_cron()
             }
 
             wp_schedule_event($timestamp_weekly, 'weekly', 'aben_cron_event');
-            error_log('Weekly aben_cron_event scheduled at ' . date('Y-m-d H:i:s', $timestamp_weekly));
+            // error_log('Weekly aben_cron_event scheduled at ' . date('Y-m-d H:i:s', $timestamp_weekly));
         }
     }
 }
 
 function aben_deregister_cron()
 {
-    error_log('aben_deregister_cron called');
+    // error_log('aben_deregister_cron called');
     wp_clear_scheduled_hook('aben_cron_event');
 }

@@ -24,11 +24,11 @@ class Aben_Email_Logs
 
         // Sanitize input data
         $data = [
-            'email_to' => sanitize_text_field($to),
+            'email_to' => sanitize_email($to),
             'subject' => sanitize_text_field($subject),
             'message' => wp_kses_post($message),
             'status' => sanitize_text_field($status),
-            'sent_at' => current_time('mysql'), // Get the current time in MySQL format
+            'sent_at' => sanitize_text_field(current_time('mysql')), // Get the current time in MySQL format
         ];
 
         // Insert the log entry into the table
@@ -96,8 +96,8 @@ class Aben_Email_Logs
         ";
 
         // Add limit and offset to the query parameters
-        $params[] = $limit;
-        $params[] = $offset;
+        $params[] = (int) $limit;
+        $params[] = (int) $offset;
 
         // Execute the query and return the results
         return $wpdb->get_results($wpdb->prepare($query, ...$params));

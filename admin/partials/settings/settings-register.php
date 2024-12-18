@@ -34,14 +34,14 @@ function aben_display_settings_page()
     ?>
     <div id="aben-header">
 
-        <div id="aben-logo"><img src="<?php echo PLUGIN_LOGO;?>" alt=""></div>
+        <div id="aben-logo"><img src="<?php echo esc_url(PLUGIN_LOGO);?>" alt=""></div>
 
         <nav class="nav-tab-wrapper" id="aben-nav">
             <div id="aben-nav-menu">
                 <?php foreach ($tabs as $tab => $name): ?>
-                <a href="?page=aben&tab=<?php echo $tab; ?>"
+                <a href="?page=aben&tab=<?php echo esc_html($tab); ?>"
                     class="nav-tab <?php echo $current_tab === $tab ? 'nav-tab-active' : ''; ?>">
-                    <?php echo $name; ?>
+                    <?php echo esc_html($name); ?>
                 </a>
                 <?php endforeach;?>
             </div>
@@ -190,7 +190,7 @@ settings_fields('aben_options');
             ];
 
             echo '<div class="pagination-wrap">';
-            echo paginate_links($pagination_args);
+            echo wp_kses_post(paginate_links($pagination_args));
             echo '</div>';
         } else {
             echo '<table class="widefat fixed aben-email-logs">';
@@ -273,8 +273,8 @@ settings_fields('aben_options');
                 <tr>
                     <td><?php echo esc_html($serial_number); ?></td>
                     <td><?php echo esc_html($user->user_email); ?></td>
-                    <td><?php echo ucwords(esc_html($user->display_name)); ?></td>
-                    <td><?php echo ucwords(esc_html($role_display)); ?></td>
+                    <td><?php echo esc_html(ucwords($user->display_name)); ?></td>
+                    <td><?php echo esc_html(ucwords($role_display)); ?></td>
                     <td>
                         <form method="post" action="<?php echo esc_url($subscribe_url); ?>">
                             <input type="hidden" name="user_id" value="<?php echo esc_attr($user->ID); ?>">
@@ -327,7 +327,7 @@ add_action('init', 'aben_handle_license_submission');
 
 function aben_send_license_validation_request($license_key) {
     $url = 'https://rehan.work/aben/wp-json/custom/v1/license';
-    $body = json_encode(array('license_key' => $license_key));
+    $body = wp_json_encode(array('license_key' => $license_key));
     $args = array(
         'method'    => 'POST',
         'body'      => $body,
@@ -338,7 +338,7 @@ function aben_send_license_validation_request($license_key) {
     $response = wp_remote_post($url, $args);
     if (is_wp_error($response)) {
         $error_message = $response->get_error_message();
-        echo "Error: $error_message";
+        echo esc_html("Error: $error_message");
         return false;
     }
     $response_body = wp_remote_retrieve_body($response);

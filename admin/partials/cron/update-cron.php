@@ -40,7 +40,7 @@ function aben_update_cron()
         }
 
         wp_schedule_event($today_timestamp, 'daily', 'aben_cron_event');
-        error_log('Daily Aben Cron Updated: ' . $email_datetime->format('Y-m-d H:i:s'));
+        // error_log('Daily Aben Cron Updated: ' . $email_datetime->format('Y-m-d H:i:s'));
 
         // Schedule for Weekly
     } else if ($cron_settings === 'weekly') {
@@ -62,6 +62,6 @@ function aben_update_cron()
         }
 
         wp_schedule_event($timestamp_weekly, 'weekly', 'aben_cron_event');
-        error_log('Weekly Aben Cron Updated: ' . $next_occurrence->format('Y-m-d H:i:s'));
+        // error_log('Weekly Aben Cron Updated: ' . $next_occurrence->format('Y-m-d H:i:s'));
     }
 }

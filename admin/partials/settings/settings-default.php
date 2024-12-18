@@ -9,7 +9,7 @@ if (!defined('ABSPATH')) {
 function aben_options_default()
 {
     $site_title = get_bloginfo( 'name' );
-    $current_year = date('Y');
+    $current_year = gmdate('Y');
     return array(
         'post_type' => 'post',
         'user_roles' => 'administrator',

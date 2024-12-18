@@ -100,4 +100,3 @@ function aben_handle_manual_unsubscribe() {
     }
 }
 add_action('admin_init', 'aben_handle_manual_unsubscribe');
-

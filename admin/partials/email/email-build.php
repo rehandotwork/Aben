@@ -92,7 +92,7 @@ function aben_get_today_posts()
 
             $content = $post->post_content;
 
-            $content_excerpt = wp_trim_words(strip_tags($content), 15, '...');
+            $content_excerpt = wp_trim_words(wp_strip_all_tags($content), 15, '...');
 
             $excerpt = empty($post->post_excerpt) ? $content_excerpt : wp_trim_words($post->post_excerpt, 15, '...');
             $featured_image_url = get_the_post_thumbnail_url($id);
@@ -181,7 +181,7 @@ function aben_get_weekly_posts($selected_day_num)
 
             $content = $post->post_content;
 
-            $content_excerpt = wp_trim_words(strip_tags($content), 15, '...');
+            $content_excerpt = wp_trim_words(wp_strip_all_tags($content), 15, '...');
 
             $excerpt = empty($post->post_excerpt) ? $content_excerpt : wp_trim_words($post->post_excerpt, 15, '...');
 
@@ -248,7 +248,7 @@ function aben_get_test_posts() {
         $post_author = $post->post_author;
         $post_categories = aben_get_post_tax($post_id, 'category');
         $post_content = $post->post_content;
-        $post_content_excerpt = wp_trim_words(strip_tags($post_content), 15, '...');
+        $post_content_excerpt = wp_trim_words(wp_strip_all_tags($post_content), 15, '...');
         $post_excerpt = empty($post->post_excerpt) ? $post_content_excerpt : wp_trim_words($post->post_excerpt, 15, '...');
 
         $posts[] = [

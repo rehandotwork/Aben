@@ -93,13 +93,14 @@ class Aben_Email
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
         <title></title></head>
         <body>
-        <div id="aben-email-template" style="font-family:Open Sans,sans-serif;margin:0;padding:0;background: ' . $this->body_bg . ';color: #1f2430;">
+        <div id="aben-email-template" style="font-family:Open Sans,sans-serif;margin:0;padding:0;background: ' . esc_attr($this->body_bg) . ';color: #1f2430;">
         <div style="width:100%;max-width:500px;margin: auto;">
         <div style="padding: 50px 30px 30px 30px;">
-        <p id ="header-text" style="font-size:16px;display: inline;"><strong>' . $this->header_text . '</strong></p>';
+        <p id ="header-text" style="font-size:16px;display: inline;"><strong>' . esc_html($this->header_text) . '</strong></p>';
         do_action('aben_after_header_text'); // After Header Text Hook
-        echo '<img width="16px" data-emoji="👋" class="an1" alt="👋" aria-label="👋" draggable="false" src="https://fonts.gstatic.com/s/e/notoemoji/15.1/1f44b/72.png" loading="lazy">
-        <p id="header-subtext" style="font-size:16px;">' . $this->header_subtext . '</p>';
+        echo '<img width="16px" src="'. esc_url(ABEN_PLUGIN_URL . 'assets/images/hand-emoji.png') .'" style="
+    margin-left: 5px">
+        <p id="header-subtext" style="font-size:16px;">' . esc_html($this->header_subtext) . '</p>';
         do_action('aben_after_header_sub_text'); //After Header Sub Text Hook
         echo '</div>
         <div id="posts-wrapper"">';
@@ -131,18 +132,18 @@ class Aben_Email
 
             $excerpt_width = $this->show_view_post && $this->is_aben_gw_active() ? 60 : ($this->show_view_post || $this->is_aben_gw_active() ? 85 : 100);
 
-            echo '<div class="post-tile" style="margin-bottom:20px;padding:25px; border-radius:3px; background:' . $this->header_bg . ';">';
+            echo '<div class="post-tile" style="margin-bottom:20px;padding:25px; border-radius:3px; background:' . esc_attr($this->header_bg) . ';">';
             echo '<div style="margin-bottom:10px; display:flex; column-gap:10px;">';
             echo '<div>';
-            if ($category_csv) {echo '<p style="margin:0; color:#727272; line-height:1; font-style:italic;">' . $category_csv . '</p>';}
+            if ($category_csv) {echo '<p style="margin:0; color:#727272; line-height:1; font-style:italic;">' . esc_html($category_csv) . '</p>';}
             echo '</div></div>';
             echo '<div style="display:flex">';
             if ($this->show_view_post && !empty($image)) {
-                echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:center; margin-top:auto; margin-bottom:auto;"><a href="' . $link . '"><img width="100%" max-width="100px" src="' . $image . '" alt="' . $title . '" /></a></div>';
+                echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:center; margin-top:auto; margin-bottom:auto;"><a href="' . esc_url($link) . '"><img width="100%" max-width="100px" src="' . esc_url($image) . '" alt="' . esc_attr($title) . '" /></a></div>';
             }
-            echo '<div style="width:' . $excerpt_width . '%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . $link . '" style="text-decoration:none;">' . $title . '</a></p>';
+            echo '<div style="width:' . esc_attr($excerpt_width) . '%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . esc_url($link) . '" style="text-decoration:none;">' . esc_html($title) . '</a></p>';
             if (!empty($excerpt)) {
-                echo '<p style="font-size:14px;color:#727272;margin:5px 0 0">' . $excerpt . '</p>';
+                echo '<p style="font-size:14px;color:#727272;margin:5px 0 0">' . esc_html($excerpt) . '</p>';
             }
             echo '</div>';
             do_action('aben_post_button_hook', $link); // Post Button Hook
@@ -154,19 +155,19 @@ class Aben_Email
         echo '<div style="display:flex; border-radius:3px; overflow:hidden">
         <div style="width:100%;text-align:center;">';
         if ($this->show_view_all) {
-            echo '<a id="view-all-post" href="' . $this->archive_page_slug . '"style="display:inline-block;padding:15px 0px;background-color:#2271b1;color:#ffffff;text-decoration:none;width: 100%;font-size:16px;">' . $this->view_all_posts_text . '</a>';
+            echo '<a id="view-all-post" href="' . esc_url($this->archive_page_slug) . '"style="display:inline-block;padding:15px 0px;background-color:#2271b1;color:#ffffff;text-decoration:none;width: 100%;font-size:16px;">' . esc_html($this->view_all_posts_text) . '</a>';
         }
         echo '</div></div></div>
         <div style="color:#808080;text-align:center;padding: 30px 30px 50px 30px;">
-        <a href="' . home_url() . '"><img src="' . $logo . '" alt="Site Logo" style="max-height:40px; object-fit:contain; margin-top: 10px;"></a><div>';
+        <a href="' . esc_url(home_url()) . '"><img src="' . esc_url($logo) . '" alt="Site Logo" style="max-height:40px; object-fit:contain; margin-top: 10px;"></a><div>';
         do_action('aben_before_footer_text'); // Before Footer Text Hook
-        echo '</div><p id="footer-text">' . $this->footer_text . '</p><div>';
+        echo '</div><p id="footer-text">' . esc_html($this->footer_text) . '</p><div>';
         do_action('aben_after_footer_text'); // After Footer Text Hook
         if ($this->show_unsubscribe) {
-            echo '<span id="unsubscribe"><a href="' . home_url('?aben-unsubscribe={{USER_EMAIL}}') . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
+            echo '<span id="unsubscribe"><a href="' . esc_html(home_url('?aben-unsubscribe={{USER_EMAIL}}')) . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
         }
        if(!self::is_pro()) {
-            echo '</div><p><a href="' . BRAND_LINK . '" style="text-decoration:none;">' . BRAND_TEXT . ' <img src="'.PLUGIN_LOGO .'" width="60px" alt="Aben" style="margin-bottom:-4px"/></a></p>';
+            echo '</div><p><a href="' . esc_url(BRAND_LINK) . '" style="text-decoration:none;">' . esc_html(BRAND_TEXT) . ' <img src="'.esc_url(PLUGIN_LOGO) .'" width="60px" alt="Aben" style="margin-bottom:-4px"/></a></p>';
         echo '</div></div></body></html>';
     }
     }

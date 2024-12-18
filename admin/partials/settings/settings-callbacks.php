@@ -39,13 +39,13 @@ function aben_callback_field_text($args)
 
     $value = isset($options[$id]) ? sanitize_text_field($options[$id]) : '';
 
-    echo '<input id="aben_options_' . $id . '"
-                name="aben_options[' . $id . ']"
+    echo '<input id="aben_options_' . esc_attr($id) . '"
+                name="aben_options[' . esc_attr($id) . ']"
                 type="text"
                 size="40"
-                value="' . $value . '"><br />';
+                value="' . esc_html($value) . '"><br />';
 
-    echo '<label for="aben_options_' . $id . '">' . $label . '</label>';
+    echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
 }
 
 function aben_callback_field_textarea($args)
@@ -62,11 +62,11 @@ function aben_callback_field_textarea($args)
     // Get the value for this textarea
     $value = isset($options[$id]) ? wp_kses(stripslashes_deep($options[$id]), $allowed_tags) : '';
 
-    echo '<textarea id="aben_options_' . $id . '"
-    name="aben_options[' . $id . ']"
+    echo '<textarea id="aben_options_' . esc_attr($id) . '"
+    name="aben_options[' . esc_attr($id) . ']"
     rows="10"
-    cols="100">' . $value . '</textarea><br />';
-    echo '<label for="aben_options_' . $id . '">' . $label . '</label>';
+    cols="100">' . esc_html($value) . '</textarea><br />';
+    echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
 
 }
 
@@ -151,17 +151,17 @@ function aben_callback_field_select($args)
 
     }
 
-    echo '<select id="aben_options_' . $id . '"
-                  name="aben_options[' . $id . ']">';
+    echo '<select id="aben_options_' . esc_attr($id) . '"
+                  name="aben_options[' . esc_attr($id) . ']">';
 
     foreach ($select_options as $value => $option) {
 
         $selected = selected($selected_option, $value, false);
 
-        echo '<option value="' . $value . '" ' . $selected . '>' . ucwords($option) . '</option>';
+        echo '<option value="' . esc_html($value) . '" ' . esc_attr($selected) . '>' . esc_html(ucwords($option)) . '</option>';
     }
 
-    echo '</select> <br /><label for="aben_options_' . $id . '">' . $label . '</label>';
+    echo '</select> <br /><label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
 
 }
 
@@ -184,7 +184,7 @@ function aben_callback_field_checkbox($args)
                 name="aben_options[' . esc_attr($id) . ']"
                 type="checkbox"
                 value="1"
-                ' . $checked . '>';
+                ' . esc_attr($checked) . '>';
 
     // Render the label for the checkbox
     echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
@@ -207,7 +207,7 @@ function aben_callback_field_password($args)
               name="aben_options[' . esc_attr($id) . ']"
               type="password"
               size="40"
-              value="' . $value . '"><br />';
+              value="' . esc_html($value) . '"><br />';
 
     // Render the label for the password field
     echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
@@ -229,7 +229,7 @@ function aben_callback_field_color($args)
     echo '<input id="aben_options_' . esc_attr($id) . '"
               name="aben_options[' . esc_attr($id) . ']"
               type="color"
-              value="' . $value . '"><br />';
+              value="' . esc_html($value) . '"><br />';
 
     // Render the label for the color field
     echo '<label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
@@ -274,15 +274,15 @@ function aben_callback_field_time($args)
     $local_time = $dateTime->format('H:i');
 
     // Output the time input field with the local time value
-    echo '<input id="aben_options_' . $id . '"
-                name="aben_options[' . $id . ']"
+    echo '<input id="aben_options_' . esc_attr($id) . '"
+                name="aben_options[' . esc_attr($id) . ']"
                 type="time"
                 value="' . esc_attr($local_time) . '">';
 
     // Output the label
-    echo '<br><label for="aben_options_' . $id . '">' . $label . '</label>';
+    echo '<br><label for="aben_options_' . esc_attr($id) . '">' . esc_html($label) . '</label>';
 }
 
 function aben_callback_remove_branding($args) {
-    echo '<label for="aben_options_'.$args['id'].'"><a href="'.BRAND_LINK.'" target="_blank"><img style="max-width:150px; margin-top:-2px;"id="aben_branding" src="'.$args['label'].'"/></label>';
+    echo '<label for="aben_options_'. esc_attr($args['id']) .'"><a href="'. esc_url(BRAND_LINK) .'" target="_blank"><img style="max-width:150px; margin-top:-2px;"id="aben_branding" src="'. esc_attr($args['label']) .'"/></label>';
 }
