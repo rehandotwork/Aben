@@ -23,6 +23,8 @@ function aben_display_settings_page()
         'license' => 'License',
     );
 
+    $current_tab = 'general';
+
     if (isset($_GET['tab'])) {
         // Unslash the input and sanitize it
         $tab = sanitize_text_field(wp_unslash($_GET['tab']));
@@ -310,18 +312,25 @@ $serial_number++;
 }
 function aben_handle_license_submission() {
     if (isset($_POST['aben_license_action']) && $_POST['aben_license_action'] === 'validate_license') {
-        // Verify nonce for security
-        if (!isset($_POST['aben_license_nonce']) || !wp_verify_nonce($_POST['aben_license_nonce'], 'aben_validate_license')) {
-            // Redirect with error if nonce verification fails
+        if (!isset($_POST['aben_license_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['aben_license_nonce'])), 'aben_validate_license')) {
             wp_redirect(add_query_arg('license_status', 'nonce_error', wp_get_referer()));
             exit;
         }
+
+        if (!isset($_POST['aben_license_key'])) {
+            wp_redirect(add_query_arg('license_status', 'missing_license_key', wp_get_referer()));
+            exit;
+        }
+
         $license_key = sanitize_text_field(wp_unslash($_POST['aben_license_key']));
+
         $result = aben_send_license_validation_request($license_key);
+
         if (is_wp_error($result)) {
             wp_redirect(add_query_arg('license_status', 'error', wp_get_referer()));
             exit;
         }
+
         if ($result === true) {
             wp_redirect(add_query_arg('license_status', 'success', wp_get_referer()));
         } else {
@@ -687,7 +696,7 @@ function aben_register_settings()
         'aben_callback_remove_branding',
         'aben_section_email_setting',
         'aben_section_email_setting',
-        ['id' => 'remove_branding',]
+        ['id' => 'remove_branding', 'label' => '']  
     );
     }
     add_settings_section(

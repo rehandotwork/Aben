@@ -127,12 +127,20 @@ function aben_handle_test_email()
     }
 
     // Verify nonce for security
-    if (!isset($_POST['aben_test_email_nonce']) || !wp_verify_nonce($_POST['aben_test_email_nonce'], 'aben_send_test_email')) {
+    if (
+        !isset($_POST['aben_test_email_nonce']) || 
+        !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['aben_test_email_nonce'])), 'aben_send_test_email')
+    ) {
         wp_die('Security check failed.');
     }
 
-    // Get the email address from the form submission
-    $to = isset($_POST['test_email_address']) ? sanitize_email($_POST['test_email_address']) : '';
+    // Get the email address from the form submission, ensuring it's unslashed before sanitization
+    $to = isset($_POST['test_email_address']) ? sanitize_email(wp_unslash($_POST['test_email_address'])) : '';
+
+    // Validate email address
+    if (empty($to) || !is_email($to)) {
+        wp_die('Invalid email address provided.');
+    }
 
     $aben_settings = aben_get_options();
     $featured_image = FEATURED_IMAGE;
@@ -157,15 +165,21 @@ function aben_handle_test_email()
     ob_start();
     $email_obj->aben_email_template();
     $message = ob_get_clean();
+
+    // Get and format the current user's first name
     $current_user = ucfirst(wp_get_current_user()->display_name);
     $current_user = explode(' ', $current_user)[0];
+
+    // Replace placeholders in the email message
     $message = str_replace('{{USERNAME}}', $current_user, $message);
+
+    // Define the email subject
     $subject = 'Test Email';
 
     // Send the test email
     if ($aben_settings['use_smtp'] && aben_send_smtp_email($to, $subject, $message)) {
         wp_redirect(add_query_arg('test_email_sent', 'success', wp_get_referer()));
-    } else if (!$aben_settings['use_smtp'] && aben_send_own_smtp_email($to, $subject, $message)) {
+    } elseif (!$aben_settings['use_smtp'] && aben_send_own_smtp_email($to, $subject, $message)) {
         wp_redirect(add_query_arg('test_email_sent', 'success', wp_get_referer()));
     } else {
         wp_redirect(add_query_arg('test_email_sent', 'failure', wp_get_referer()));

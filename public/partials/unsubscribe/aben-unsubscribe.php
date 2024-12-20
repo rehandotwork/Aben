@@ -12,7 +12,7 @@ function aben_unsubscribe_user() {
     // Check if the 'aben-unsubscribe' query parameter exists in the URL
     if (isset($_GET['aben-unsubscribe'])) {
         // Sanitize the email address from the query URL
-        $user_email = sanitize_email($_GET['aben-unsubscribe']);
+        $user_email = sanitize_email(wp_unslash($_GET['aben-unsubscribe']));
 
         echo '<div class="unsubscribe-message">';
         
@@ -52,4 +52,3 @@ function aben_unsubscribe_user() {
     }
 }
 add_action('wp', 'aben_unsubscribe_user');
-

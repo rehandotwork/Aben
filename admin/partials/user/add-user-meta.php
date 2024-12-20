@@ -77,25 +77,25 @@ add_action('admin_notices', 'aben_admin_notice');
 // Function to handle manually adding an email to the unsubscribed list
 function aben_handle_manual_unsubscribe() {
     if (isset($_POST['aben_add_unsubscribed'])) {
-        $email = sanitize_email(wp_unslash($_POST['aben_unsubscribe_email']));
+        if (isset($_POST['aben_unsubscribe_email'])) {
+            $email = sanitize_email(wp_unslash($_POST['aben_unsubscribe_email']));
 
-        // Check if the email is valid
-        if (is_email($email)) {
-            // Get user by email
-            $user = get_user_by('email', $email);
+            if (is_email($email)) {
+                $user = get_user_by('email', $email);
 
-            if ($user) {
-                // Update the user's 'aben_notification' meta to '0' (unsubscribed)
-                update_user_meta($user->ID, 'aben_notification', '0');
-
-                // show notice
-                wp_redirect(add_query_arg('unsubscribed', 'true', wp_get_referer()));
-                exit;
+                if ($user) {
+               
+                    update_user_meta($user->ID, 'aben_notification', '0');
+                    wp_redirect(add_query_arg('unsubscribed', 'true', wp_get_referer()));
+                    exit;
+                } else {
+                    echo '<div class="error notice"><p>No user found with that email address.</p></div>';
+                }
             } else {
-                echo '<div class="error notice"><p>No user found with that email address.</p></div>';
+                echo '<div class="error notice"><p>Invalid email format. Please try again.</p></div>';
             }
         } else {
-            echo '<div class="error notice"><p>Invalid email format. Please try again.</p></div>';
+            echo '<div class="error notice"><p>Email address is required.</p></div>';
         }
     }
 }
