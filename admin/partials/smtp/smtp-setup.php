@@ -62,14 +62,14 @@ function aben_send_smtp_email($to, $subject, $message)
             // Send the email
             if ($mail->send()) {
 
-                error_log('Mail Sent via Custom SMTP');
+                // error_log('Mail Sent via Custom SMTP');
                 $email_logger->log_email($to, $subject, $message, 'sent');
             }
 
             return true;
         }
     } catch (Exception $e) {
-        error_log('Custom SMTP Error: ' . $mail->ErrorInfo);
+        // error_log('Custom SMTP Error: ' . $mail->ErrorInfo);
         $email_logger->log_email($to, $subject, $message, 'failed');
         return false;
     }
@@ -106,12 +106,12 @@ function aben_send_own_smtp_email($to, $subject, $message)
         // Send the email
         if ($mail->send()) {
 
-            error_log('Mail Sent via Aben default SMTP');
+            // error_log('Mail Sent via Aben default SMTP');
             $email_logger->log_email($to, $subject, $message, 'sent');
         }
         return true;
     } catch (Exception $e) {
-        error_log('SMTP Error: ' . $mail->ErrorInfo);
+        // error_log('SMTP Error: ' . $mail->ErrorInfo);
         $email_logger->log_email($to, $subject, $message, 'failed');
         return false;
     }

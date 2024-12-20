@@ -149,8 +149,8 @@ function aben_get_weekly_posts($selected_day_num)
     $end_of_week = strtotime("+6 days", $start_of_week);
 
     // Format the dates for the query
-    $start_date = date('Y-m-d', $start_of_week); // Start date (e.g., last Saturday)
-    $end_date = date('Y-m-d', $end_of_week); // End date (e.g., following Friday)
+    $start_date = gmdate('Y-m-d', $start_of_week); // Start date (e.g., last Saturday)
+    $end_date = gmdate('Y-m-d', $end_of_week); // End date (e.g., following Friday)
 
     $get_settings = aben_get_options();
     $post_type = $get_settings['post_type'];

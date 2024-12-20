@@ -23,7 +23,15 @@ function aben_display_settings_page()
         'license' => 'License',
     );
 
-    $current_tab = isset($_GET['tab']) && isset($tabs[$_GET['tab']]) ? $_GET['tab'] : 'general';
+    if (isset($_GET['tab'])) {
+        // Unslash the input and sanitize it
+        $tab = sanitize_text_field(wp_unslash($_GET['tab']));
+    
+        // Check if the tab exists in the $tabs array
+        if (isset($tabs[$tab])) {
+            $current_tab = $tab;
+        }
+    }
 
     ?>
 
@@ -308,7 +316,7 @@ function aben_handle_license_submission() {
             wp_redirect(add_query_arg('license_status', 'nonce_error', wp_get_referer()));
             exit;
         }
-        $license_key = sanitize_text_field($_POST['aben_license_key']);
+        $license_key = sanitize_text_field(wp_unslash($_POST['aben_license_key']));
         $result = aben_send_license_validation_request($license_key);
         if (is_wp_error($result)) {
             wp_redirect(add_query_arg('license_status', 'error', wp_get_referer()));

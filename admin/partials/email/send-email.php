@@ -11,7 +11,7 @@ $aben_settings = aben_get_options();
 
 function aben_send_email()
 {
-    error_log('aben_send_email function was called at ' . current_time('mysql'));
+    // error_log('aben_send_email function was called at ' . current_time('mysql'));
 
     $aben_get_posts_result = aben_get_posts_for_email();
 
@@ -99,7 +99,7 @@ function aben_send_email()
             }
 
         } else {
-            error_log('No user has opted for notification');
+            // error_log('No user has opted for notification');
         }
     } else {
         echo '<script> console.log("No Posts Found for Today")</script>';

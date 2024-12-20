@@ -5,12 +5,11 @@ Donate link: https://rehan.work/aben
 Requires at least: 4.3.0
 Tested up to: 6.7.1
 Requires PHP: 7.1
-Stable tag: 1.0
+Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-**Auto Bulk Email Notifications (Aben)** is a powerful WordPress plugin designed to help website administrators automate bulk email notifications directly from their website. With Aben, you can easily keep your users updated about the latest content, products, news, jobs, or any other post type created on your site.  
-
+Auto Bulk Email Notifications (Aben) is a WordPress plugin that automates bulk email updates for content, products, news, jobs, or any post type on your site.
 
 == Description ==
 **Auto Bulk Email Notifications (Aben)** is a feature-rich WordPress plugin designed to simplify and automate bulk email notifications for your website. Whether you\'re managing a blog, an eCommerce store, or a news portal, Aben helps you efficiently communicate with your audience.  

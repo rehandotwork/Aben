@@ -77,7 +77,7 @@ add_action('admin_notices', 'aben_admin_notice');
 // Function to handle manually adding an email to the unsubscribed list
 function aben_handle_manual_unsubscribe() {
     if (isset($_POST['aben_add_unsubscribed'])) {
-        $email = sanitize_email($_POST['aben_unsubscribe_email']);
+        $email = sanitize_email(wp_unslash($_POST['aben_unsubscribe_email']));
 
         // Check if the email is valid
         if (is_email($email)) {
