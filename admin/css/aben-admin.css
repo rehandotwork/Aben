@@ -11,7 +11,7 @@
   --success-color: hsl(85, 40%, 52%);
   --success-color-ultra-light: hsl(135, 100%, 96%);
   --error-color: hsl(359, 81%, 44%);
-  --error-color-light: hsl(359, 100%, 90%);
+  --error-color-ultra-light: hsl(359, 100%, 90%);
 }
 
 #aben-app {
@@ -36,12 +36,18 @@
 
 #aben-general-settings,
 #aben-smtp-settings,
-#aben-email-tab-grid {
+#aben-email-tab-grid,
+#aben-events {
   background: #fff;
   padding-inline: 1rem;
 }
+#aben-events {
+  margin-top: -1.8rem;
+  margin-right: 1rem;
+}
 #aben-header {
   display: grid;
+  position: relative;
   place-content: start;
   grid-auto-flow: column;
   background: #ffffff;
@@ -107,7 +113,7 @@
     tbody
     tr
     td
-    *:not([id="aben_branding"], [type="checkbox"], [type="color"]) {
+    > :not([id="aben_branding"], [type="checkbox"], [type="color"]) {
     min-width: 100%;
   }
 
@@ -205,7 +211,7 @@ div#aben-email-tab-grid > :first-child {
   min-width: 200px;
   right: 1rem;
   top: 8rem;
-  background: var(--error-color-light);
+  background: var(--error-color-ultra-light);
   border-color: var(--error-color);
   align-content: center;
 }
@@ -301,4 +307,55 @@ div#aben-email-tab-grid > :first-child {
 .pagination-wrap .page-numbers {
   display: inline-block;
   margin: 0 5px;
+}
+
+/* Events Page */
+
+.aben-events-form-table {
+  & td {
+    padding: unset;
+  }
+  & textarea {
+    width: 100%;
+    min-height: 700px;
+    height: auto;
+  }
+  & #aben-events-template-preview {
+    padding-right: 1rem;
+  }
+}
+
+table#color-fields-table {
+  & tbody {
+    display: grid;
+    grid-auto-flow: column;
+    grid-template-columns: repeat(6, 1fr);
+  }
+}
+
+.aben-nav-menu--events {
+  & form {
+    margin: 0;
+    position: absolute;
+    right: 1rem;
+    & input[type="submit"] {
+      background: var(--success-color);
+      border-color: var(--success-color);
+      color: #fff;
+      &:hover {
+        opacity: 0.9;
+        background: var(--success-color);
+        border-color: var(--success-color);
+      }
+      &:focus {
+        box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--success-color);
+        background: var(--success-color);
+        border-color: var(--success-color);
+      }
+    }
+  }
+}
+
+#wpfooter {
+  position: unset;
 }

@@ -139,6 +139,49 @@
         });
       },
     },
+    // Event Email Options
+    aben_event_options_template_header_text: {
+      target: "#header-text-event",
+      action: (el, value) => el.html(`${value}`),
+    },
+    aben_event_options_template_button_text: {
+      target: "#button-text-event",
+      action: (el, value) => el.text(value),
+    },
+    aben_event_options_template_footer_text: {
+      target: "#footer-text-event",
+      action: (el, value) => el.text(value),
+    },
+    aben_event_options_template_header_bg: {
+      target: "#email-header",
+      action: (el, value) => el.css("background-color", value),
+    },
+    aben_event_options_template_body_bg: {
+      target: "#email-container",
+      action: (el, value) => el.css("background-color", value),
+    },
+    aben_event_options_template_content_bg: {
+      target: "#email-body",
+      action: (el, value) => el.css("background-color", value),
+    },
+    aben_event_options_template_button_bg: {
+      target: "#button-text-event",
+      action: (el, value) => el.css("background-color", value),
+    },
+    aben_event_options_template_button_text_color: {
+      target: "#button-text-event",
+      action: (el, value) => el.css("color", value),
+    },
+    aben_event_options_template_footer_bg: {
+      target: "#email-footer",
+      action: (el, value) => el.css("background-color", value),
+    },
+    aben_event_options_template_show_button: {
+      target: "#button-text-event",
+      action: (el, value) =>
+        $("#button-text-event").css("display", value ? "block" : "none"),
+      checkbox: true,
+    },
   };
 
   // General function to handle input changes
@@ -220,15 +263,21 @@
       var currentText = $(this).text();
       $(this).text(currentText.replace("{{USERNAME}}", firstName));
     });
+
+    $("#header-text-event").each(function () {
+      var currentText = $(this).text();
+      $(this).text(currentText.replace("{{USERNAME}}", firstName));
+    });
   }
 })(jQuery);
 
 const removeBranding = document.querySelector(
   "#aben-email-tab-grid table.form-table tbody > tr:last-child th:has(a#aben_remove_branding)"
 );
-
-removeBranding.setAttribute("colspan", "2");
-removeBranding.setAttribute(
-  "title",
-  "Remove Powered by Aben from Email Footer"
-);
+if (removeBranding) {
+  removeBranding.setAttribute("colspan", "2");
+  removeBranding.setAttribute(
+    "title",
+    "Remove Powered by Aben from Email Footer"
+  );
+}
