@@ -1,4 +1,4 @@
-d<?php // ABEN Settings Page
+<?php // ABEN Settings Page
 
 if (!defined('ABSPATH')) {
 
@@ -15,12 +15,12 @@ function aben_display_settings_page()
     }
 
     $tabs = array(
-        'general'     => 'General',
-        'email'       => 'Email Template',
-        'smtp'        => 'SMTP',
-        'email_logs'  => 'Email Logs',
+        'general' => 'General',
+        'email' => 'Email Template',
+        'smtp' => 'SMTP',
+        'email_logs' => 'Email Logs',
         'unsubscribe' => 'Unsubscribe',
-        'license'     => 'License',
+        'license' => 'License',
     );
 
     $current_tab = 'general';
@@ -28,7 +28,7 @@ function aben_display_settings_page()
     if (isset($_GET['tab'])) {
         // Unslash the input and sanitize it
         $tab = sanitize_text_field(wp_unslash($_GET['tab']));
-
+    
         // Check if the tab exists in the $tabs array
         if (isset($tabs[$tab])) {
             $current_tab = $tab;
@@ -44,7 +44,7 @@ function aben_display_settings_page()
     ?>
     <div id="aben-header">
 
-        <div id="aben-logo"><img src="<?php echo esc_url(PLUGIN_LOGO); ?>" alt=""></div>
+        <div id="aben-logo"><img src="<?php echo esc_url(PLUGIN_LOGO);?>" alt=""></div>
 
         <nav class="nav-tab-wrapper" id="aben-nav">
             <div id="aben-nav-menu">
@@ -66,45 +66,45 @@ settings_fields('aben_options');
 
     // Display only the relevant settings based on the active tab
     if ($current_tab === 'general') {
-        echo '<div class = "aben-app__subheading">
+        echo '<div class = "aben-app__subheading"> 
         <p>General Settings</p>
         </div>';
         echo '<div id ="aben-general-settings">';
         do_settings_sections('aben_section_general_setting');
         echo '</div>';
     } elseif ($current_tab === 'smtp') {
-        echo '<div class = "aben-app__subheading">
+        echo '<div class = "aben-app__subheading"> 
         <p>Configure SMTP Settings</p>
         </div>';
         echo '<div id ="aben-smtp-settings">';
         do_settings_sections('aben_section_smtp_setting');
         echo '</div>';
     } elseif ($current_tab === 'license') {
-        if ((isset($_GET['license_status']))) {
+        if((isset($_GET['license_status']))) {
             if ($_GET['license_status'] === 'success') {
                 echo '<div id="aben-notice--success" class="notice notice-success is-dismissible">
         <p>License activation successfull.</p>
     </div>';
-            } elseif ($_GET['license_status'] === 'error') {
+            } elseif($_GET['license_status'] === 'error') {
                 echo '<div id="aben-notice--error" class="notice notice-error is-dismissible">
         <p>There was an error validating the license key. Please try again.</p>
     </div>';
-            } elseif ($_GET['license_status'] === 'nonce_error') {
+            } elseif($_GET['license_status'] === 'nonce_error') {
                 echo '<div id="aben-notice--error" class="notice notice-error is-dismissible">
         <p>Security check failed. Please try again.</p>
     </div>';
             }
-        }
-        echo '<div class = "aben-app__subheading">
+        }   
+        echo '<div class = "aben-app__subheading"> 
         <p>License Activation</p>
-        </div>';if (!Aben_Email::is_pro()) {?>
+        </div>'; if(!Aben_Email::is_pro()){ ?>
             <div id="aben-license-settings">
                 <div class="form-wrapper">
                     <form method="POST" action="">
                         <input type="hidden" name="aben_license_action" value="validate_license" />
                         <label for="aben-activate-license">Enter License Key</label>
                         <input type="text" id="aben-activate-license" name="aben_license_key" required />
-                        <?php wp_nonce_field('aben_validate_license', 'aben_license_nonce');?>
+                        <?php wp_nonce_field('aben_validate_license', 'aben_license_nonce'); ?>
                         <input type="submit" class="button button-primary" value="Activate License" />
                     </form>
                 </div>
@@ -113,25 +113,25 @@ settings_fields('aben_options');
                     _blank">Click here to buy</a></p>
                 </div>
             </div>
-            <?php } else {?>
+            <?php } else { ?>
             <div id="aben-license-settings">
                 <div class="aben-pro">
                     <p class="aben-pro-active-message">License Status : Active</p>
                 </div>
-                <?php
-do_settings_sections('aben_section_license_setting');
-            submit_button()?>
+                <?php 
+                do_settings_sections( 'aben_section_license_setting' );
+                submit_button()?>
             </div>
             <?php }
     } elseif ($current_tab === 'email') {
-        echo '<div class = "aben-app__subheading">
+        echo '<div class = "aben-app__subheading"> 
         <p>Template Settings </p>
         <p>Email Preview</p>
         </div>';
         echo '<div id = "aben-email-tab-grid" style="display:grid; grid-template-columns:4fr 6fr; grid-gap:1rem;">';
         do_settings_sections('aben_section_email_setting');
 
-        $site_logo      = isset(aben_get_options()['site_logo']) ? aben_get_options()['site_logo'] : '';
+        $site_logo = isset(aben_get_options()['site_logo']) ? aben_get_options()['site_logo'] : '';
         $show_view_post = aben_get_options()['show_view_post'];
         $featured_image = FEATURED_IMAGE;
 
@@ -154,17 +154,17 @@ do_settings_sections('aben_section_license_setting');
         $aben_email_dashboard->aben_email_template();
         echo '</div>';
     } else if ($current_tab === 'email_logs') {
-        echo '<div class = "aben-app__subheading">
+        echo '<div class = "aben-app__subheading"> 
         <p>Email Logs</p>
         <p style="justify-self:end;">Logs older than 30 days will be automatically deleted.</p>
         </div>';
-        $logger       = new Aben_Email_Logs();
-        $per_page     = 150;
+        $logger = new Aben_Email_Logs();
+        $per_page = 150; 
         $current_page = isset($_GET['paged']) ? absint($_GET['paged']) : 1;
-        $offset       = ($current_page - 1) * $per_page;
+        $offset = ($current_page - 1) * $per_page; 
 
         // Fetch logs with limit and offset
-        $logs       = $logger->get_logs($per_page, $offset);
+        $logs = $logger->get_logs($per_page, $offset);
         $total_logs = $logger->get_logs_count();
 
         if (!empty($logs)) {
@@ -175,7 +175,7 @@ do_settings_sections('aben_section_license_setting');
 
             $count = $offset + 1; // Start count based on the offset
             foreach ($logs as $log) {
-                $date    = new DateTime($log->sent_at);
+                $date = new DateTime($log->sent_at);
                 $sent_at = $date->format('j F Y / H:i A');
 
                 echo '<tr>';
@@ -191,10 +191,10 @@ do_settings_sections('aben_section_license_setting');
 
             // Add pagination
             $pagination_args = [
-                'base'      => add_query_arg('paged', '%#%'),
-                'format'    => '',
-                'current'   => max(1, $current_page),
-                'total'     => ceil($total_logs / $per_page),
+                'base' => add_query_arg('paged', '%#%'),
+                'format' => '',
+                'current' => max(1, $current_page),
+                'total' => ceil($total_logs / $per_page),
                 'prev_text' => '&laquo; Previous',
                 'next_text' => 'Next &raquo;',
             ];
@@ -211,7 +211,7 @@ do_settings_sections('aben_section_license_setting');
             echo '</tbody></table>';
         }
     }
-    if ($current_tab !== 'email_logs' && $current_tab !== 'unsubscribe' && $current_tab !== 'license' && $current_tab !== 'events') {
+    if ($current_tab !== 'email_logs' && $current_tab !== 'unsubscribe' && $current_tab !== 'license') {
         submit_button();
     }
     ?>
@@ -223,7 +223,7 @@ do_settings_sections('aben_section_license_setting');
 
     <?php if ($current_tab == 'license'): ?>
 
-    <?php endif;?>
+    <?php endif; ?>
 
     <?php if ($current_tab === 'email_logs'):
 
@@ -256,8 +256,8 @@ do_settings_sections('aben_section_license_setting');
                 <?php
 // Query to fetch all users with 'aben_notification' meta set to '0'
     $args = array(
-        'meta_key'     => 'aben_notification',
-        'meta_value'   => '0',
+        'meta_key' => 'aben_notification',
+        'meta_value' => '0',
         'meta_compare' => '=',
     );
 
@@ -270,12 +270,12 @@ do_settings_sections('aben_section_license_setting');
         // Loop through each unsubscribed user
         foreach ($unsubscribed_users as $user) {
             // Get user roles (WordPress users can have multiple roles)
-            $roles        = $user->roles;
+            $roles = $user->roles;
             $role_display = implode(', ', $roles); // Display roles as comma-separated
 
             // Generate the URL for subscribing the user again
             $subscribe_url = add_query_arg(array(
-                'action'  => 'aben_subscribe_user',
+                'action' => 'aben_subscribe_user',
                 'user_id' => $user->ID,
             ), admin_url('admin.php'));
 
@@ -308,10 +308,9 @@ $serial_number++;
     </div>
     <?php endif;?>
 </div>
-<?php
+<?php 
 }
-function aben_handle_license_submission()
-{
+function aben_handle_license_submission() {
     if (isset($_POST['aben_license_action']) && $_POST['aben_license_action'] === 'validate_license') {
         if (!isset($_POST['aben_license_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['aben_license_nonce'])), 'aben_validate_license')) {
             wp_redirect(add_query_arg('license_status', 'nonce_error', wp_get_referer()));
@@ -338,19 +337,18 @@ function aben_handle_license_submission()
             wp_redirect(add_query_arg('license_status', 'error', wp_get_referer()));
         }
 
-        exit;
+        exit; // Make sure the script ends after the redirect
     }
 }
 add_action('init', 'aben_handle_license_submission');
 
-function aben_send_license_validation_request($license_key)
-{
-    $url  = 'https://rehan.work/aben/wp-json/custom/v1/license';
+function aben_send_license_validation_request($license_key) {
+    $url = 'https://rehan.work/aben/wp-json/custom/v1/license';
     $body = wp_json_encode(array('license_key' => $license_key));
     $args = array(
-        'method'  => 'POST',
-        'body'    => $body,
-        'headers' => array(
+        'method'    => 'POST',
+        'body'      => $body,
+        'headers'   => array(
             'Content-Type' => 'application/json',
         ),
     );
@@ -361,29 +359,28 @@ function aben_send_license_validation_request($license_key)
         return false;
     }
     $response_body = wp_remote_retrieve_body($response);
-    $data          = json_decode($response_body);
+    $data = json_decode($response_body);
     if ($data === true) {
         $options = get_option('aben_options');
-        // If the options are serialized, unserialize them first
-        if (is_string($options)) {
-            $options = maybe_unserialize($options);
-        }
-        if (!is_array($options)) {
-            // If $options is not an array, initialize it as an empty array
-            $options = [];
-        }
-        $options['pro'] = true;
-        // Re-serialize and update the option in the database
-        update_option('aben_options', $options);
-        return true;
+    // If the options are serialized, unserialize them first
+    if (is_string($options)) {
+        $options = maybe_unserialize($options);
+    }
+    if (!is_array($options)) {
+        // If $options is not an array, initialize it as an empty array
+        $options = [];
+    }
+    $options['pro'] = true;
+    // Re-serialize and update the option in the database
+    update_option('aben_options', $options);
+        return true; 
     } else {
         return false;
     }
 }
 
-function aben_verify_license_key($license_key)
-{
-    $api_url  = 'https://rehan.work/aben/wp-json/custom/v1/license';
+function aben_verify_license_key($license_key) {
+    $api_url = 'https://rehan.work/aben/wp-json/custom/v1/license';
     $response = wp_remote_get($api_url);
     if (is_wp_error($response)) {
         return new WP_Error('api_request_failed', 'Error connecting to the license server.');
@@ -396,19 +393,19 @@ function aben_verify_license_key($license_key)
     $valid_license_keys = $data['aben_license_keys'];
     if (in_array($license_key, $valid_license_keys)) {
         $options = get_option('aben_options');
-        // If the options are serialized, unserialize them first
-        if (is_string($options)) {
-            $options = maybe_unserialize($options);
-        }
-        // Ensure $options is an array
-        if (!is_array($options)) {
-            // If $options is not an array, initialize it as an empty array
-            $options = [];
-        }
-        // Update the 'pro' key to true
-        $options['pro'] = true;
-        // Re-serialize and update the option in the database
-        update_option('aben_options', $options);
+    // If the options are serialized, unserialize them first
+    if (is_string($options)) {
+        $options = maybe_unserialize($options);
+    }
+    // Ensure $options is an array
+    if (!is_array($options)) {
+        // If $options is not an array, initialize it as an empty array
+        $options = [];
+    }
+    // Update the 'pro' key to true
+    $options['pro'] = true;
+    // Re-serialize and update the option in the database
+    update_option('aben_options', $options);
         return true; // License key is valid
     } else {
         return new WP_Error('invalid_license_key', 'The provided license key is invalid.');
@@ -417,14 +414,12 @@ function aben_verify_license_key($license_key)
 
 //Hide Other Plugin Admin Notices
 add_action('admin_head', 'aben_hide_other_plugin_notices');
-function aben_hide_other_plugin_notices()
-{
-    $screen = get_current_screen();
-    if ($screen->id == 'toplevel_page_aben' || $screen->id == 'toplevel_page_aben-events') {
+function aben_hide_other_plugin_notices() {
+    $screen = get_current_screen(  );
+    if ( $screen->id == 'toplevel_page_aben' ) {
         remove_all_actions('admin_notices');
         remove_all_actions('all_admin_notices');
-
-    }
+}
 }
 
 //ABEN Register Settings
@@ -434,13 +429,7 @@ function aben_register_settings()
     register_setting(
         'aben_options',
         'aben_options',
-        'aben_callback_validate_options',
-    );
-
-    register_setting(
-        'aben_event_options_group',
-        'aben_event_options',
-        'aben_callback_validate_event_options',
+        'aben_callback_validate_options'
     );
 
     // General Tab
@@ -700,15 +689,15 @@ function aben_register_settings()
         'aben_section_email_setting',
         ['id' => 'show_unsubscribe', 'label' => 'Yes']
     );
-    if (!Aben_Email::is_pro()) {
-        add_settings_field(
-            'remove_branding',
-            '<a id ="aben_remove_branding" href="/wp-admin/admin.php?page=aben&tab=license">Remove Branding "Powered by Aben"</a>',
-            'aben_callback_remove_branding',
-            'aben_section_email_setting',
-            'aben_section_email_setting',
-            ['id' => 'remove_branding', 'label' => '']
-        );
+    if(!Aben_Email::is_pro()) {
+    add_settings_field(
+        'remove_branding',
+        '<a id ="aben_remove_branding" href="/wp-admin/admin.php?page=aben&tab=license">Remove Branding "Powered by Aben"</a>',
+        'aben_callback_remove_branding',
+        'aben_section_email_setting',
+        'aben_section_email_setting',
+        ['id' => 'remove_branding', 'label' => '']  
+    );
     }
     add_settings_section(
         'aben_section_email_template',
@@ -727,54 +716,20 @@ function aben_register_settings()
     );
 
     //License Tab
-    add_settings_section(
+    add_settings_section( 
         'aben_section_license_setting',
         '',
         '__return_true',
         'aben_section_license_setting'
     );
 
-    add_settings_field(
+    add_settings_field( 
         'revoke_license',
-        '',
-        'aben_callback_field_checkbox',
+        '', 
+        'aben_callback_field_checkbox', 
+        'aben_section_license_setting', 
         'aben_section_license_setting',
-        'aben_section_license_setting',
-        ['id' => 'revoke_license', 'label' => 'Revoke License']
-    );
-
-    add_option('aben_event_options', [
-        'role'          => 'subscriber',
-        'email_subject' => 'Send customized email to anyone instantly - Aben Events',
-        'template' => [
-            'body_bg'            => '#f0f0f0',
-            'header_text'        => 'Hi {{USERNAME}},',
-            'header_subtext'     => 'We have some exciting news for you.',
-            'header_bg'          => '#5ea6de',
-            'content'            => "<h2>Don't Miss Out on This Exclusive Web</h2>
-Are you ready to take your WordPress skills to the next level? Our expert team is hosting an exclusive webinar focused on best practices, advanced techniques, and tips for WordPress development!
-
-During this live session, you will learn:
-<ul>
- 	<li>How to set up and optimize WordPress for high performance</li>
- 	<li>Essential plugins and tools for WordPress developers</li>
- 	<li>How to implement advanced customizations and themes</li>
- 	<li>Best practices for securing and maintaining your WordPress sites</li>
-</ul>
-Don't miss out! Click the button below to register now:",
-            'content_bg'    => '#ffffff',
-            'button_text'        => 'Register Now',
-            'button_text_color'  => '#000000',
-            'button_bg'          => '#f0eeff',
-            'button_url'         => 'https://rehan.work',
-            'show_button'        => true,
-            'site_logo'          => '',
-            'footer_text'        => 'Copyright 2024 | Aben Inc.',
-            'footer_bg'          => '#f5f5f5',
-
-        ],
-    ]);
-
+        ['id' => 'revoke_license', 'label' => 'Revoke License'] );
 }
 
 // Hook to sanitize_option to add timezone automatically
@@ -813,87 +768,5 @@ function aben_send_test_email()
 </form>
 
 <?php
-}
 
-// Events Page
-function aben_display_events_page()
-{
-    //No admin notices on this page
-    if (!current_user_can('manage_options')) {
-        return;
-    }
-
-    $tabs = array(
-        'general'  => 'General',
-        'template' => 'Template',
-    );
-
-    $current_tab = 'general';
-    if (isset($_GET['tab'])) {
-        $tab = sanitize_text_field(wp_unslash($_GET['tab']));
-        if (isset($tabs[$tab])) {
-            $current_tab = $tab;
-        }
-    }
-    global $aben_events;
-    ?>
-<div id="aben-app">
-    <div id="aben-header">
-
-        <div id="aben-logo"><img src="<?php echo esc_url(PLUGIN_LOGO); ?>" alt=""></div>
-
-        <nav class="nav-tab-wrapper" id="aben-nav">
-            <div id="aben-nav-menu" class="aben-nav-menu--events">
-                <?php foreach ($tabs as $tab => $name) {?>
-                <a href="?page=aben-events&tab=<?php echo esc_html($tab); ?>"
-                    class="nav-tab <?php echo $current_tab === $tab ? 'nav-tab-active' : ''; ?>">
-                    <?php echo esc_html($name); ?>
-                </a>
-                <?php }?>
-                <form method="post" action="<?php echo admin_url('admin-post.php'); ?>">
-                    <?php wp_nonce_field('aben_send_event_emails_action', 'aben_send_event_emails_nonce'); ?>
-                    <input type="hidden" name="action" value="aben_send_event_emails_action">
-                    <input type="submit" class="button button-primary" value="Send Emails Now" />
-                </form>
-            </div>
-        </nav>
-    </div>
-    <div id="aben-body">
-        <?php
-switch ($current_tab) {
-
-        case 'general': //General Settings
-            {
-                echo '<div class = "aben-app__subheading">
-                    <p>General Settings</p>
-                    </div>';
-                echo '<div id ="aben-general-settings">';
-                $aben_events->display_email_form();
-                echo '</div>';
-                echo '</div>';
-                break;
-            }
-
-        case 'template': //Template Settings
-            {
-                echo '<div class = "aben-app__subheading">
-                    <p>HTML</p>
-                    <p>Preview</p>
-                    </div>';
-                echo '<div id="aben-email-tab-grid" style="display:grid; grid-template-columns:5fr 5fr; grid-gap:1rem; align-items: start;">';
-                $aben_events->display_template_settings_form();
-                echo '<div id="aben-events-template-preview">';
-                $aben_events->display_template();
-                echo '</div></div>';
-                break;
-            }
-    }
-    ?>
-    </div>
-
-
-</div>
-
-
-<?php
 }

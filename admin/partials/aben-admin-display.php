@@ -27,4 +27,3 @@ include_once dirname(__FILE__) . '/email/class-aben-email.php';
 include_once dirname(__FILE__) . '/cron/cron-setup.php';
 include_once dirname(__FILE__) . '/cron/register-cron.php';
 include_once dirname(__FILE__) . '/cron/update-cron.php';
-include_once dirname(__FILE__) . '/event/class-aben-events.php';

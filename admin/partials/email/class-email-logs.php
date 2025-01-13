@@ -54,9 +54,9 @@ class Aben_Email_Logs
     public function clear_old_logs()
     {
         global $wpdb;
-        $query = "DELETE FROM {$this->table_name} WHERE sent_at < DATE_SUB(NOW(), INTERVAL 30 DAY)";
+
         // Delete logs older than 30 days
-        $wpdb->query($wpdb->prepare($query));
+        $wpdb->query("DELETE FROM $this->table_name WHERE sent_at < DATE_SUB(NOW(), INTERVAL 30 DAY)");
     }
 
     /**
@@ -69,42 +69,39 @@ class Aben_Email_Logs
      * @return array The retrieved email logs.
      */
     public function get_logs($limit = 10, $offset = 0, $filters = [])
-{
-    global $wpdb;
+    {
+        global $wpdb;
 
-    // Initialize the WHERE clause and parameters
-    $where = '';
-    $params = [];
+        // Initialize the WHERE clause and parameters
+        $where = '';
+        $params = [];
 
-    // Apply filters (if any)
-    if (!empty($filters)) {
-        foreach ($filters as $key => $value) {
-            if (!empty($value)) {
-                // For security, sanitize the filter value
-                $where .= " AND $key LIKE %s";
-                $params[] = '%' . sanitize_text_field($value) . '%'; // Use LIKE for partial matches
+        // Apply filters (if any)
+        if (!empty($filters)) {
+            foreach ($filters as $key => $value) {
+                if (!empty($value)) {
+                    // For security, sanitize the filter value
+                    $where .= " AND $key LIKE %s";
+                    $params[] = '%' . sanitize_text_field($value) . '%'; // Use LIKE for partial matches
+                }
             }
         }
+
+        // Build the SQL query with filtering, pagination, and sorting by sent_at
+        $query = "
+            SELECT * FROM $this->table_name
+            WHERE 1=1 $where
+            ORDER BY sent_at DESC
+            LIMIT %d OFFSET %d
+        ";
+
+        // Add limit and offset to the query parameters
+        $params[] = (int) $limit;
+        $params[] = (int) $offset;
+
+        // Execute the query and return the results
+        return $wpdb->get_results($wpdb->prepare($query, ...$params));
     }
-
-    // Build the SQL query with filtering, pagination, and sorting by sent_at
-    $query = "
-        SELECT * FROM {$this->table_name}
-        WHERE 1=1 $where
-        ORDER BY sent_at DESC
-        LIMIT %d OFFSET %d
-    ";
-
-    // Add limit and offset to the query parameters
-    $params[] = (int) $limit;
-    $params[] = (int) $offset;
-
-    // Prepare the query with the parameters
-    $prepared_query = $wpdb->prepare($query, ...$params);
-
-    // Execute the query and return the results
-    return $wpdb->get_results($prepared_query);
-}
 
     /**
  * Get the total number of email logs.

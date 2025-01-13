@@ -30,12 +30,11 @@ if (!defined('WPINC')) {
  */
 define('ABEN_VERSION', '1.0.0');
 define('ABEN_PLUGIN_URL', plugin_dir_url(__FILE__));
-define('ABEN_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('BRAND_TEXT', 'Powered by');
 define('BRAND_LINK', 'https://rehan.work/aben');
 define('BRANDING', ABEN_PLUGIN_URL . '/assets/images/branding.png');
 define('FEATURED_IMAGE', ABEN_PLUGIN_URL . '/assets/images/featured-image.png');
-define('PLUGIN_LOGO', ABEN_PLUGIN_URL . '/assets/images/logo.png');
+define('PLUGIN_LOGO', ABEN_PLUGIN_URL.'/assets/images/logo.png');
 
 /**
  * The code that runs during plugin activation.
@@ -98,7 +97,7 @@ function aben_create_email_logs_table()
 
     // SQL statement to create the table
     $charset_collate = $wpdb->get_charset_collate();
-    $sql             = "CREATE TABLE $table_name (
+    $sql = "CREATE TABLE $table_name (
         id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
         email_to VARCHAR(255) NOT NULL,
         subject VARCHAR(255) NOT NULL,

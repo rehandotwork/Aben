@@ -43,14 +43,14 @@ function aben_callback_validate_options($input)
 
                     // Get the current date and site timezone
                     $timezone = wp_timezone_string();
-                    $date     = new DateTime('now', new DateTimeZone($timezone)); // Current date in site timezone
+                    $date = new DateTime('now', new DateTimeZone($timezone)); // Current date in site timezone
 
                     // Set the time based on user input
                     list($hour, $minute) = explode(':', $time);
                     $date->setTime((int) $hour, (int) $minute); // Set the user-defined time
 
                     // Convert to UNIX timestamp and save
-                    $timestamp     = $date->getTimestamp();
+                    $timestamp = $date->getTimestamp();
                     $options[$key] = $timestamp;
                 }
                 break;
@@ -92,7 +92,7 @@ function aben_callback_validate_options($input)
             case 'show_unsubscribe':
             case 'use_smtp':
             case 'show_number_view_all':
-            case 'show_view_post':
+            case 'show_view_post':   
                 $options[$key] = !empty($value) ? 1 : 0;
                 break;
             case 'revoke_license':
@@ -117,7 +117,7 @@ function aben_encrypt_password($password)
 
     } else {
         $iv_length = openssl_cipher_iv_length('aes-256-cbc');
-        $iv        = openssl_random_pseudo_bytes($iv_length);
+        $iv = openssl_random_pseudo_bytes($iv_length);
 
         // Encrypt the password using AES-256-CBC
         $encrypted_password = openssl_encrypt($password, 'aes-256-cbc', $encryption_key, 0, $iv);
@@ -137,10 +137,10 @@ function aben_decrypt_password($encrypted_password)
 
     } else {
         $iv_length = openssl_cipher_iv_length('aes-256-cbc');
-        $decoded   = base64_decode($encrypted_password);
+        $decoded = base64_decode($encrypted_password);
 
         // Extract the IV and the encrypted password from the decoded string
-        $iv                 = substr($decoded, 0, $iv_length);
+        $iv = substr($decoded, 0, $iv_length);
         $encrypted_password = substr($decoded, $iv_length);
 
         // Ensure IV is exactly 16 bytes (aes-256-cbc expects 16 bytes for IV)
@@ -151,43 +151,4 @@ function aben_decrypt_password($encrypted_password)
         // Decrypt the password using the same key and IV
         return openssl_decrypt($encrypted_password, 'aes-256-cbc', $encryption_key, 0, $iv);
     }
-}
-
-function aben_callback_validate_event_options($input) {
-    global $aben_events;
-    $existing_options = is_array($aben_events->options) ? $aben_events->options : [];
-    // Initialize the sanitized options with the existing ones.
-    $sanitized = array_merge($existing_options, $input);
-
-    // Sanitize 'role' field
-    if (isset($input['role'])) {
-        $sanitized['role'] = sanitize_text_field($input['role']);
-    }
-
-    // Sanitize 'email_subject' field
-    if (isset($input['email_subject'])) {
-        $sanitized['email_subject'] = sanitize_text_field($input['email_subject']);
-    }
-
-    // Sanitize 'template' fields if set
-    if (isset($input['template']) && is_array($input['template'])) {
-        $sanitized['template'] = array();
-
-        // Sanitize each field within the 'template' array
-        $sanitized['template']['body_bg'] = isset($input['template']['body_bg']) ? sanitize_hex_color($input['template']['body_bg']) : '';
-        $sanitized['template']['header_text'] = isset($input['template']['header_text']) ? sanitize_text_field($input['template']['header_text']) : '';
-        $sanitized['template']['header_bg'] = isset($input['template']['header_bg']) ? sanitize_hex_color($input['template']['header_bg']) : '';
-        $sanitized['template']['content'] = isset($input['template']['content']) ? wp_kses_post($input['template']['content']) : '';
-        $sanitized['template']['content_bg'] = isset($input['template']['content_bg']) ? sanitize_hex_color($input['template']['content_bg']) : '';
-        $sanitized['template']['button_text'] = isset($input['template']['button_text']) ? sanitize_text_field($input['template']['button_text']) : '';
-        $sanitized['template']['button_text_color'] = isset($input['template']['button_text_color']) ? sanitize_hex_color($input['template']['button_text_color']) : '';
-        $sanitized['template']['button_bg'] = isset($input['template']['button_bg']) ? sanitize_hex_color($input['template']['button_bg']) : '';
-        $sanitized['template']['button_url'] = isset($input['template']['button_url']) ? esc_url_raw($input['template']['button_url']) : '';
-        $sanitized['template']['show_button'] = isset($input['template']['show_button']) ? filter_var($input['template']['show_button'], FILTER_VALIDATE_BOOLEAN) : false;
-        $sanitized['template']['site_logo'] = isset($input['template']['site_logo']) ? esc_url_raw($input['template']['site_logo']) : '';
-        $sanitized['template']['footer_text'] = isset($input['template']['footer_text']) ? sanitize_text_field($input['template']['footer_text']) : '';
-        $sanitized['template']['footer_bg'] = isset($input['template']['footer_bg']) ? sanitize_hex_color($input['template']['footer_bg']) : '';
-    }
-
-    return $sanitized;
 }
