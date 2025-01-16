@@ -1,11 +1,10 @@
 === Auto Bulk Email Notifications (Aben) ===
 Contributors: @rehanwork
 Tags: Email, Notification
-Donate link: https://rehan.work/aben
 Requires at least: 4.3.0
 Tested up to: 6.7.1
 Requires PHP: 7.1
-Stable tag: 1.0.0
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -54,7 +53,7 @@ With powerful features like event/news emailing, in-mail advertising, and an ana
 Aben is perfect for businesses, bloggers, marketers, and webmasters who want to enhance their email marketing efforts without hassle.  
 
 == Installation ==
-1. Upload the `auto-bulk-email-notifications` folder to the `/wp-content/plugins/` directory.  
+1. Upload the `aben` folder to the `/wp-content/plugins/` directory.  
 2. Activate the plugin through the \'Plugins\' menu in WordPress.  
 3. Go to **Settings > Auto Bulk Email Notifications** to configure your preferences.  
 
@@ -77,17 +76,24 @@ Yes, you can integrate in-mail advertisements and manage them directly from the 
 3. **Sender Info:** Configure sending mail server information to ensure confirm email delivery.
 
 == Changelog ==
+= 1.1 =
+* Stable release.
+* Moved to default PHPMailer library.
+* Removed license check.  
+* Updated text domain.
+
 = 1.0 =  
 * Initial release.
 
 == Upgrade Notice ==
-= 1.0 =  
+= 1.1 =  
 This is the first stable release of the Auto Bulk Email Notifications plugin.  
 
 == Credits ==  
 
-Developed and maintained by [Rehan Khan](https://rehan.work/).  
+Developed and maintained by [Rehan Khan](https://rehan.work/).
+Development teammate Uzzam Afroz.
 
 == Support ==  
 
-Need help? Contact us via the [support forum](https://wordpress.org/support/plugin/auto-bulk-email-notifications/) or through the [donate link](https://rehan.work/).  
+Need help? Contact us through the [plugin website](https://rehan.work/aben).

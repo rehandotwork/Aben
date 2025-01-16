@@ -102,7 +102,8 @@ function aben_send_email()
             // error_log('No user has opted for notification');
         }
     } else {
-        echo '<script> console.log("No Posts Found for Today")</script>';
+        // error_log('No Posts Found for Today');
+
     }
 }
 

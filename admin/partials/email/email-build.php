@@ -191,6 +191,8 @@ function aben_get_weekly_posts($selected_day_num)
 
             $author_id = $post->post_author;
 
+            $author = get_the_author_meta('display_name', $author_id);
+
             $taxonomies = aben_get_post_tax($id, 'country');
 
             $posts_to_email[] = array(
@@ -256,7 +258,7 @@ function aben_get_test_posts() {
             'title' => $post_title,
             'link' => $post_link,
             'excerpt' => $post_excerpt,
-            'featured_image_url' => empty($post_image) ? FEATURED_IMAGE : $post_image, // FEATURED_IMAGE is a constant
+            'featured_image_url' => empty($post_image) ? ABEN_FEATURED_IMAGE : $post_image, // ABEN_FEATURED_IMAGE is a constant
             'author' => $post_author,
             'category' => $post_categories,
         ];

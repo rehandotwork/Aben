@@ -284,5 +284,5 @@ function aben_callback_field_time($args)
 }
 
 function aben_callback_remove_branding($args) {
-    echo '<label for="aben_options_'. esc_attr($args['id']) .'"><a href="'. esc_url(BRAND_LINK) .'" target="_blank"><img style="max-width:150px; margin-top:-2px;"id="aben_branding" src="'. esc_attr($args['label']) .'"/></label>';
+    echo '<label for="aben_options_'. esc_attr($args['id']) .'"><a href="'. esc_url(ABEN_BRAND_LINK) .'" target="_blank"><img style="max-width:150px; margin-top:-2px;"id="aben_branding" src="'. esc_attr($args['label']) .'"/></label>';
 }

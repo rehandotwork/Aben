@@ -227,8 +227,10 @@ const removeBranding = document.querySelector(
   "#aben-email-tab-grid table.form-table tbody > tr:last-child th:has(a#aben_remove_branding)"
 );
 
-removeBranding.setAttribute("colspan", "2");
-removeBranding.setAttribute(
-  "title",
-  "Remove Powered by Aben from Email Footer"
-);
+if (removeBranding) {
+  removeBranding.setAttribute("colspan", "2");
+  removeBranding.setAttribute(
+    "title",
+    "Remove Powered by Aben from Email Footer"
+  );
+}

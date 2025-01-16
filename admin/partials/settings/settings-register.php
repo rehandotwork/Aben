@@ -1,59 +1,50 @@
-<?php // ABEN Settings Page
-
+<?php
+// Ensure this file is being called from WordPress.
 if (!defined('ABSPATH')) {
-
     exit;
-
 }
 
+// Hook to register settings.
 add_action('admin_init', 'aben_register_settings');
 
-function aben_display_settings_page()
-{
+// Function to display the settings page.
+function aben_display_settings_page() {
     if (!current_user_can('manage_options')) {
         return;
     }
 
     $tabs = array(
-        'general' => 'General',
-        'email' => 'Email Template',
-        'smtp' => 'SMTP',
-        'email_logs' => 'Email Logs',
-        'unsubscribe' => 'Unsubscribe',
-        'license' => 'License',
+        'general'      => 'General',
+        'email'        => 'Email Template',
+        'smtp'         => 'SMTP',
+        'email_logs'   => 'Email Logs',
+        'unsubscribe'  => 'Unsubscribe',
     );
 
-    $current_tab = 'general';
-
-    if (isset($_GET['tab'])) {
-        // Unslash the input and sanitize it
-        $tab = sanitize_text_field(wp_unslash($_GET['tab']));
-    
-        // Check if the tab exists in the $tabs array
-        if (isset($tabs[$tab])) {
-            $current_tab = $tab;
-        }
-    }
-
+    $current_tab = isset($_GET['tab']) ? sanitize_text_field(wp_unslash($_GET['tab'])) : 'general';
+    $current_tab = isset($tabs[$current_tab]) ? $current_tab : 'general';
     ?>
 
 <div id="aben-app">
-    <?php if (isset($_GET['settings-updated'])) {
-        echo '<div id="aben-notice" class="notice notice-success is-dismissible"><p>Saved.</p></div>';
-    }
-    ?>
-    <div id="aben-header">
+    <?php if (isset($_GET['settings-updated'])): ?>
+    <div id="aben-notice" class="notice notice-success is-dismissible">
+        <p>Settings saved successfully.</p>
+    </div>
+    <?php endif; ?>
 
-        <div id="aben-logo"><img src="<?php echo esc_url(PLUGIN_LOGO);?>" alt=""></div>
+    <div id="aben-header">
+        <div id="aben-logo">
+            <img src="<?php echo esc_url(ABEN_PLUGIN_LOGO); ?>" alt="ABEN Logo">
+        </div>
 
         <nav class="nav-tab-wrapper" id="aben-nav">
             <div id="aben-nav-menu">
                 <?php foreach ($tabs as $tab => $name): ?>
-                <a href="?page=aben&tab=<?php echo esc_html($tab); ?>"
-                    class="nav-tab <?php echo $current_tab === $tab ? 'nav-tab-active' : ''; ?>">
+                <a href="?page=auto-bulk-email-notifications&tab=<?php echo esc_html($tab); ?>"
+                    class="nav-tab <?php echo esc_html($current_tab === $tab ? 'nav-tab-active' : ''); ?>">
                     <?php echo esc_html($name); ?>
                 </a>
-                <?php endforeach;?>
+                <?php endforeach; ?>
             </div>
         </nav>
     </div>
@@ -79,50 +70,6 @@ settings_fields('aben_options');
         echo '<div id ="aben-smtp-settings">';
         do_settings_sections('aben_section_smtp_setting');
         echo '</div>';
-    } elseif ($current_tab === 'license') {
-        if((isset($_GET['license_status']))) {
-            if ($_GET['license_status'] === 'success') {
-                echo '<div id="aben-notice--success" class="notice notice-success is-dismissible">
-        <p>License activation successfull.</p>
-    </div>';
-            } elseif($_GET['license_status'] === 'error') {
-                echo '<div id="aben-notice--error" class="notice notice-error is-dismissible">
-        <p>There was an error validating the license key. Please try again.</p>
-    </div>';
-            } elseif($_GET['license_status'] === 'nonce_error') {
-                echo '<div id="aben-notice--error" class="notice notice-error is-dismissible">
-        <p>Security check failed. Please try again.</p>
-    </div>';
-            }
-        }   
-        echo '<div class = "aben-app__subheading"> 
-        <p>License Activation</p>
-        </div>'; if(!Aben_Email::is_pro()){ ?>
-            <div id="aben-license-settings">
-                <div class="form-wrapper">
-                    <form method="POST" action="">
-                        <input type="hidden" name="aben_license_action" value="validate_license" />
-                        <label for="aben-activate-license">Enter License Key</label>
-                        <input type="text" id="aben-activate-license" name="aben_license_key" required />
-                        <?php wp_nonce_field('aben_validate_license', 'aben_license_nonce'); ?>
-                        <input type="submit" class="button button-primary" value="Activate License" />
-                    </form>
-                </div>
-                <div class="get-license">
-                    <p>Don't have the license key, get one now for only $5 <a href="https://rehan.work/aben" target="
-                    _blank">Click here to buy</a></p>
-                </div>
-            </div>
-            <?php } else { ?>
-            <div id="aben-license-settings">
-                <div class="aben-pro">
-                    <p class="aben-pro-active-message">License Status : Active</p>
-                </div>
-                <?php 
-                do_settings_sections( 'aben_section_license_setting' );
-                submit_button()?>
-            </div>
-            <?php }
     } elseif ($current_tab === 'email') {
         echo '<div class = "aben-app__subheading"> 
         <p>Template Settings </p>
@@ -133,7 +80,7 @@ settings_fields('aben_options');
 
         $site_logo = isset(aben_get_options()['site_logo']) ? aben_get_options()['site_logo'] : '';
         $show_view_post = aben_get_options()['show_view_post'];
-        $featured_image = FEATURED_IMAGE;
+        $featured_image = ABEN_FEATURED_IMAGE;
 
         $aben_email_dashboard = new Aben_Email(
             'https://rehan.work/blog/', //archive_page_slug
@@ -160,7 +107,7 @@ settings_fields('aben_options');
         </div>';
         $logger = new Aben_Email_Logs();
         $per_page = 150; 
-        $current_page = isset($_GET['paged']) ? absint($_GET['paged']) : 1;
+        $current_page = isset($_GET['paged']) ? absint(sanitize_text_field(wp_unslash($_GET['paged']))) : 1;
         $offset = ($current_page - 1) * $per_page; 
 
         // Fetch logs with limit and offset
@@ -200,7 +147,7 @@ settings_fields('aben_options');
             ];
 
             echo '<div class="pagination-wrap">';
-            echo wp_kses_post(paginate_links($pagination_args));
+            echo count($logs) > $per_page ? wp_kses_post(paginate_links($pagination_args)) : '';
             echo '</div>';
         } else {
             echo '<table class="widefat fixed aben-email-logs">';
@@ -210,8 +157,7 @@ settings_fields('aben_options');
             echo '<tr><td colspan="5">No email logs found.</td></tr>';
             echo '</tbody></table>';
         }
-    }
-    if ($current_tab !== 'email_logs' && $current_tab !== 'unsubscribe' && $current_tab !== 'license') {
+    }    if ($current_tab !== 'email_logs' && $current_tab !== 'unsubscribe' && $current_tab !== 'license') {
         submit_button();
     }
     ?>
@@ -220,10 +166,6 @@ settings_fields('aben_options');
     <?php if ($current_tab == 'email'):
         aben_send_test_email();
     endif;?>
-
-    <?php if ($current_tab == 'license'): ?>
-
-    <?php endif; ?>
 
     <?php if ($current_tab === 'email_logs'):
 
@@ -309,107 +251,6 @@ $serial_number++;
     <?php endif;?>
 </div>
 <?php 
-}
-function aben_handle_license_submission() {
-    if (isset($_POST['aben_license_action']) && $_POST['aben_license_action'] === 'validate_license') {
-        if (!isset($_POST['aben_license_nonce']) || !wp_verify_nonce(sanitize_text_field(wp_unslash($_POST['aben_license_nonce'])), 'aben_validate_license')) {
-            wp_redirect(add_query_arg('license_status', 'nonce_error', wp_get_referer()));
-            exit;
-        }
-
-        if (!isset($_POST['aben_license_key'])) {
-            wp_redirect(add_query_arg('license_status', 'missing_license_key', wp_get_referer()));
-            exit;
-        }
-
-        $license_key = sanitize_text_field(wp_unslash($_POST['aben_license_key']));
-
-        $result = aben_send_license_validation_request($license_key);
-
-        if (is_wp_error($result)) {
-            wp_redirect(add_query_arg('license_status', 'error', wp_get_referer()));
-            exit;
-        }
-
-        if ($result === true) {
-            wp_redirect(add_query_arg('license_status', 'success', wp_get_referer()));
-        } else {
-            wp_redirect(add_query_arg('license_status', 'error', wp_get_referer()));
-        }
-
-        exit; // Make sure the script ends after the redirect
-    }
-}
-add_action('init', 'aben_handle_license_submission');
-
-function aben_send_license_validation_request($license_key) {
-    $url = 'https://rehan.work/aben/wp-json/custom/v1/license';
-    $body = wp_json_encode(array('license_key' => $license_key));
-    $args = array(
-        'method'    => 'POST',
-        'body'      => $body,
-        'headers'   => array(
-            'Content-Type' => 'application/json',
-        ),
-    );
-    $response = wp_remote_post($url, $args);
-    if (is_wp_error($response)) {
-        $error_message = $response->get_error_message();
-        echo esc_html("Error: $error_message");
-        return false;
-    }
-    $response_body = wp_remote_retrieve_body($response);
-    $data = json_decode($response_body);
-    if ($data === true) {
-        $options = get_option('aben_options');
-    // If the options are serialized, unserialize them first
-    if (is_string($options)) {
-        $options = maybe_unserialize($options);
-    }
-    if (!is_array($options)) {
-        // If $options is not an array, initialize it as an empty array
-        $options = [];
-    }
-    $options['pro'] = true;
-    // Re-serialize and update the option in the database
-    update_option('aben_options', $options);
-        return true; 
-    } else {
-        return false;
-    }
-}
-
-function aben_verify_license_key($license_key) {
-    $api_url = 'https://rehan.work/aben/wp-json/custom/v1/license';
-    $response = wp_remote_get($api_url);
-    if (is_wp_error($response)) {
-        return new WP_Error('api_request_failed', 'Error connecting to the license server.');
-    }
-    $body = wp_remote_retrieve_body($response);
-    $data = json_decode($body, true);
-    if (!isset($data['aben_license_keys'])) {
-        return new WP_Error('invalid_api_response', 'Invalid response from license server.');
-    }
-    $valid_license_keys = $data['aben_license_keys'];
-    if (in_array($license_key, $valid_license_keys)) {
-        $options = get_option('aben_options');
-    // If the options are serialized, unserialize them first
-    if (is_string($options)) {
-        $options = maybe_unserialize($options);
-    }
-    // Ensure $options is an array
-    if (!is_array($options)) {
-        // If $options is not an array, initialize it as an empty array
-        $options = [];
-    }
-    // Update the 'pro' key to true
-    $options['pro'] = true;
-    // Re-serialize and update the option in the database
-    update_option('aben_options', $options);
-        return true; // License key is valid
-    } else {
-        return new WP_Error('invalid_license_key', 'The provided license key is invalid.');
-    }
 }
 
 //Hide Other Plugin Admin Notices
@@ -692,7 +533,7 @@ function aben_register_settings()
     if(!Aben_Email::is_pro()) {
     add_settings_field(
         'remove_branding',
-        '<a id ="aben_remove_branding" href="/wp-admin/admin.php?page=aben&tab=license">Remove Branding "Powered by Aben"</a>',
+        '<a id ="aben_remove_branding" href="https://rehan.work/aben" target=_blank>Remove Branding "Powered by Aben"</a>',
         'aben_callback_remove_branding',
         'aben_section_email_setting',
         'aben_section_email_setting',
@@ -714,22 +555,6 @@ function aben_register_settings()
         'aben_section_email_template',
         ['id' => 'email_body', 'label' => 'Email body (Text/Markup)']
     );
-
-    //License Tab
-    add_settings_section( 
-        'aben_section_license_setting',
-        '',
-        '__return_true',
-        'aben_section_license_setting'
-    );
-
-    add_settings_field( 
-        'revoke_license',
-        '', 
-        'aben_callback_field_checkbox', 
-        'aben_section_license_setting', 
-        'aben_section_license_setting',
-        ['id' => 'revoke_license', 'label' => 'Revoke License'] );
 }
 
 // Hook to sanitize_option to add timezone automatically
@@ -746,27 +571,59 @@ function aben_save_timezone_option($new_value, $old_value)
     return $new_value;
 }
 
-function aben_send_test_email()
-{?>
+/**
+ * Display the Test Email Form and Feedback Messages
+ */
+function aben_send_test_email() {
+    // Retrieve the status of test email sending
+    $test_email_sent = isset($_GET['test_email_sent']) 
+        ? sanitize_text_field(wp_unslash($_GET['test_email_sent'])) 
+        : '';
+    ?>
+
 <!-- Display success or error message if available -->
-<?php if (isset($_GET['test_email_sent'])): ?>
-<div id="aben-notice--<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?>"
-    class="notice notice-<?php echo $_GET['test_email_sent'] === 'success' ? 'success' : 'error'; ?> is-dismissible">
-    <p><?php echo $_GET['test_email_sent'] === 'success' ? 'Test email sent successfully.' : 'SMTP connection failed. Please check your credentials and try again'; ?>
+<?php if (!empty($test_email_sent)): ?>
+<div id="aben-notice--<?php echo esc_html($test_email_sent === 'success' ? 'success' : 'error'); ?>"
+    class="notice notice-<?php echo esc_html($test_email_sent === 'success' ? 'success' : 'error'); ?> is-dismissible">
+    <p>
+        <?php echo esc_html($test_email_sent === 'success' 
+                    ? 'Test email sent successfully.' 
+                    : 'SMTP connection failed. Please check your credentials and try again.'
+                ); ?>
     </p>
 </div>
-<?php endif;?>
+<?php endif; ?>
+
 <!-- Test Email Form -->
 <form action="<?php echo esc_url(admin_url('admin-post.php')); ?>" method="post" id="aben-test-form">
     <p style="float: right;">
-        <input type="email" id="test_email_address" placeholder="Enter Email Address" name="test_email_address"
+        <input type="email" id="test_email_address" name="test_email_address" placeholder="Enter Email Address"
             class="regular-text" required />
         <input type="hidden" name="action" value="aben_send_test_email" />
         <input type="submit" class="button button-primary" value="Send Test Email" />
     </p>
-    <?php wp_nonce_field('aben_send_test_email', 'aben_test_email_nonce');?>
+    <?php wp_nonce_field('aben_send_test_email', 'aben_test_email_nonce'); ?>
 </form>
-
 <?php
-
 }
+
+function aben_display_pro_page() {?>
+<div class="wrap aben-pro-page">
+    <img src="<?php echo esc_url(ABEN_PLUGIN_LOGO)?>" alt="">
+    <div class="aben-pro-card">
+        <div class="header">
+            <h1>Pro Features</h1>
+        </div>
+        <div class="body">
+            <ul>
+                <li>Customize Template with Dynamic Data</li>
+                <li>Send Event Emails</li>
+                <li>Remove <strong>'Aben Branding'</strong> from Email Footer</li>
+            </ul>
+        </div>
+        <div class="footer">
+            <a href="https://rehan.work/aben" class="button button-primary" target="_blank">Buy Pro Now &#10138;</a>
+        </div>
+    </div>
+</div>
+<?php }

@@ -43,7 +43,8 @@ function aben_update_user_meta($user_id)
     }
 
     if (isset($_POST['aben_notification'])) {
-        update_user_meta($user_id, 'aben_notification', '1');
+        $aben_notification = sanitize_text_field(wp_unslash($_POST['aben_notification']));
+    	update_user_meta($user_id, 'aben_notification', $aben_notification);
     } else {
         update_user_meta($user_id, 'aben_notification', '0');
     }

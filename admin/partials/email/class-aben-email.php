@@ -6,15 +6,11 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  *
  * @link       https://rehan.work
- * @since      1.0.0
+ * @since      1.1.0
  *
  * @package    Aben
  * @subpackage Aben/admin/partials
  */
-
-if (!defined('ABSPATH')) {
-    exit;
-}
 
 class Aben_Email
 {
@@ -167,7 +163,7 @@ class Aben_Email
             echo '<span id="unsubscribe"><a href="' . esc_html(home_url('?aben-unsubscribe={{USER_EMAIL}}')) . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
         }
        if(!self::is_pro()) {
-            echo '</div><p><a href="' . esc_url(BRAND_LINK) . '" style="text-decoration:none;">' . esc_html(BRAND_TEXT) . ' <img src="'.esc_url(PLUGIN_LOGO) .'" width="60px" alt="Aben" style="margin-bottom:-4px"/></a></p>';
+            echo '</div><p><a href="' . esc_url(ABEN_BRAND_LINK) . '" style="text-decoration:none;">' . esc_html(ABEN_BRAND_TEXT) . ' <img src="'.esc_url(ABEN_PLUGIN_LOGO) .'" width="60px" alt="Aben" style="margin-bottom:-4px"/></a></p>';
         echo '</div></div></body></html>';
     }
     }

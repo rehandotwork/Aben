@@ -95,8 +95,6 @@ function aben_callback_validate_options($input)
             case 'show_view_post':   
                 $options[$key] = !empty($value) ? 1 : 0;
                 break;
-            case 'revoke_license':
-                $options['pro'] = !$value;
         }
     }
     return $options;

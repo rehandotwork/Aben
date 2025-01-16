@@ -48,7 +48,7 @@ function aben_add_user_meta_to_existing_users()
 function aben_subscribe_user_action() {
     // Check if the action and user ID are set
     if (isset($_GET['action']) && $_GET['action'] === 'aben_subscribe_user' && isset($_GET['user_id'])) {
-        $user_id = intval($_GET['user_id']);
+        $user_id = intval(sanitize_text_field(wp_unslash($_GET['user_id'])));
         
         // Verify if the user exists
         if ($user_id && get_userdata($user_id)) {
