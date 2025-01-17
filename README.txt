@@ -1,112 +1,99 @@
-=== Plugin Name ===
+=== Auto Bulk Email Notifications (Aben) ===
 Contributors: @rehanwork
-Donate link: https://rehan.work/
 Tags: Email, Notification
 Requires at least: 4.3.0
-Tested up to: 6.5.3
-Stable tag: 4.3
+Tested up to: 6.7.1
+Requires PHP: 7.1
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
+Auto Bulk Email Notifications (Aben) is a WordPress plugin that automates bulk email updates for content, products, news, jobs, or any post type on your site.
+
 == Description ==
+**Auto Bulk Email Notifications (Aben)** is a feature-rich WordPress plugin designed to simplify and automate bulk email notifications for your website. Whether you\'re managing a blog, an eCommerce store, or a news portal, Aben helps you efficiently communicate with your audience.  
 
-his plugin allows WordPress admins to automate bulk email notifications to their users directly form the website. It can be set for any type of post created on the website like blogs, products, News, Jobs etc.
+With powerful features like event/news emailing, in-mail advertising, and an analytics dashboard, this plugin is your go-to solution for professional and automated email campaigns.
 
-For backwards compatibility, if this section is missing, the full length of the short description will be used, and
-Markdown parsed.
+### Key Features:  
+1. **Bulk Emailing for Events and News**:  
+   - Send bulk emails for events, news, blog posts, product updates, and more.  
+   - Supports all post types, including custom post types.  
 
-A few notes about the sections above:
+2. **Customizable Email Templates**:  
+   - Use the built-in editor to create visually appealing emails that match your branding.  
+   - Add custom headers, footers, and call-to-action buttons.  
 
-*   "Contributors" is a comma separated list of wp.org/wp-plugins.org usernames
-*   "Tags" is a comma separated list of tags that apply to the plugin
-*   "Requires at least" is the lowest version that the plugin will work on
-*   "Tested up to" is the highest version that you've *successfully used to test the plugin*. Note that it might work on
-higher versions... this is just the highest one you've verified.
-*   Stable tag should indicate the Subversion "tag" of the latest stable version, or "trunk," if you use `/trunk/` for
-stable.
+3. **In-Mail Advertising**:  
+   - Monetize your emails by integrating advertisements seamlessly within your bulk emails.  
+   - Manage ad placement and content directly from the settings panel.  
 
-    Note that the `readme.txt` of the stable tag is the one that is considered the defining one for the plugin, so
-if the `/trunk/readme.txt` file says that the stable tag is `4.3`, then it is `/tags/4.3/readme.txt` that'll be used
-for displaying information about the plugin.  In this situation, the only thing considered from the trunk `readme.txt`
-is the stable tag pointer.  Thus, if you develop in trunk, you can update the trunk `readme.txt` to reflect changes in
-your in-development version, without having that information incorrectly disclosed about the current stable version
-that lacks those changes -- as long as the trunk's `readme.txt` points to the correct stable tag.
+4. **Analytics Dashboard**:  
+   - Get insights into your email campaigns with open rates, click-through rates, and delivery statistics.  
+   - Export analytics data for reporting and analysis.  
 
-    If no stable tag is provided, it is assumed that trunk is stable, but you should specify "trunk" if that's where
-you put the stable version, in order to eliminate any doubt.
+5. **Flexible Scheduling Options**:  
+   - Schedule email campaigns to be sent automatically at a preferred time and frequency.  
+   - Send real-time updates or batch notifications based on your needs.  
+
+6. **User Management**:  
+   - Target specific user groups or roles for tailored email campaigns.  
+   - Maintain user opt-in preferences effortlessly.  
+
+7. **Compatibility**:  
+   - Fully compatible with popular WordPress themes and plugins.  
+   - Seamlessly integrates with WooCommerce for product announcements.  
+
+### Why Choose Aben?  
+- Save time with automated bulk email notifications.  
+- Increase engagement with personalized and professional email campaigns.  
+- Boost revenue with integrated in-mail advertising options.  
+- Monitor campaign performance with an intuitive analytics dashboard.  
+
+Aben is perfect for businesses, bloggers, marketers, and webmasters who want to enhance their email marketing efforts without hassle.  
 
 == Installation ==
-
-This section describes how to install the plugin and get it working.
-
-e.g.
-
-1. Upload `aben.php` to the `/wp-content/plugins/` directory
-1. Activate the plugin through the 'Plugins' menu in WordPress
-1. Place `<?php do_action('plugin_name_hook'); ?>` in your templates
+1. Upload the `aben` folder to the `/wp-content/plugins/` directory.  
+2. Activate the plugin through the \'Plugins\' menu in WordPress.  
+3. Go to **Settings > Auto Bulk Email Notifications** to configure your preferences.  
 
 == Frequently Asked Questions ==
+= Can I use this plugin for custom post types? =  
+Yes, Aben supports all post types, including custom post types.  
 
-= A question that someone might have =
+= Does the plugin offer email analytics? =  
+Yes, the built-in analytics dashboard provides insights into open rates, click-through rates, and more.  
 
-An answer to that question.
+= Is there any limit to the number of emails I can send? =  
+The plugin doesn’t impose any limits, but your hosting provider may have restrictions on email volume.  
 
-= What about foo bar? =
-
-Answer to foo bar dilemma.
+= Can I include advertisements in emails? =  
+Yes, you can integrate in-mail advertisements and manage them directly from the plugin\'s settings.  
 
 == Screenshots ==
-
-1. This screen shot description corresponds to screenshot-1.(png|jpg|jpeg|gif). Note that the screenshot is taken from
-the /assets directory or the directory that contains the stable readme.txt (tags or trunk). Screenshots in the /assets
-directory take precedence. For example, `/assets/screenshot-1.png` would win over `/tags/4.3/screenshot-1.png`
-(or jpg, jpeg, gif).
-2. This is the second screen shot
+1. **General Email Settings:** Setup email subject, recipient, post-type and schedule time.
+2. **Email Template Customizer:** Design and customize professional email template for your posts.
+3. **Sender Info:** Configure sending mail server information to ensure confirm email delivery.
 
 == Changelog ==
+= 1.1 =
+* Stable release.
+* Moved to default PHPMailer library.
+* Removed license check.  
+* Updated text domain.
 
-= 1.0 =
-* A change since the previous version.
-* Another change.
-
-= 0.5 =
-* List versions from most recent at top to oldest at bottom.
+= 1.0 =  
+* Initial release.
 
 == Upgrade Notice ==
+= 1.1 =  
+This is the first stable release of the Auto Bulk Email Notifications plugin.  
 
-= 1.0 =
-Upgrade notices describe the reason a user should upgrade.  No more than 300 characters.
+== Credits ==  
 
-= 0.5 =
-This version fixes a security related bug.  Upgrade immediately.
+Developed and maintained by [Rehan Khan](https://rehan.work/).
+Development teammate Uzzam Afroz.
 
-== Arbitrary section ==
+== Support ==  
 
-You may provide arbitrary sections, in the same format as the ones above.  This may be of use for extremely complicated
-plugins where more information needs to be conveyed that doesn't fit into the categories of "description" or
-"installation."  Arbitrary sections will be shown below the built-in sections outlined above.
-
-== A brief Markdown Example ==
-
-Ordered list:
-
-1. Some feature
-1. Another feature
-1. Something else about the plugin
-
-Unordered list:
-
-* something
-* something else
-* third thing
-
-Here's a link to [WordPress](http://wordpress.org/ "Your favorite software") and one to [Markdown's Syntax Documentation][markdown syntax].
-Titles are optional, naturally.
-
-[markdown syntax]: http://daringfireball.net/projects/markdown/syntax
-            "Markdown is what the parser uses to process much of the readme file"
-
-Markdown uses email style notation for blockquotes and I've been told:
-> Asterisks for *emphasis*. Double it up  for **strong**.
-
-`<?php code(); // goes in backticks ?>`
+Need help? Contact us through the [plugin website](https://rehan.work/aben).
