@@ -1,5 +1,8 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if (! defined('ABSPATH')) {
+    exit;
+}
+// Exit if accessed directly
 
 /**
  * Provide a public-facing view for the plugin
@@ -7,7 +10,7 @@ if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
  * This file is used to markup the public-facing aspects of the plugin.
  *
  * @link       https://rehan.work
- * @since      1.1.0
+ * @since      1.2.0
  *
  * @package    Aben
  * @subpackage Aben/public/partials

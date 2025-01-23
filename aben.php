@@ -2,14 +2,14 @@
 
 /**
  * @link              https://rehan.work
- * @since             1.1.0
+ * @since             1.2.0
  * @package           Aben
  *
  * @wordpress-plugin
  * Plugin Name:       Auto Bulk Email Notifications (Aben)
  * Plugin URI:        https://rehan.work/aben
  * Description:       The simplest way to engage your subscribers or customers by scheduling and sending emails for your latest blogs, products, news etc. Just automate and send bulk emails directly from your website.
- * Version:           1.1.0
+ * Version:           1.2.0
  * Author:            Rehan Khan
  * Author URI:        https://rehan.work/
  * License:           GPL-2.0+
@@ -19,23 +19,23 @@
  */
 
 // If this file is called directly, abort.
-if (!defined('WPINC')) {
+if (! defined('WPINC')) {
     die;
 }
 
 /**
  * Currently plugin version.
- * Start at version 1.1.0 and use SemVer - https://semver.org
+ * Start at version 1.2.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('ABEN_VERSION', '1.1.0');
+define('ABEN_VERSION', '1.2.0');
 define('ABEN_PLUGIN_URL', plugin_dir_url(__FILE__));
 define('ABEN_PLUGIN_PATH', plugin_dir_path(__FILE__));
 define('ABEN_BRAND_TEXT', 'Powered by');
 define('ABEN_BRAND_LINK', 'https://rehan.work/aben');
 define('ABEN_BRANDING', ABEN_PLUGIN_URL . '/assets/images/branding.png');
 define('ABEN_FEATURED_IMAGE', ABEN_PLUGIN_URL . '/assets/images/featured-image.png');
-define('ABEN_PLUGIN_LOGO', ABEN_PLUGIN_URL.'/assets/images/logo.png');
+define('ABEN_PLUGIN_LOGO', ABEN_PLUGIN_URL . '/assets/images/logo.png');
 
 /**
  * The code that runs during plugin activation.
@@ -70,7 +70,7 @@ register_activation_hook(__FILE__, 'aben_activate');
 register_deactivation_hook(__FILE__, 'aben_deactivate');
 
 // Include files for public facing side
-if (!is_admin()) {
+if (! is_admin()) {
     include_once dirname(__FILE__) . '/public/partials/aben-public-display.php';
 }
 
@@ -98,7 +98,7 @@ function aben_create_email_logs_table()
 
     // SQL statement to create the table
     $charset_collate = $wpdb->get_charset_collate();
-    $sql = "CREATE TABLE $table_name (
+    $sql             = "CREATE TABLE $table_name (
         id BIGINT(20) UNSIGNED NOT NULL AUTO_INCREMENT,
         email_to VARCHAR(255) NOT NULL,
         subject VARCHAR(255) NOT NULL,
@@ -125,7 +125,7 @@ require plugin_dir_path(__FILE__) . 'includes/class-aben.php';
  * then kicking off the plugin from this point in the file does
  * not affect the page life cycle.
  *
- * @since    1.1.0
+ * @since    1.2.0
  */
 function aben_run()
 {

@@ -1,7 +1,7 @@
 <?php
 // Send Email
 
-if (!defined('ABSPATH')) {
+if (! defined('ABSPATH')) {
     exit;
 }
 
@@ -11,8 +11,6 @@ $aben_settings = aben_get_options();
 
 function aben_send_email()
 {
-    // error_log('aben_send_email function was called at ' . current_time('mysql'));
-
     $aben_get_posts_result = aben_get_posts_for_email();
 
     if ($aben_get_posts_result) {
@@ -41,7 +39,7 @@ function aben_send_email()
 
     }
 
-    if (!empty($aben_get_posts_result)) {
+    if (! empty($aben_get_posts_result)) {
 
         $posts_published_today = $aben_get_posts_result['posts_published'];
 
@@ -50,7 +48,7 @@ function aben_send_email()
         $post_count = count($posts_to_send);
     }
 
-    if (!empty($posts_published_today)) {
+    if (! empty($posts_published_today)) {
 
         $post_archive_slug = $aben_settings['archive_page_slug'];
 
@@ -64,7 +62,7 @@ function aben_send_email()
 
         $email_addresses = aben_get_users_email();
 
-        if (!empty($email_addresses)) {
+        if (! empty($email_addresses)) {
 
             foreach ($email_addresses as $email_address) {
 
@@ -90,12 +88,7 @@ function aben_send_email()
 
                 ); // Changing placeholders in email body
 
-                if (1 === $aben_settings['use_smtp']) {
-                    aben_send_smtp_email($email_address, $email_subject, $personalized_email_body);
-
-                } else {
-                    aben_send_own_smtp_email($email_address, $email_subject, $personalized_email_body);
-                }
+                aben_send_smtp_email($email_address, $email_subject, $personalized_email_body);
             }
 
         } else {
@@ -112,7 +105,7 @@ function aben_get_posts_for_email()
 
     global $aben_settings;
     $email_frequency = $aben_settings['email_frequency'];
-    $day_of_week = intval($aben_settings['day_of_week']);
+    $day_of_week     = intval($aben_settings['day_of_week']);
 
     if ($email_frequency === 'once_in_a_week') {
 

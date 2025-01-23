@@ -7,7 +7,7 @@
  * so that it is ready for translation.
  *
  * @link       https://rehan.work
- * @since      1.1.0
+ * @since      1.2.0
  *
  * @package    Aben
  * @subpackage Aben/includes
@@ -19,29 +19,28 @@
  * Loads and defines the internationalization files for this plugin
  * so that it is ready for translation.
  *
- * @since      1.1.0
+ * @since      1.2.0
  * @package    Aben
  * @subpackage Aben/includes
  * @author     Rehan Khan <hello@rehan.work>
  */
-class Aben_i18n {
+class Aben_i18n
+{
 
+    /**
+     * Load the plugin text domain for translation.
+     *
+     * @since    1.2.0
+     */
+    public function load_plugin_textdomain()
+    {
 
-	/**
-	 * Load the plugin text domain for translation.
-	 *
-	 * @since    1.1.0
-	 */
-	public function load_plugin_textdomain() {
+        load_plugin_textdomain(
+            'auto-bulk-email-notifications',
+            false,
+            dirname(dirname(plugin_basename(__FILE__))) . '/languages/'
+        );
 
-		load_plugin_textdomain(
-			'auto-bulk-email-notifications',
-			false,
-			dirname( dirname( plugin_basename( __FILE__ ) ) ) . '/languages/'
-		);
-
-	}
-
-
+    }
 
 }

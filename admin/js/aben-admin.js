@@ -165,33 +165,6 @@
     handleInputChange({ target: inputElement });
   });
 
-  function toggleSMTPFields() {
-    if ($("#aben_options_use_smtp").is(":checked")) {
-      // Show SMTP fields if checked
-      $("#aben_options_smtp_host").closest("tr").show();
-      $("#aben_options_smtp_port").closest("tr").show();
-      $("#aben_options_smtp_encryption").closest("tr").show();
-      $("#aben_options_smtp_username").closest("tr").show();
-      $("#aben_options_smtp_password").closest("tr").show();
-      $("#aben_options_from_name").closest("tr").show();
-      $("#aben_options_from_email").closest("tr").show();
-    } else {
-      // Hide SMTP fields if unchecked
-      $("#aben_options_smtp_host").closest("tr").hide();
-      $("#aben_options_smtp_port").closest("tr").hide();
-      $("#aben_options_smtp_encryption").closest("tr").hide();
-      $("#aben_options_smtp_username").closest("tr").hide();
-      $("#aben_options_smtp_password").closest("tr").hide();
-      $("#aben_options_from_name").closest("tr").hide();
-      $("#aben_options_from_email").closest("tr").hide();
-    }
-  }
-  // Initial call to set visibility on page load
-  toggleSMTPFields();
-  $("#aben_options_use_smtp").on("change", function () {
-    toggleSMTPFields();
-  });
-
   $("#aben_options_day_of_week").closest("tr").hide();
 
   // Function to toggle the visibility of the "Which day" field

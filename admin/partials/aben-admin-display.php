@@ -1,12 +1,15 @@
 <?php
-if ( ! defined( 'ABSPATH' ) ) exit; // Exit if accessed directly
+if (! defined('ABSPATH')) {
+    exit;
+}
+// Exit if accessed directly
 /**
  * Provide a admin area view for the plugin
  *
  * This file is used to markup the admin-facing aspects of the plugin.
  *
  * @link       https://rehan.work
- * @since      1.1.0
+ * @since      1.2.0
  *
  * @package    Aben
  * @subpackage Aben/admin/partials

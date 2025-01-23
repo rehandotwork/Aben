@@ -6,7 +6,7 @@
  * This file is used to markup the admin-facing aspects of the plugin.
  *
  * @link       https://rehan.work
- * @since      1.1.0
+ * @since      1.2.0
  *
  * @package    Aben
  * @subpackage Aben/admin/partials
@@ -49,20 +49,20 @@ class Aben_Email
         $show_unsubscribe,
         $posts_to_send
     ) {
-        $this->archive_page_slug = $archive_page_slug;
-        $this->number_of_posts = $number_of_posts;
-        $this->body_bg = $body_bg;
-        $this->header_text = $header_text;
-        $this->header_bg = $header_bg;
-        $this->header_subtext = $header_subtext;
-        $this->footer_text = $footer_text;
-        $this->site_logo = $site_logo;
-        $this->show_view_all = $show_view_all;
+        $this->archive_page_slug   = $archive_page_slug;
+        $this->number_of_posts     = $number_of_posts;
+        $this->body_bg             = $body_bg;
+        $this->header_text         = $header_text;
+        $this->header_bg           = $header_bg;
+        $this->header_subtext      = $header_subtext;
+        $this->footer_text         = $footer_text;
+        $this->site_logo           = $site_logo;
+        $this->show_view_all       = $show_view_all;
         $this->view_all_posts_text = $view_all_posts_text;
-        $this->show_view_post = $show_view_post;
-        $this->view_post_text = $view_post_text;
-        $this->show_unsubscribe = $show_unsubscribe;
-        $this->posts_to_send = $posts_to_send;
+        $this->show_view_post      = $show_view_post;
+        $this->view_post_text      = $view_post_text;
+        $this->show_unsubscribe    = $show_unsubscribe;
+        $this->posts_to_send       = $posts_to_send;
 
     }
 
@@ -75,7 +75,8 @@ class Aben_Email
 
     }
 
-    public static function is_pro() {
+    public static function is_pro()
+    {
         return aben_get_options()['pro'];
     }
 
@@ -83,7 +84,7 @@ class Aben_Email
     {
 
         $site_icon_url = get_site_icon_url();
-        $logo = empty($this->site_logo) ? $site_icon_url : $this->site_logo;
+        $logo          = empty($this->site_logo) ? $site_icon_url : $this->site_logo;
         echo '<!DOCTYPE html><html><head>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -94,7 +95,7 @@ class Aben_Email
         <div style="padding: 50px 30px 30px 30px;">
         <p id ="header-text" style="font-size:16px;display: inline;"><strong>' . esc_html($this->header_text) . '</strong></p>';
         do_action('aben_after_header_text'); // After Header Text Hook
-        echo '<img width="16px" src="'. esc_url(ABEN_PLUGIN_URL . 'assets/images/hand-emoji.png') .'" style="
+        echo '<img width="16px" src="' . esc_url(ABEN_PLUGIN_URL . 'assets/images/hand-emoji.png') . '" style="
     margin-left: 5px">
         <p id="header-subtext" style="font-size:16px;">' . esc_html($this->header_subtext) . '</p>';
         do_action('aben_after_header_sub_text'); //After Header Sub Text Hook
@@ -106,25 +107,25 @@ class Aben_Email
             if ($this->number_of_posts <= 0) {
                 break;
             }
-            
+
             do_action('aben_within_posts_loop', $this->number_of_posts); // Within Posts Loop Hook
 
             $filterable_fields = ['title', 'link', 'excerpt', 'featured_image_url', 'author'];
 
-            foreach($filterable_fields as $field) { 
-                if(isset($post[$field])) {
-                    $post[$field] = apply_filters( "aben_post_{$field}_filter", $post[$field], $post['id'] ?? NULL );
+            foreach ($filterable_fields as $field) {
+                if (isset($post[$field])) {
+                    $post[$field] = apply_filters("aben_post_{$field}_filter", $post[$field], $post['id'] ?? null);
                 }
             }
-            
-            $id = $post['id'] ?? NULL;
-            $author_id = $post['author'] ?? NULL;
-            $title = $post['title'];
-            $link = $post['link'];
-            $excerpt = $post['excerpt'];
-            $category = $post['category'];
-            $category_csv = !empty($category) ? implode(', ', $category) : NULL;
-            $image = $post['featured_image_url'];
+
+            $id           = $post['id'] ?? null;
+            $author_id    = $post['author'] ?? null;
+            $title        = $post['title'];
+            $link         = $post['link'];
+            $excerpt      = $post['excerpt'];
+            $category     = $post['category'];
+            $category_csv = ! empty($category) ? implode(', ', $category) : null;
+            $image        = $post['featured_image_url'];
 
             $excerpt_width = $this->show_view_post && $this->is_aben_gw_active() ? 60 : ($this->show_view_post || $this->is_aben_gw_active() ? 85 : 100);
 
@@ -134,11 +135,11 @@ class Aben_Email
             if ($category_csv) {echo '<p style="margin:0; color:#727272; line-height:1; font-style:italic;">' . esc_html($category_csv) . '</p>';}
             echo '</div></div>';
             echo '<div style="display:flex">';
-            if ($this->show_view_post && !empty($image)) {
+            if ($this->show_view_post && ! empty($image)) {
                 echo '<div class="view-post" style="width:15%;margin-right: 25px;align-self:center; margin-top:auto; margin-bottom:auto;"><a href="' . esc_url($link) . '"><img width="100%" max-width="100px" src="' . esc_url($image) . '" alt="' . esc_attr($title) . '" /></a></div>';
             }
             echo '<div style="width:' . esc_attr($excerpt_width) . '%;"><p style="font-size:16px;margin:0;color: #008dcd;"><a href="' . esc_url($link) . '" style="text-decoration:none;">' . esc_html($title) . '</a></p>';
-            if (!empty($excerpt)) {
+            if (! empty($excerpt)) {
                 echo '<p style="font-size:14px;color:#727272;margin:5px 0 0">' . esc_html($excerpt) . '</p>';
             }
             echo '</div>';
@@ -162,10 +163,10 @@ class Aben_Email
         if ($this->show_unsubscribe) {
             echo '<span id="unsubscribe"><a href="' . esc_html(home_url('?aben-unsubscribe={{USER_EMAIL}}')) . '" style="color:#808080;text-decoration:none">Unsubscribe</a></span>';
         }
-       if(!self::is_pro()) {
-            echo '</div><p><a href="' . esc_url(ABEN_BRAND_LINK) . '" style="text-decoration:none;">' . esc_html(ABEN_BRAND_TEXT) . ' <img src="'.esc_url(ABEN_PLUGIN_LOGO) .'" width="60px" alt="Aben" style="margin-bottom:-4px"/></a></p>';
-        echo '</div></div></body></html>';
-    }
+        if (! self::is_pro()) {
+            echo '</div><p><a href="' . esc_url(ABEN_BRAND_LINK) . '" style="text-decoration:none;">' . esc_html(ABEN_BRAND_TEXT) . ' <img src="' . esc_url(ABEN_PLUGIN_LOGO) . '" width="60px" alt="Aben" style="margin-bottom:-4px"/></a></p>';
+            echo '</div></div></body></html>';
+        }
     }
 
 }
