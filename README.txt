@@ -85,6 +85,9 @@ Yes, you can integrate in-mail advertisements and manage them directly from the 
 = 1.0 =
 * Initial release.
 
+= 1.2.1 =
+* Bug fixes
+
 == Upgrade Notice ==
 = 1.1 =
 This is the first stable release of the Auto Bulk Email Notifications plugin.

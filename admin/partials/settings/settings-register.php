@@ -42,7 +42,7 @@
             <div id="aben-nav-menu">
                 <?php foreach ($tabs as $tab => $name): ?>
                 <a href="?page=auto-bulk-email-notifications&tab=<?php echo esc_html($tab); ?>"
-                    class="nav-tab                                   <?php echo esc_html($current_tab === $tab ? 'nav-tab-active' : ''); ?>">
+                    class="nav-tab                                                                                                                                                                                                                                                                                 <?php echo esc_html($current_tab === $tab ? 'nav-tab-active' : ''); ?>">
                     <?php echo esc_html($name); ?>
                 </a>
                 <?php endforeach; ?>
@@ -603,22 +603,23 @@
 
     function aben_display_pro_page()
 {?>
-<div class="wrap aben-pro-page">
+<div class="aben-pro-page">
     <img src="<?php echo esc_url(ABEN_PLUGIN_LOGO) ?>" alt="">
     <div class="aben-pro-card">
-        <div class="header">
+        <div class="aben-pro-card__header">
             <h1>Pro Features</h1>
         </div>
-        <div class="body">
+        <div class="aben-pro-card__body">
             <ul>
                 <li>Customize Template with Dynamic Data</li>
                 <li>Send Event Emails</li>
                 <li>Remove <strong>'Aben Branding'</strong> from Email Footer</li>
             </ul>
         </div>
-        <div class="footer">
+        <div class="aben-pro-card__footer">
             <a href="https://rehan.work/aben" class="button button-primary" target="_blank">Buy Pro Now &#10138;</a>
         </div>
     </div>
 </div>
-<?php }
+<?php
+}
