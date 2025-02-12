@@ -15,5 +15,5 @@ jobs:
       uses: SamKirkland/FTP-Deploy-Action@v4.3.5
       with:
         server: md-in-65.webhostbox.net
-        username: deploy-aben@rehan.work
+        username: deploye-aben@rehan.work
         password: ${{ secrets.FTP_PASSWORD }}
