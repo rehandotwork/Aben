@@ -6,7 +6,7 @@
  * @package           Aben
  *
  * @wordpress-plugin
- * Plugin Name:       Aben - Auto Bulk Email Notifications
+ * Plugin Name:       Auto Bulk Email Notifications (Aben)
  * Plugin URI:        https://rehan.work/aben
  * Description:       The simplest way to engage your subscribers or customers by scheduling and sending emails for your latest blogs, products, news etc. Just automate and send bulk emails directly from your website.
  * Version:           1.2.0
